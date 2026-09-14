@@ -9,11 +9,17 @@ import { education, focusAreas, profile } from "@/data/profile";
 export function About() {
   return (
     <Section id="about" labelledBy="about-title">
-      <SectionHeading id="about-title" eyebrow="01 · About" title="Three axes, one engineer" />
+      <SectionHeading id="about-title" eyebrow="01 · About" title="From code to production" />
 
       <div className="grid gap-10 lg:grid-cols-[1.35fr_1fr] lg:gap-14">
         <Reveal>
-          <p className="text-lg leading-relaxed text-fog-200">{profile.about}</p>
+          <div className="space-y-5 text-lg leading-relaxed text-fog-200">
+            {profile.about.map((paragraph, index) => (
+              <p key={paragraph} className={index === 0 ? "text-xl text-fog-50" : undefined}>
+                {paragraph}
+              </p>
+            ))}
+          </div>
 
           <ul className="mt-8 grid gap-3 sm:grid-cols-3">
             {focusAreas.map((area, index) => (
