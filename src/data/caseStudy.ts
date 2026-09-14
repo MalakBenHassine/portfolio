@@ -1,10 +1,16 @@
 import type { CaseStudy } from "@/lib/types";
 
-/** AnalyseImpacte — content grounded in the end-of-study internship report. */
+/** AnalyseImpacte — internship case study (Capgemini Engineering), grounded in the end-of-study internship report. */
 export const analyseImpacte: CaseStudy = {
   title: "AnalyseImpacte",
   subtitle: "AI-Assisted Impact Analysis Platform for Aerospace Software",
-  context: ["Capgemini Engineering", "Aerospace · Safety-Critical", "DO-178C · DAL A", "4 Scrum sprints"],
+  context: [
+    "End-of-study internship",
+    "Capgemini Engineering",
+    "Aerospace · Safety-Critical",
+    "DO-178C · DAL A",
+    "4 Scrum sprints",
+  ],
   problem:
     "After every code change, engineers had to manually trace its impact on requirements and update the certified design document (SDDD). Under DO-178C traceability rules, this took 3–5 days per cycle — slow, costly and exposed to human error.",
   solution:
@@ -79,5 +85,5 @@ export const analyseImpacte: CaseStudy = {
     },
   ],
   tech: ["Java 21", "Spring Boot", "Angular", "SQLite", "Ollama", "Jenkins", "Docker", "Prometheus", "Grafana"],
-  note: "Client project delivered at Capgemini Engineering — source code is confidential.",
+  note: "Delivered during my end-of-study internship at Capgemini Engineering (Feb – Jun 2026) — client code is confidential.",
 };

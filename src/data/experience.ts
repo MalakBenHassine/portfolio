@@ -29,6 +29,7 @@ export const experience: ExperienceItem[] = [
       "Prometheus",
       "Grafana",
     ],
+    caseStudy: { label: "AnalyseImpacte case study", href: "#case-study" },
   },
   {
     role: "Software Engineering Intern",

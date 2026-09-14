@@ -78,9 +78,11 @@ export interface ExperienceItem {
   context?: string[];
   highlights: string[];
   tech: string[];
+  /** In-page link to a detailed case study of this experience. */
+  caseStudy?: { label: string; href: `#${string}` };
 }
 
-export type ProjectLinkKind = "github" | "demo" | "case-study";
+export type ProjectLinkKind = "github" | "demo";
 
 export interface ProjectLink {
   kind: ProjectLinkKind;
@@ -98,8 +100,6 @@ export interface Project {
   categories: ProjectCategory[];
   tech: string[];
   links: ProjectLink[];
-  featured?: boolean;
-  note?: string;
   image?: ImageAsset;
 }
 

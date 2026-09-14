@@ -7,7 +7,7 @@ import { stats } from "@/data/stats";
 export function Achievements() {
   return (
     <Section id="achievements" labelledBy="achievements-title">
-      <SectionHeading id="achievements-title" index="07" eyebrow="Achievements" title="By the numbers." />
+      <SectionHeading id="achievements-title" index="06" eyebrow="Achievements" title="By the numbers." />
 
       <StaggerList className="grid grid-cols-1 gap-px overflow-hidden rounded-3xl border border-white/6 bg-white/6 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => (

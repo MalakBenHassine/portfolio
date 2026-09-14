@@ -13,7 +13,7 @@ export function Skills() {
     <Section id="skills" labelledBy="skills-title">
       <SectionHeading
         id="skills-title"
-        index="06"
+        index="05"
         eyebrow="Skills"
         title="The toolbox behind the work."
         description="Organized the way I use it: from the language and the backend, to the AI layer, the pipeline and the quality checks that guard production."

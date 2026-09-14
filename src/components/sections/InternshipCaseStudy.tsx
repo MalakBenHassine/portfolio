@@ -1,8 +1,8 @@
-import { ArchitectureGrid } from "@/components/featured/ArchitectureGrid";
-import { CaseStudyResults } from "@/components/featured/CaseStudyResults";
-import { CaseStudySubheading } from "@/components/featured/CaseStudySubheading";
-import { PipelineAnimation } from "@/components/featured/PipelineAnimation";
-import { WorkflowDiagram } from "@/components/featured/WorkflowDiagram";
+import { ArchitectureGrid } from "@/components/case-study/ArchitectureGrid";
+import { CaseStudyResults } from "@/components/case-study/CaseStudyResults";
+import { CaseStudySubheading } from "@/components/case-study/CaseStudySubheading";
+import { PipelineAnimation } from "@/components/case-study/PipelineAnimation";
+import { WorkflowDiagram } from "@/components/case-study/WorkflowDiagram";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -14,26 +14,27 @@ import { analyseImpacte } from "@/data/caseStudy";
 
 const AI_STEP_INDEX = analyseImpacte.workflow.findIndex((step) => step.title === "AI Assistance");
 
-export function FeaturedProject() {
+/** In-depth look at the flagship internship deliverable, attached to the Experience section. */
+export function InternshipCaseStudy() {
   const study = analyseImpacte;
 
   return (
-    <Section id="projects" labelledBy="featured-title" className="overflow-hidden">
+    <Section id="case-study" labelledBy="case-study-title" className="overflow-hidden" divider={false}>
       <div
         aria-hidden="true"
         className="pointer-events-none absolute top-40 left-1/2 -z-10 size-[1000px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(91_130_255/0.09),transparent)]"
       />
 
       <SectionHeading
-        id="featured-title"
-        index="04"
-        eyebrow="Featured project"
+        id="case-study-title"
+        index="03"
+        eyebrow="Experience · Internship case study"
         title={<span className="text-gradient pb-1">{study.title}</span>}
         description={study.subtitle}
       />
 
       <Reveal y={30} scale={0.98}>
-        <SpotlightCard as="article" labelledBy="featured-title" className="overflow-hidden p-6 sm:p-10">
+        <SpotlightCard as="article" labelledBy="case-study-title" className="overflow-hidden p-6 sm:p-10">
           <div
             aria-hidden="true"
             className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-azure-300/60 to-transparent"
