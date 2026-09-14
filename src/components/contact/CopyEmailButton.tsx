@@ -7,9 +7,11 @@ import { cn } from "@/lib/cn";
 
 interface CopyEmailButtonProps {
   email: string;
+  /** "onColor" for use on a colored (brand) card. */
+  tone?: "default" | "onColor";
 }
 
-export function CopyEmailButton({ email }: CopyEmailButtonProps) {
+export function CopyEmailButton({ email, tone = "default" }: CopyEmailButtonProps) {
   const [isCopied, setIsCopied] = useState(false);
 
   useEffect(() => {
@@ -34,9 +36,13 @@ export function CopyEmailButton({ email }: CopyEmailButtonProps) {
       aria-label={isCopied ? "Email address copied" : "Copy email address"}
       className={cn(
         "hidden size-10 shrink-0 place-items-center rounded-xl border transition-colors sm:grid",
-        isCopied
-          ? "border-ok-400/40 text-ok-400"
-          : "border-white/8 text-mist-400 hover:border-white/16 hover:text-snow",
+        tone === "onColor"
+          ? isCopied
+            ? "border-white bg-white text-ink-950"
+            : "border-white/30 text-white hover:bg-white/15"
+          : isCopied
+            ? "border-ok-400/40 text-ok-400"
+            : "border-white/8 text-mist-400 hover:border-white/16 hover:text-snow",
       )}
     >
       {isCopied ? <CheckIcon className="size-4" /> : <CopyIcon className="size-4" />}
