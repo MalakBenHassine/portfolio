@@ -79,7 +79,7 @@ export function ContactForm() {
           <label htmlFor="contact-name" className="text-sm font-medium text-mist-200">
             Name
           </label>
-          <input id="contact-name" name="name" type="text" required autoComplete="name" placeholder="Jane Doe" className={inputClasses} />
+          <input id="contact-name" name="name" type="text" required autoComplete="name" placeholder="Your full name" className={inputClasses} />
         </div>
         <div>
           <label htmlFor="contact-email" className="text-sm font-medium text-mist-200">
@@ -91,7 +91,7 @@ export function ContactForm() {
             type="email"
             required
             autoComplete="email"
-            placeholder="jane@company.com"
+            placeholder="name@company.com"
             className={inputClasses}
           />
         </div>
@@ -107,7 +107,7 @@ export function ContactForm() {
           required
           minLength={10}
           rows={5}
-          placeholder="Tell me about the role, the team or the project…"
+          placeholder="A few words about the position, your team or the project"
           className={cn(inputClasses, "resize-y")}
         />
       </div>
