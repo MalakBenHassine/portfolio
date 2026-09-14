@@ -35,7 +35,7 @@ interface StaggerItemProps {
 
 export function StaggerItem({ children, className }: StaggerItemProps) {
   return (
-    <motion.li className={className} variants={fadeUp}>
+    <motion.li data-reveal className={className} variants={fadeUp}>
       {children}
     </motion.li>
   );
@@ -44,7 +44,7 @@ export function StaggerItem({ children, className }: StaggerItemProps) {
 /** Animated content for a static list item (keeps the item's own background visible). */
 export function StaggerContent({ children, className }: StaggerItemProps) {
   return (
-    <motion.div className={className} variants={fadeUp}>
+    <motion.div data-reveal className={className} variants={fadeUp}>
       {children}
     </motion.div>
   );

@@ -1,8 +1,8 @@
+import { SkillChip } from "@/components/skills/SkillChip";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { StaggerItem, StaggerList } from "@/components/ui/Stagger";
-import { TechIcon } from "@/components/ui/TechIcon";
 import { skillGroups } from "@/data/skills";
 import { cn } from "@/lib/cn";
 
@@ -10,13 +10,13 @@ export function Skills() {
   const hasOddCount = skillGroups.length % 2 === 1;
 
   return (
-    <Section id="skills" labelledBy="skills-title">
+    <Section id="skills" labelledBy="skills-title" numeral="04">
       <SectionHeading
         id="skills-title"
-        index="05"
+        index="04"
         eyebrow="Skills"
-        title="The toolbox behind the work."
-        description="Organized the way I use it: from the language and the backend, to the AI layer, the pipeline and the quality checks that guard production."
+        title="A connected engineering ecosystem."
+        description="Organized the way I use it — from the language and the backend, to the AI layer, the pipeline and the quality checks that guard production. Hover a technology to see what I use it for."
       />
 
       <StaggerList className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3" stagger={0.06}>
@@ -27,9 +27,13 @@ export function Skills() {
               key={group.name}
               className={cn(group.wide && "lg:col-span-2", isLast && hasOddCount && "md:col-span-2 lg:col-span-2")}
             >
-              <SpotlightCard as="article" labelledBy={`skills-${index}`} className="flex h-full flex-col p-6">
+              <SpotlightCard as="article" labelledBy={`skills-${index}`} className="group/card flex h-full flex-col p-6">
                 <div className="flex items-center justify-between gap-4">
-                  <h3 id={`skills-${index}`} className="text-lg font-semibold tracking-tight">
+                  <h3 id={`skills-${index}`} className="flex items-center gap-3 text-lg font-semibold tracking-tight">
+                    <span
+                      aria-hidden="true"
+                      className="size-1.5 rounded-full bg-azure-400 transition-transform duration-300 group-hover/card:scale-150"
+                    />
                     {group.name}
                   </h3>
                   <span className="font-mono text-xs text-mist-500">
@@ -39,13 +43,7 @@ export function Skills() {
 
                 <ul className="mt-5 flex flex-wrap gap-2">
                   {group.core.map((skill) => (
-                    <li
-                      key={skill}
-                      className="group inline-flex items-center gap-2.5 rounded-xl border border-white/6 bg-white/[0.02] px-3 py-2 text-sm text-mist-200 transition-[transform,border-color,background-color] duration-300 hover:-translate-y-0.5 hover:border-white/14 hover:bg-white/[0.04]"
-                    >
-                      <TechIcon tech={skill} className="size-4 text-mist-400" />
-                      {skill}
-                    </li>
+                    <SkillChip key={skill.name} skill={skill} />
                   ))}
                 </ul>
 

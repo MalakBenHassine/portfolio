@@ -4,6 +4,9 @@ import type { PipelineStage } from "@/lib/types";
 
 export type StageStatus = "queued" | "running" | "passed";
 
+/** Row height in px (h-9) — the travelling light moves by this step. */
+export const STAGE_ROW_HEIGHT = 36;
+
 interface PipelineStageRowProps {
   index: number;
   stage: PipelineStage;
@@ -23,35 +26,35 @@ export function PipelineStageRow({ index, stage, status }: PipelineStageRowProps
         )}
       >
         {status === "passed" ? <CheckIcon className="size-3" /> : null}
-        {status === "running" ? (
-          <span className="size-2 animate-ping rounded-full bg-azure-400 motion-reduce:animate-none" />
-        ) : null}
       </span>
 
       <span className="font-mono text-[11px] text-mist-500 tabular-nums">{String(index + 1).padStart(2, "0")}</span>
 
       <span
         className={cn(
-          "min-w-0 flex-1 truncate text-sm transition-colors duration-300",
+          "min-w-0 flex-1 truncate font-mono text-xs tracking-[0.08em] uppercase transition-colors duration-300",
           status === "queued" ? "text-mist-500" : "text-snow",
         )}
       >
         {stage.name}
         {stage.parallel ? (
-          <span className="ml-2 rounded border border-white/10 px-1 font-mono text-[10px] text-mist-400">parallel</span>
+          <span className="ml-2 hidden rounded border border-white/10 px-1 text-[9px] tracking-normal text-mist-400 normal-case sm:inline">
+            parallel
+          </span>
         ) : null}
-        <span className="ml-2 hidden font-mono text-xs text-mist-500 sm:inline">{stage.tool}</span>
+        <span className="ml-2 hidden tracking-normal text-mist-500 normal-case sm:inline">{stage.tool}</span>
       </span>
 
       <span
         className={cn(
-          "font-mono text-[11px] transition-colors duration-300",
+          "inline-flex w-[4.5rem] items-center justify-end gap-1 font-mono text-[10px] tracking-[0.12em] uppercase transition-colors duration-300",
           status === "passed" && "text-ok-400",
           status === "running" && "text-azure-300",
           status === "queued" && "text-mist-500",
         )}
       >
         {status}
+        {status === "passed" ? <span aria-hidden="true">✓</span> : null}
       </span>
     </li>
   );

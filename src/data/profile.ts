@@ -1,4 +1,4 @@
-import type { EducationItem, FocusArea, IdentityFact, ImpactPillar, Profile } from "@/lib/types";
+import type { EducationItem, FocusArea, IdentityFact, ImpactPillar, Profile, WorkflowStep } from "@/lib/types";
 
 export const profile: Profile = {
   name: "Malak Ben Hassine",
@@ -20,8 +20,25 @@ export const profile: Profile = {
     "At Capgemini Engineering, I built AnalyseImpacte end-to-end for safety-critical aerospace software (DO-178C, DAL A). The application reduced a 3–5 day manual design-document update cycle to under 10 minutes, and ships through a 9-stage Jenkins pipeline with quality gates, security scanning and automatic rollback — validated by load testing and a 1,686-request OWASP ZAP security audit.",
     "I'm looking for a full-time role where I can own features from design to production, in Tunisia or internationally.",
   ],
+  photo: {
+    src: "/images/malak-profile.webp",
+    alt: "Portrait of Malak Ben Hassine, Software Engineer",
+    width: 1268,
+    height: 1240,
+  },
   cvPath: "/cv/Malak-Ben-Hassine-CV.pdf",
 };
+
+/** "From code to production" — the delivery chain visualized in the About section. */
+export const deliveryFlow: WorkflowStep[] = [
+  { title: "Code", caption: "Java · Python · TypeScript" },
+  { title: "Backend", caption: "Spring Boot · REST APIs · JWT/RBAC" },
+  { title: "AI", caption: "Local LLMs · RAG · grounded generation" },
+  { title: "CI/CD", caption: "Jenkins · Docker · Nexus" },
+  { title: "Security", caption: "SonarQube · Trivy · OWASP ZAP" },
+  { title: "Monitoring", caption: "Prometheus · Grafana" },
+  { title: "Production", caption: "Smoke tests · automatic rollback" },
+];
 
 export const identityFacts: IdentityFact[] = [
   {
@@ -77,32 +94,38 @@ export const impactPillars: ImpactPillar[] = [
   {
     icon: "bolt",
     title: "Automation",
-    proof: "Turned a 3–5 day manual documentation workflow into a run of under 10 minutes.",
+    metric: "3–5 days → < 10 min",
+    proof: "Turned a manual, multi-day documentation workflow into an automated run.",
   },
   {
     icon: "sparkles",
     title: "AI Integration",
-    proof: "Local LLM grounded by a deterministic AST parser, with anti-hallucination safeguards.",
+    metric: "AST + local LLM",
+    proof: "Generation grounded by a deterministic parser, with anti-hallucination safeguards.",
   },
   {
     icon: "infinity",
     title: "CI/CD",
-    proof: "9-stage Jenkins pipeline with quality gate, image registry and automatic rollback.",
+    metric: "9-stage Jenkins pipeline",
+    proof: "Quality gate, image registry and automatic rollback on every delivery.",
   },
   {
     icon: "shield",
     title: "Security",
-    proof: "JWT & RBAC, Trivy image scans and an OWASP ZAP audit of 1,686 attack requests.",
+    metric: "OWASP ZAP + Trivy",
+    proof: "1,686 attack requests audited, container images scanned, JWT & RBAC.",
   },
   {
     icon: "beaker",
     title: "Testing",
-    proof: "SonarQube analysis on every build, JMeter load tests with 50 concurrent users.",
+    metric: "JMeter + SonarQube",
+    proof: "100% success with 50 concurrent users, static analysis on every build.",
   },
   {
     icon: "activity",
     title: "Monitoring",
-    proof: "Prometheus metrics and Grafana dashboards, plus post-deploy smoke tests.",
+    metric: "Prometheus + Grafana",
+    proof: "Live system and container metrics, plus post-deploy smoke tests.",
   },
 ];
 

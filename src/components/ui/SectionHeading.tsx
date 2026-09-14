@@ -1,5 +1,8 @@
+"use client";
+
+import { motion } from "framer-motion";
 import type { ReactNode } from "react";
-import { Reveal } from "@/components/ui/Reveal";
+import { easeOutExpo, inViewOnce, staggerContainer } from "@/lib/motion";
 import { cn } from "@/lib/cn";
 
 interface SectionHeadingProps {
@@ -7,30 +10,52 @@ interface SectionHeadingProps {
   index: string;
   eyebrow: string;
   title: ReactNode;
-  description?: string;
+  description?: ReactNode;
   align?: "left" | "center";
+  className?: string;
 }
 
-export function SectionHeading({ id, index, eyebrow, title, description, align = "left" }: SectionHeadingProps) {
+const item = {
+  hidden: { opacity: 0, y: 22 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: easeOutExpo } },
+};
+
+/** Editorial section header: "01 — ABOUT", large title and lead, revealed in sequence. */
+export function SectionHeading({ id, index, eyebrow, title, description, align = "left", className }: SectionHeadingProps) {
   const isCentered = align === "center";
   return (
-    <Reveal className={cn("mb-14 max-w-3xl sm:mb-20", isCentered && "mx-auto text-center")}>
-      <p
+    <motion.div
+      className={cn("mb-14 max-w-3xl sm:mb-20", isCentered && "mx-auto text-center", className)}
+      variants={staggerContainer(0.09)}
+      initial="hidden"
+      whileInView="show"
+      viewport={inViewOnce}
+    >
+      <motion.p
+        data-reveal
+        variants={item}
         className={cn(
-          "flex items-center gap-3 font-mono text-xs tracking-[0.2em] text-mist-400 uppercase",
+          "flex items-center gap-3 font-mono text-xs tracking-[0.22em] text-mist-400 uppercase",
           isCentered && "justify-center",
         )}
       >
         <span className="text-azure-400">{index}</span>
-        <span aria-hidden="true" className="h-px w-8 bg-linear-to-r from-azure-400/70 to-transparent" />
+        <motion.span
+          data-reveal
+          aria-hidden="true"
+          className="h-px w-10 origin-left bg-linear-to-r from-azure-400/80 to-transparent"
+          variants={{ hidden: { scaleX: 0 }, show: { scaleX: 1, transition: { duration: 0.8, ease: easeOutExpo } } }}
+        />
         {eyebrow}
-      </p>
-      <h2 id={id} className="mt-5 text-3xl font-semibold tracking-[-0.03em] sm:text-5xl">
+      </motion.p>
+      <motion.h2 data-reveal variants={item} id={id} className="mt-5 text-3xl font-semibold tracking-[-0.035em] sm:text-5xl">
         {title}
-      </h2>
+      </motion.h2>
       {description ? (
-        <p className="mt-5 text-base leading-relaxed text-mist-400 sm:text-lg">{description}</p>
+        <motion.p data-reveal variants={item} className="mt-5 text-base leading-relaxed text-mist-400 sm:text-lg">
+          {description}
+        </motion.p>
       ) : null}
-    </Reveal>
+    </motion.div>
   );
 }

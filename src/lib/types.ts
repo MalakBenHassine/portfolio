@@ -36,8 +36,8 @@ export interface Profile {
   linkedin: string;
   /** One entry per paragraph. */
   about: string[];
-  /** Path under /public. Leave undefined to show the monogram instead. */
-  photo?: ImageAsset;
+  /** Professional portrait under /public (shown in the Hero and About). */
+  photo: ImageAsset & { width: number; height: number };
   /** Path under /public to the downloadable CV. */
   cvPath: string;
 }
@@ -58,12 +58,16 @@ export interface FocusArea {
 export interface ImpactPillar {
   icon: IconName;
   title: string;
+  /** Short headline metric shown large on the card. */
+  metric: string;
   proof: string;
 }
 
 export interface Stat {
   value: number;
   suffix?: string;
+  /** Zero-pad the displayed number to this many digits (e.g. 3 → "03"). */
+  pad?: number;
   label: string;
   detail?: string;
 }
@@ -90,6 +94,9 @@ export interface ProjectLink {
   href: string;
 }
 
+/** Illustrative, code-drawn preview styles shared by all project cards. */
+export type ProjectVisualKind = "matching" | "clinic" | "chat" | "events" | "scheduling";
+
 export interface Project {
   slug: string;
   title: string;
@@ -100,6 +107,8 @@ export interface Project {
   categories: ProjectCategory[];
   tech: string[];
   links: ProjectLink[];
+  visual: ProjectVisualKind;
+  /** Real screenshot; replaces the illustrative visual when provided. */
   image?: ImageAsset;
 }
 
@@ -137,11 +146,24 @@ export interface CaseStudy {
   note: string;
 }
 
+export interface SkillItem {
+  name: string;
+  /** What I use it for — revealed on hover. */
+  role: string;
+}
+
 export interface SkillGroup {
   name: string;
-  core: string[];
+  core: SkillItem[];
   more?: string[];
   wide?: boolean;
+}
+
+export interface AiUseCase {
+  title: string;
+  context: string;
+  detail: string;
+  stack: string[];
 }
 
 export interface EducationItem {

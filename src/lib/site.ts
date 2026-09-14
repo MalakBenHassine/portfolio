@@ -35,6 +35,6 @@ export const navItems: NavItem[] = [
   { label: "About", href: "#about", sections: ["about", "impact"] },
   { label: "Experience", href: "#experience", sections: ["experience", "case-study"] },
   { label: "Projects", href: "#projects", sections: ["projects"] },
-  { label: "Skills", href: "#skills", sections: ["skills", "achievements"] },
+  { label: "Skills", href: "#skills", sections: ["skills", "applied-ai", "achievements"] },
   { label: "Contact", href: "#contact", sections: ["contact"] },
 ];

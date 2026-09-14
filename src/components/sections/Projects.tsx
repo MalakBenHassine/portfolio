@@ -16,10 +16,10 @@ export function Projects() {
   }));
 
   return (
-    <Section id="projects" labelledBy="projects-title">
+    <Section id="projects" labelledBy="projects-title" numeral="03">
       <SectionHeading
         id="projects-title"
-        index="04"
+        index="03"
         eyebrow="Projects"
         title="Things I've built."
         description="Personal and team projects outside my internships — full-stack platforms and applied AI. The source code is public on GitHub."

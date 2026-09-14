@@ -1,7 +1,10 @@
+import { CustomCursor } from "@/components/layout/CustomCursor";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
+import { ScrollProgress } from "@/components/layout/ScrollProgress";
 import { About } from "@/components/sections/About";
 import { Achievements } from "@/components/sections/Achievements";
+import { AppliedAI } from "@/components/sections/AppliedAI";
 import { Contact } from "@/components/sections/Contact";
 import { EngineeringImpact } from "@/components/sections/EngineeringImpact";
 import { Experience } from "@/components/sections/Experience";
@@ -23,11 +26,11 @@ const personJsonLd = {
   description: siteConfig.description,
   url: siteConfig.url,
   email: `mailto:${profile.email}`,
-  image: `${siteConfig.url}/opengraph-image`,
+  image: `${siteConfig.url}${profile.photo.src}`,
   address: { "@type": "PostalAddress", addressCountry: "TN" },
   sameAs: [profile.github, profile.linkedin],
   alumniOf: education.map((item) => ({ "@type": "CollegeOrUniversity", name: item.school })),
-  knowsAbout: skillGroups.flatMap((group) => group.core),
+  knowsAbout: skillGroups.flatMap((group) => group.core.map((skill) => skill.name)),
   hasOccupation: experience.map((item) => ({
     "@type": "Occupation",
     name: item.role,
@@ -42,6 +45,7 @@ export default function HomePage() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c") }}
       />
+      <ScrollProgress />
       <Navbar />
       <main id="main">
         <Hero />
@@ -52,10 +56,12 @@ export default function HomePage() {
         <InternshipCaseStudy />
         <Projects />
         <Skills />
+        <AppliedAI />
         <Achievements />
         <Contact />
       </main>
       <Footer />
+      <CustomCursor />
     </>
   );
 }

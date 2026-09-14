@@ -15,7 +15,7 @@ npm run lint
 
 ## Page structure (scroll storytelling)
 
-Hero → Profile at a glance → About → Engineering Impact → Experience → Internship case study (AnalyseImpacte, Capgemini Engineering) → Projects (public GitHub repositories) → Skills → Achievements → Contact
+Hero (portrait, interactive background) → Profile at a glance → 01 About (from code to production) → Engineering Impact → 02 Experience → Internship case study (AnalyseImpacte, Capgemini Engineering) → 03 Projects (public GitHub repositories) → 04 Skills → Applied AI → Achievements → 05 Contact
 
 Projects only list work whose source code is public; every claim is checked against the linked repository.
 
@@ -26,16 +26,19 @@ src/
 ├── app/                  # layout (SEO metadata), page (JSON-LD), OG image, icon, robots, sitemap
 ├── components/
 │   ├── sections/         # One component per page section
-│   ├── hero/             # Terminal visual, tech orbit, background
+│   ├── hero/             # Portrait, CSS intro reveal, pointer parallax, particle field
+│   ├── about/            # "From code to production" delivery flow
+│   ├── ai/               # Code window for the Applied AI section
+│   ├── skills/           # Skill chip with hover role tooltip
 │   ├── case-study/       # AnalyseImpacte internship case study: pipeline, results, workflow, architecture
 │   ├── experience/       # Scroll-linked timeline rail
-│   ├── projects/         # Filterable grid (client) + server-rendered cards
+│   ├── projects/         # Filterable grid (client), server-rendered cards, illustrative visuals
 │   ├── contact/          # Contact form (Formspree / mailto fallback), copy-email button
-│   ├── layout/           # Navbar (active section, scroll progress, mobile menu), Footer
+│   ├── layout/           # Navbar, Footer, top scroll progress, custom cursor (desktop only)
 │   ├── providers/        # Framer Motion config (respects prefers-reduced-motion)
 │   └── ui/               # Design-system primitives (Reveal, Stagger, SpotlightCard, MagneticButton…) + icons
 ├── data/                 # All site content — edit text here, not in components
-├── hooks/                # useActiveSection, usePrefersReducedMotion
+├── hooks/                # useActiveSection, useMediaQuery, usePrefersReducedMotion, useFinePointer
 └── lib/                  # Types, site config, motion presets, tech icon mapping, helpers
 ```
 
@@ -51,7 +54,14 @@ Tokens live in `src/app/globals.css` (`@theme`):
 | `iris-400` | Secondary tint, gradients only |
 | `ok-400` | "Passed" status in the pipeline visuals |
 
-Utilities: `surface`, `glass`, `spotlight`, `text-gradient`, `bg-grid`, `bg-dots`, `divider-x`.
+Utilities: `surface`, `glass`, `spotlight`, `text-gradient`, `bg-grid`, `bg-dots`, `divider-x`, `link-underline`, `text-numeral`.
+
+## Motion principles
+
+- Transform/opacity only; no endless animations. The particle field runs only while the mouse moves and the Hero is on screen.
+- The Hero intro is pure CSS (`.hero-rise`), so it plays at first paint without waiting for JavaScript. The name is static (LCP).
+- Scroll reveals use Framer Motion and carry `data-reveal`: without JavaScript, or with `prefers-reduced-motion`, they are shown immediately.
+- Pointer effects (custom cursor, parallax, particles, magnetic buttons) are enabled only on fine pointers without reduced motion.
 
 ## Configuration
 
@@ -65,6 +75,6 @@ Copy `.env.example` to `.env.local`:
 ## Content
 
 - **CV**: `public/cv/Malak-Ben-Hassine-CV.pdf`.
-- **Photo** (optional): add an image under `public/` and set `profile.photo` in `src/data/profile.ts`.
-- **Project screenshots / demo links** (optional): set `image` or add a `{ kind: "demo" }` link in `src/data/projects.ts`.
+- **Portrait**: `public/images/malak-profile.webp` (referenced in `src/data/profile.ts` and imported in `src/components/hero/Portrait.tsx`). To replace it, keep the same file name, or update both.
+- **Project visuals**: each project uses an illustrative, code-drawn preview (`visual`). Set `image` to show a real screenshot instead, or add a `{ kind: "demo" }` link in `src/data/projects.ts`.
 - **Technology logos**: map a technology name to a Simple Icons export in `src/lib/techIcons.ts` (a monogram is shown otherwise).
