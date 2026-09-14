@@ -1,5 +1,19 @@
 export type ProjectCategory = "Full-Stack" | "AI" | "DevOps";
 
+export type IconName =
+  | "code"
+  | "sparkles"
+  | "infinity"
+  | "shield"
+  | "bolt"
+  | "beaker"
+  | "activity"
+  | "server"
+  | "monitor"
+  | "briefcase"
+  | "mapPin"
+  | "graduation";
+
 export interface ImageAsset {
   src: string;
   alt: string;
@@ -8,7 +22,11 @@ export interface ImageAsset {
 export interface Profile {
   name: string;
   firstName: string;
-  title: string;
+  role: string;
+  specialties: string[];
+  /** Short value proposition shown in the Hero. */
+  headline: string;
+  /** Outcome-driven one-liner, reused in the Engineering Impact section and OG image. */
   tagline: string;
   email: string;
   location: string;
@@ -24,9 +42,23 @@ export interface Profile {
   cvPath: string;
 }
 
+export interface IdentityFact {
+  icon: IconName;
+  label: string;
+  value: string;
+  detail: string;
+}
+
 export interface FocusArea {
+  icon: IconName;
   title: string;
-  description: string;
+  items: string[];
+}
+
+export interface ImpactPillar {
+  icon: IconName;
+  title: string;
+  proof: string;
 }
 
 export interface Stat {
@@ -41,7 +73,19 @@ export interface ExperienceItem {
   company: string;
   location: string;
   period: string;
+  featured?: boolean;
+  /** Short context tags (project, domain, standards). */
+  context?: string[];
   highlights: string[];
+  tech: string[];
+}
+
+export type ProjectLinkKind = "github" | "demo" | "case-study";
+
+export interface ProjectLink {
+  kind: ProjectLinkKind;
+  label: string;
+  href: string;
 }
 
 export interface Project {
@@ -49,17 +93,55 @@ export interface Project {
   title: string;
   subtitle?: string;
   description: string;
+  /** Measurable outcome or value delivered. */
+  result: string;
   categories: ProjectCategory[];
   tech: string[];
+  links: ProjectLink[];
   featured?: boolean;
-  highlights?: string[];
+  note?: string;
   image?: ImageAsset;
-  href?: string;
+}
+
+export interface CaseStudyResult {
+  kind: "counter" | "before-after";
+  value?: number;
+  suffix?: string;
+  before?: string;
+  after?: string;
+  label: string;
+  detail: string;
+}
+
+export interface WorkflowStep {
+  title: string;
+  caption: string;
+}
+
+export interface ArchitectureLayer {
+  icon: IconName;
+  title: string;
+  items: string[];
+}
+
+export interface CaseStudy {
+  title: string;
+  subtitle: string;
+  context: string[];
+  problem: string;
+  solution: string;
+  results: CaseStudyResult[];
+  workflow: WorkflowStep[];
+  architecture: ArchitectureLayer[];
+  tech: string[];
+  note: string;
 }
 
 export interface SkillGroup {
   name: string;
-  skills: string[];
+  core: string[];
+  more?: string[];
+  wide?: boolean;
 }
 
 export interface EducationItem {
@@ -78,4 +160,6 @@ export interface PipelineStage {
 export interface NavItem {
   label: string;
   href: `#${string}`;
+  /** Section ids that mark this item as active. */
+  sections: string[];
 }

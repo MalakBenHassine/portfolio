@@ -1,12 +1,12 @@
 import type { Stat } from "@/lib/types";
 
 export const stats: Stat[] = [
-  { value: 3, label: "Professional Internships" },
-  { value: 9, label: "CI/CD Pipeline Stages Automated" },
-  { value: 100, suffix: "%", label: "Load Test Success Rate" },
+  { value: 3, label: "Professional Internships", detail: "Capgemini · Crosschain · Lézard Com" },
+  { value: 9, label: "CI/CD Pipeline Stages", detail: "Automated with Jenkins" },
+  { value: 100, suffix: "%", label: "Load Test Success", detail: "JMeter · 50 concurrent users" },
   {
     value: 0,
-    label: "Critical Vulnerabilities",
-    detail: "1,686 security tests",
+    label: "Critical Security Vulnerabilities",
+    detail: "OWASP ZAP · 1,686 attack requests",
   },
 ];

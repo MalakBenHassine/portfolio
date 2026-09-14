@@ -1,3 +1,6 @@
+"use client";
+
+import { motion } from "framer-motion";
 import { cn } from "@/lib/cn";
 
 interface ProjectFilterProps<T extends string> {
@@ -7,14 +10,13 @@ interface ProjectFilterProps<T extends string> {
   onChange: (option: T) => void;
 }
 
-export function ProjectFilter<T extends string>({
-  options,
-  active,
-  counts,
-  onChange,
-}: ProjectFilterProps<T>) {
+export function ProjectFilter<T extends string>({ options, active, counts, onChange }: ProjectFilterProps<T>) {
   return (
-    <div role="group" aria-label="Filter projects by category" className="flex flex-wrap gap-2">
+    <div
+      role="group"
+      aria-label="Filter projects by category"
+      className="inline-flex max-w-full gap-0.5 overflow-x-auto rounded-full border border-white/8 bg-white/[0.02] p-1 [scrollbar-width:none] sm:gap-1"
+    >
       {options.map((option) => {
         const isActive = option === active;
         return (
@@ -24,19 +26,20 @@ export function ProjectFilter<T extends string>({
             aria-pressed={isActive}
             onClick={() => onChange(option)}
             className={cn(
-              "inline-flex min-h-10 items-center gap-2 rounded-full border px-4 text-sm font-medium transition-colors",
-              isActive
-                ? "border-mint-400 bg-mint-400 text-night-950"
-                : "border-night-600 bg-night-850 text-fog-200 hover:border-mint-400/50 hover:text-fog-50",
+              "relative inline-flex min-h-9 shrink-0 items-center gap-1.5 rounded-full px-3 text-sm whitespace-nowrap transition-colors sm:gap-2 sm:px-4",
+              isActive ? "text-ink-950" : "text-mist-400 hover:text-snow",
             )}
           >
-            {option}
-            <span
-              className={cn(
-                "rounded-full px-1.5 font-mono text-xs",
-                isActive ? "bg-night-950/15" : "bg-night-700 text-fog-400",
-              )}
-            >
+            {isActive ? (
+              <motion.span
+                layoutId="project-filter-pill"
+                aria-hidden="true"
+                className="absolute inset-0 rounded-full bg-snow"
+                transition={{ type: "spring", stiffness: 400, damping: 34 }}
+              />
+            ) : null}
+            <span className="relative font-medium">{option}</span>
+            <span className={cn("relative font-mono text-[11px]", isActive ? "text-ink-700" : "text-mist-500")}>
               {counts[option]}
             </span>
           </button>

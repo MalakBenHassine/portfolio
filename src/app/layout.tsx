@@ -29,10 +29,12 @@ export const metadata: Metadata = {
   authors: [{ name: profile.name, url: profile.linkedin }],
   creator: profile.name,
   alternates: { canonical: "/" },
+  applicationName: profile.name,
+  category: "technology",
   openGraph: {
     type: "profile",
     url: "/",
-    siteName: profile.name,
+    siteName: `${profile.name} — Portfolio`,
     title: siteConfig.title,
     description: siteConfig.description,
     locale: "en_US",
@@ -48,17 +50,17 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0f26",
+  themeColor: "#05060a",
   colorScheme: "dark",
 };
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
-      <body className="min-h-dvh antialiased">
+      <body className="min-h-dvh overflow-x-clip antialiased">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-lg focus:bg-mint-400 focus:px-4 focus:py-2 focus:font-semibold focus:text-night-950"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:rounded-full focus:bg-snow focus:px-4 focus:py-2 focus:font-medium focus:text-ink-950"
         >
           Skip to content
         </a>
