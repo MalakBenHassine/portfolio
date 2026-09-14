@@ -10,6 +10,7 @@ export const projectCategories: ProjectCategory[] = ["Full-Stack", "AI", "DevOps
 export const projects: Project[] = [
   {
     slug: "careermatch",
+    visual: "matching",
     title: "CareerMatch",
     subtitle: "RAG-based HR matching engine",
     description:
@@ -21,6 +22,7 @@ export const projects: Project[] = [
   },
   {
     slug: "assistant-medical-intelligent",
+    visual: "clinic",
     title: "Assistant Médical Intelligent",
     subtitle: "MedFlow · Clinic SaaS · Team project",
     description:
@@ -35,6 +37,7 @@ export const projects: Project[] = [
   },
   {
     slug: "hr-platform-ai",
+    visual: "chat",
     title: "HR Platform with AI",
     subtitle: "ApricityHR · Team project",
     description:
@@ -46,6 +49,7 @@ export const projects: Project[] = [
   },
   {
     slug: "event-app",
+    visual: "events",
     title: "Event-App",
     subtitle: "Event management · Team project",
     description:
@@ -57,6 +61,7 @@ export const projects: Project[] = [
   },
   {
     slug: "gestion-rdv",
+    visual: "scheduling",
     title: "Gestion-RDV",
     subtitle: "Appointment scheduling",
     description: "Appointment management application with server-rendered views and an MVC-style structure.",

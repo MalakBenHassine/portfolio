@@ -18,6 +18,7 @@ interface RevealProps {
 export function Reveal({ children, className, delay = 0, y = 24, scale = 1 }: RevealProps) {
   return (
     <motion.div
+      data-reveal
       className={className}
       initial={{ opacity: 0, y, scale }}
       whileInView={{ opacity: 1, y: 0, scale: 1 }}

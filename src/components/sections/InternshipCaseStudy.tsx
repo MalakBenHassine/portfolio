@@ -7,12 +7,13 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
+import { StaggerItem, StaggerList } from "@/components/ui/Stagger";
 import { TechBadge } from "@/components/ui/TechBadge";
 import { BoltIcon } from "@/components/ui/icons/BoltIcon";
 import { SparklesIcon } from "@/components/ui/icons/SparklesIcon";
 import { analyseImpacte } from "@/data/caseStudy";
 
-const AI_STEP_INDEX = analyseImpacte.workflow.findIndex((step) => step.title === "AI Assistance");
+const AI_STEP_INDEX = analyseImpacte.workflow.findIndex((step) => step.title === "Local AI");
 
 /** In-depth look at the flagship internship deliverable, attached to the Experience section. */
 export function InternshipCaseStudy() {
@@ -27,7 +28,7 @@ export function InternshipCaseStudy() {
 
       <SectionHeading
         id="case-study-title"
-        index="03"
+        index="02"
         eyebrow="Experience · Internship case study"
         title={<span className="text-gradient pb-1">{study.title}</span>}
         description={study.subtitle}
@@ -69,11 +70,13 @@ export function InternshipCaseStudy() {
 
               <div className="mt-auto pt-10">
                 <h3 className="font-mono text-[11px] tracking-[0.2em] text-mist-500 uppercase">Tech stack</h3>
-                <ul className="group mt-4 flex flex-wrap gap-2" aria-label="AnalyseImpacte tech stack">
+                <StaggerList className="group mt-4 flex flex-wrap gap-2" stagger={0.05} ariaLabel="AnalyseImpacte tech stack">
                   {study.tech.map((tech, index) => (
-                    <TechBadge key={tech} label={tech} index={index} />
+                    <StaggerItem key={tech}>
+                      <TechBadge label={tech} index={index} as="span" />
+                    </StaggerItem>
                   ))}
-                </ul>
+                </StaggerList>
                 <p className="mt-5 text-xs text-mist-500">{study.note}</p>
               </div>
             </div>
@@ -84,15 +87,15 @@ export function InternshipCaseStudy() {
       </Reveal>
 
       <div className="mt-20">
-        <CaseStudySubheading label="Results" title="Measured, not claimed." />
-        <CaseStudyResults results={study.results} />
-      </div>
-
-      <div className="mt-20">
         <CaseStudySubheading label="Workflow" title="From a code change to production." />
         <SpotlightCard className="p-6 sm:p-10">
           <WorkflowDiagram steps={study.workflow} highlightIndex={AI_STEP_INDEX} />
         </SpotlightCard>
+      </div>
+
+      <div className="mt-20">
+        <CaseStudySubheading label="Results" title="Measured, not claimed." />
+        <CaseStudyResults results={study.results} />
       </div>
 
       <div className="mt-20">

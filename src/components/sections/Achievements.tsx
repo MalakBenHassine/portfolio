@@ -7,19 +7,19 @@ import { stats } from "@/data/stats";
 export function Achievements() {
   return (
     <Section id="achievements" labelledBy="achievements-title">
-      <SectionHeading id="achievements-title" index="06" eyebrow="Achievements" title="By the numbers." />
+      <SectionHeading id="achievements-title" index="04" eyebrow="Achievements" title="By the numbers." />
 
       <StaggerList className="grid grid-cols-1 gap-px overflow-hidden rounded-3xl border border-white/6 bg-white/6 sm:grid-cols-2 lg:grid-cols-4">
         {stats.map((stat) => (
-          <li key={stat.label} className="bg-ink-950">
+          <li key={stat.label} className="group bg-ink-950 transition-colors duration-300 hover:bg-ink-900">
             <StaggerContent className="flex h-full flex-col p-7 sm:p-9">
-              <p className="text-6xl font-semibold tracking-[-0.05em] sm:text-7xl">
+              <p className="text-6xl font-semibold tracking-[-0.05em] transition-transform duration-500 group-hover:-translate-y-1 sm:text-7xl">
                 <span className="text-gradient">
-                  <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                  <AnimatedCounter value={stat.value} suffix={stat.suffix} pad={stat.pad} />
                 </span>
               </p>
-              <p className="mt-6 font-medium text-snow">{stat.label}</p>
-              {stat.detail ? <p className="mt-1 text-sm text-mist-400">{stat.detail}</p> : null}
+              <p className="mt-6 font-mono text-xs tracking-[0.18em] text-snow uppercase">{stat.label}</p>
+              {stat.detail ? <p className="mt-2 text-sm text-mist-400">{stat.detail}</p> : null}
             </StaggerContent>
           </li>
         ))}

@@ -1,7 +1,8 @@
 "use client";
 
-import { AnimatePresence, motion, useScroll, useSpring } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
+import { ArrowRightIcon } from "@/components/ui/icons/ArrowRightIcon";
 import { CloseIcon } from "@/components/ui/icons/CloseIcon";
 import { DownloadIcon } from "@/components/ui/icons/DownloadIcon";
 import { MenuIcon } from "@/components/ui/icons/MenuIcon";
@@ -21,9 +22,6 @@ export function Navbar() {
   const firstMobileLinkRef = useRef<HTMLAnchorElement>(null);
   const activeSection = useActiveSection(observedSections);
   const activeItem = navItems.find((item) => activeSection && item.sections.includes(activeSection));
-
-  const { scrollYProgress } = useScroll();
-  const progress = useSpring(scrollYProgress, { stiffness: 200, damping: 30, restDelta: 0.001 });
 
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 16);
@@ -71,7 +69,9 @@ export function Navbar() {
         aria-label="Main"
         className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-5 sm:px-8"
       >
-        <a href="#top" className="group flex items-center gap-3" aria-label={`${profile.name} — back to top`}>
+        <a href="#top" className="group flex items-center gap-3">
+          {/* Accessible name = visible text (+ purpose), so labels and speech input stay consistent. */}
+          <span className="sr-only sm:hidden">{profile.name}</span>
           <span
             aria-hidden="true"
             className="relative grid size-9 place-items-center overflow-hidden rounded-xl border border-white/10 bg-ink-850 font-mono text-xs font-semibold text-snow transition-colors group-hover:border-azure-400/50"
@@ -83,6 +83,7 @@ export function Navbar() {
             <span className="text-sm font-semibold text-snow">{profile.name}</span>
             <span className="font-mono text-[10px] tracking-wider text-mist-500 uppercase">Software Engineer</span>
           </span>
+          <span className="sr-only"> — back to top</span>
         </a>
 
         <ul className="hidden items-center gap-0.5 rounded-full border border-white/6 bg-white/[0.02] p-1 md:flex">
@@ -102,7 +103,7 @@ export function Navbar() {
                   href={item.href}
                   aria-current={isActive ? "location" : undefined}
                   className={cn(
-                    "relative block rounded-full px-3.5 py-1.5 text-sm transition-colors lg:px-4",
+                    "relative block rounded-full px-3 py-1.5 font-mono text-[11px] tracking-[0.14em] uppercase transition-colors lg:px-4",
                     isActive ? "text-snow" : "text-mist-400 hover:text-snow",
                   )}
                 >
@@ -117,6 +118,7 @@ export function Navbar() {
           <span className="hidden md:block">
             <a href="#contact" className={buttonClasses("primary", "min-h-9 px-4 py-1.5")}>
               Let&apos;s Talk
+              <ArrowRightIcon className="size-3.5 transition-transform duration-300 group-hover:translate-x-0.5" />
             </a>
           </span>
           <button
@@ -133,11 +135,6 @@ export function Navbar() {
         </div>
       </nav>
 
-      <motion.div
-        aria-hidden="true"
-        style={{ scaleX: progress }}
-        className="absolute inset-x-0 bottom-[-1px] h-px origin-left bg-linear-to-r from-azure-500 via-azure-300 to-iris-400"
-      />
 
       <AnimatePresence>
         {isMenuOpen ? (

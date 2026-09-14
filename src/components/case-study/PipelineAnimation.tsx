@@ -1,8 +1,8 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { AnimatePresence, motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { PipelineStageRow } from "@/components/case-study/PipelineStageRow";
+import { PipelineStageRow, STAGE_ROW_HEIGHT } from "@/components/case-study/PipelineStageRow";
 import type { StageStatus } from "@/components/case-study/PipelineStageRow";
 import { CheckIcon } from "@/components/ui/icons/CheckIcon";
 import { pipelineStages } from "@/data/pipeline";
@@ -10,7 +10,7 @@ import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { cn } from "@/lib/cn";
 
 const START_DELAY_MS = 500;
-const STAGE_DURATION_MS = 420;
+const STAGE_DURATION_MS = 520;
 
 /** The real 9-stage AnalyseImpacte Jenkins pipeline, replayed when scrolled into view. */
 export function PipelineAnimation() {
@@ -78,7 +78,7 @@ export function PipelineAnimation() {
                 )}
               />
             )}
-            {isDone ? "Deployed" : isStarted ? "Running" : "Queued"}
+            {isDone ? "PASSED" : isStarted ? "RUNNING" : "QUEUED"}
           </span>
         </div>
       </div>
@@ -101,17 +101,59 @@ export function PipelineAnimation() {
           animate={{ scaleY: Math.min(completed / (totalStages - 1), 1) }}
           transition={{ duration: 0.4, ease: "easeOut" }}
         />
+        {/* Light travelling along the pipeline towards the running stage */}
+        <motion.span
+          aria-hidden="true"
+          className="absolute top-[30px] left-[24px] z-20 size-[7px] rounded-full bg-azure-200 shadow-[0_0_12px_3px_rgb(124_157_255/0.8)] sm:left-[28px]"
+          initial={false}
+          animate={{
+            y: Math.min(completed, totalStages - 1) * STAGE_ROW_HEIGHT,
+            opacity: isStarted && !isDone ? 1 : 0,
+          }}
+          transition={{ y: { type: "spring", stiffness: 140, damping: 20 }, opacity: { duration: 0.3 } }}
+        />
         {pipelineStages.map((stage, index) => (
           <PipelineStageRow key={stage.name} index={index} stage={stage} status={getStatus(index)} />
         ))}
       </ol>
 
-      <p className="border-t border-white/6 px-4 py-3 font-mono text-[11px] text-mist-500 sm:px-5">
-        <span aria-hidden="true" className="text-azure-400">
-          ↺
-        </span>{" "}
-        Automatic rollback if deploy or smoke tests fail
-      </p>
+      <div className="border-t border-white/6 px-4 py-3 sm:px-5">
+        <div className="relative h-6" aria-live="polite">
+          <AnimatePresence initial={false} mode="wait">
+            {isDone ? (
+              <motion.p
+                key="done"
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.35, ease: "easeOut" }}
+                className="flex items-center gap-2 font-mono text-xs font-semibold tracking-[0.18em] text-ok-400 uppercase"
+              >
+                <span className="grid size-5 place-items-center rounded-full bg-ok-400/15">
+                  <CheckIcon className="size-3" />
+                </span>
+                Deployment successful
+              </motion.p>
+            ) : (
+              <motion.p
+                key="pending"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="font-mono text-xs tracking-[0.18em] text-mist-500 uppercase"
+              >
+                {isStarted ? `Stage ${Math.min(completed + 1, totalStages)} / ${totalStages}` : "Waiting for trigger"}
+              </motion.p>
+            )}
+          </AnimatePresence>
+        </div>
+        <p className="mt-2 font-mono text-[11px] text-mist-500">
+          <span aria-hidden="true" className="text-azure-400">
+            ↺
+          </span>{" "}
+          Automatic rollback if deploy or smoke tests fail
+        </p>
+      </div>
     </figure>
   );
 }

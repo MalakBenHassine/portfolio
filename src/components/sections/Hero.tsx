@@ -1,7 +1,9 @@
+import type { CSSProperties } from "react";
 import { HeroBackground } from "@/components/hero/HeroBackground";
-import { HeroVisual } from "@/components/hero/HeroVisual";
+import { HeroPointerProvider } from "@/components/hero/HeroPointer";
+import { HeroReveal } from "@/components/hero/HeroReveal";
+import { Portrait } from "@/components/hero/Portrait";
 import { MagneticButton } from "@/components/ui/MagneticButton";
-import { Reveal } from "@/components/ui/Reveal";
 import { ArrowRightIcon } from "@/components/ui/icons/ArrowRightIcon";
 import { DownloadIcon } from "@/components/ui/icons/DownloadIcon";
 import { GithubIcon } from "@/components/ui/icons/GithubIcon";
@@ -9,110 +11,111 @@ import { LinkedinIcon } from "@/components/ui/icons/LinkedinIcon";
 import { MailIcon } from "@/components/ui/icons/MailIcon";
 import { profile } from "@/data/profile";
 
-const socialLinks = [
-  { label: "LinkedIn profile (opens in a new tab)", href: profile.linkedin, Icon: LinkedinIcon, external: true },
-  { label: "GitHub profile (opens in a new tab)", href: profile.github, Icon: GithubIcon, external: true },
-  { label: `Send an email to ${profile.email}`, href: `mailto:${profile.email}`, Icon: MailIcon, external: false },
+const secondaryLinks = [
+  { label: "LinkedIn", href: profile.linkedin, Icon: LinkedinIcon, external: true },
+  { label: "GitHub", href: profile.github, Icon: GithubIcon, external: true },
+  { label: "Email", href: `mailto:${profile.email}`, Icon: MailIcon, external: false },
 ];
 
+/*
+ * Intro choreography (seconds, CSS only): background 0 → portrait 0.1 → availability 0.2 →
+ * role 0.35 → description 0.5 → accent rule 0.6 → CTAs 0.8 → links 0.95 → proof cards 1.1–1.25.
+ * The name is static; role and description (the mobile LCP) are instant below lg and never start transparent.
+ */
 export function Hero() {
   return (
-    <section
-      id="top"
-      aria-labelledby="hero-title"
-      className="relative isolate flex items-center overflow-hidden pt-32 pb-20 sm:pt-40 sm:pb-24 lg:min-h-[min(100svh,960px)] lg:pt-36"
-    >
-      <HeroBackground />
+    <HeroPointerProvider>
+      <section
+        id="top"
+        aria-labelledby="hero-title"
+        className="relative isolate flex items-center overflow-hidden pt-28 pb-20 sm:pt-36 lg:min-h-[min(100svh,980px)] lg:pb-24"
+      >
+        <HeroBackground />
 
-      <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-16 px-5 sm:px-8 lg:grid-cols-[1.08fr_0.92fr] lg:gap-6">
-        <div className="min-w-0">
-          <Reveal y={10}>
-            <p className="inline-flex items-center gap-2.5 rounded-full border border-white/8 bg-white/[0.03] py-1.5 pr-4 pl-2 text-xs text-mist-300 sm:text-sm">
-              <span aria-hidden="true" className="relative flex size-5 shrink-0 items-center justify-center rounded-full bg-ok-400/10">
-                <span className="absolute size-2 animate-ping rounded-full bg-ok-400/60 motion-reduce:animate-none" />
-                <span className="relative size-2 rounded-full bg-ok-400" />
-              </span>
-              <span>
-                {profile.availability}
-                <span className="hidden text-mist-400 sm:inline">
-                  <span aria-hidden="true" className="mx-2 text-mist-500">
-                    ·
-                  </span>
-                  {profile.workRegions}
+        <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-16 px-5 sm:px-8 lg:grid-cols-[1.12fr_0.88fr] lg:gap-14">
+          <div className="min-w-0">
+            <HeroReveal delay={0.2} y={10}>
+              <p className="inline-flex items-center gap-3 rounded-full border border-white/8 bg-white/[0.03] py-1.5 pr-4 pl-2">
+                <span aria-hidden="true" className="relative flex size-5 shrink-0 items-center justify-center rounded-full bg-ok-400/10">
+                  <span className="absolute size-2 animate-ping rounded-full bg-ok-400/50 [animation-iteration-count:3] motion-reduce:hidden" />
+                  <span className="relative size-2 rounded-full bg-ok-400" />
                 </span>
-              </span>
-            </p>
-          </Reveal>
+                <span className="font-mono text-[10px] tracking-[0.18em] text-mist-200 uppercase sm:text-[11px]">
+                  {profile.availability}
+                  <span className="hidden text-mist-500 sm:inline"> · {profile.workRegions}</span>
+                </span>
+              </p>
+            </HeroReveal>
 
-          <h1
-            id="hero-title"
-            className="mt-8 text-[2.9rem] leading-[0.98] font-semibold tracking-[-0.045em] sm:text-7xl lg:text-[5.4rem]"
-          >
-            <span className="block">{profile.firstName}</span>{" "}
-            <span className="text-gradient block pb-1">Ben Hassine</span>
-          </h1>
+            {/* The name is static on purpose: it is the LCP and the first thing a recruiter must read. */}
+            <h1
+              id="hero-title"
+              className="mt-8 text-[2.55rem] leading-[0.95] font-semibold tracking-[-0.045em] uppercase sm:text-6xl lg:text-[4.1rem] xl:text-[4.6rem]"
+            >
+              <span className="block">{profile.firstName}</span>{" "}
+              <span className="text-gradient block pb-1">Ben Hassine</span>
+            </h1>
+            <span
+              aria-hidden="true"
+              className="hero-rule mt-5 block h-px w-24 bg-linear-to-r from-azure-400 to-transparent"
+              style={{ "--delay": "0.6s" } as CSSProperties}
+            />
 
-          <p className="mt-7 flex flex-wrap items-center gap-x-2.5 gap-y-1 text-lg sm:text-xl">
-            <span className="font-medium text-snow">{profile.role}</span>
-            <span className="text-mist-500">—</span>
-            {profile.specialties.map((specialty, index) => (
-              <span key={specialty} className="inline-flex items-center gap-2.5 text-mist-300">
-                {index > 0 ? (
-                  <span aria-hidden="true" className="size-1 rounded-full bg-azure-400" />
-                ) : null}
-                {specialty}
-              </span>
-            ))}
-          </p>
+            {/* Role and description are the LCP on mobile: shown instantly there, gentle rise on large screens. */}
+            <HeroReveal delay={0.35} y={10} fade={false} largeScreensOnly>
+              <p className="mt-7 text-2xl font-medium tracking-tight text-snow sm:text-3xl">{profile.role}</p>
+              <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-sm tracking-[0.08em] text-mist-300 uppercase sm:text-base">
+                {profile.specialties.map((specialty, index) => (
+                  <span key={specialty} className="inline-flex items-center gap-3">
+                    {index > 0 ? <span aria-hidden="true" className="size-1 rounded-full bg-azure-400" /> : null}
+                    {specialty}
+                  </span>
+                ))}
+              </p>
+            </HeroReveal>
 
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-mist-400 sm:text-lg">{profile.headline}</p>
+            <HeroReveal delay={0.5} y={10} fade={false} largeScreensOnly>
+              <p className="mt-7 max-w-[34rem] text-base leading-relaxed text-mist-400 sm:text-lg">{profile.headline}</p>
+            </HeroReveal>
 
-          <Reveal delay={0.1} y={14}>
-            <p className="mt-8 inline-flex max-w-full flex-wrap items-center gap-x-3 gap-y-1 rounded-xl border border-white/6 bg-white/[0.02] px-4 py-2.5 text-sm">
-              <span className="font-mono text-[11px] tracking-wider text-mist-500 uppercase">Latest impact</span>
-              <span className="font-mono text-mist-300 line-through decoration-mist-500">3–5 days</span>
-              <ArrowRightIcon className="size-4 text-azure-400" />
-              <span className="font-mono font-semibold text-snow">&lt; 10 minutes</span>
-              <span className="text-mist-500">at Capgemini Engineering</span>
-            </p>
-          </Reveal>
+            <HeroReveal delay={0.8} y={12}>
+              <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
+                <MagneticButton href="#projects" className="uppercase tracking-[0.08em]">
+                  View My Work
+                  <ArrowRightIcon className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+                </MagneticButton>
+                <MagneticButton href={profile.cvPath} variant="secondary" download className="uppercase tracking-[0.08em]">
+                  <DownloadIcon className="size-4 transition-transform duration-300 group-hover:translate-y-0.5" />
+                  Download CV
+                </MagneticButton>
+              </div>
+            </HeroReveal>
 
-          <Reveal delay={0.18} y={14}>
-            <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
-              <MagneticButton href="#projects">
-                View My Work
-                <ArrowRightIcon className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-              </MagneticButton>
-              <MagneticButton href={profile.cvPath} variant="secondary" download>
-                <DownloadIcon className="size-4" />
-                Download CV
-              </MagneticButton>
-
-              <span aria-hidden="true" className="mx-2 hidden h-6 w-px bg-white/10 sm:block" />
-
-              <ul className="flex items-center gap-1 pt-2 sm:pt-0" aria-label="Social links">
-                {socialLinks.map(({ label, href, Icon, external }) => (
-                  <li key={href}>
+            <HeroReveal delay={0.95} y={8}>
+              <ul className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-3" aria-label="Contact links">
+                {secondaryLinks.map(({ label, href, Icon, external }) => (
+                  <li key={label}>
                     <a
                       href={href}
-                      aria-label={label}
                       target={external ? "_blank" : undefined}
                       rel={external ? "noopener noreferrer" : undefined}
-                      className="grid size-11 place-items-center rounded-full text-mist-400 transition-[color,background-color,transform] duration-200 hover:-translate-y-0.5 hover:bg-white/[0.05] hover:text-snow"
+                      className="group inline-flex min-h-11 items-center gap-2 text-sm text-mist-400 transition-colors hover:text-snow"
                     >
-                      <Icon className="size-[18px]" />
+                      <Icon className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5" />
+                      <span className="link-underline">{label}</span>
+                      {external ? <span className="sr-only">(opens in a new tab)</span> : null}
                     </a>
                   </li>
                 ))}
               </ul>
-            </div>
-          </Reveal>
-        </div>
+            </HeroReveal>
+          </div>
 
-        <Reveal delay={0.25} y={30} scale={0.97} className="min-w-0">
-          <HeroVisual />
-        </Reveal>
-      </div>
-    </section>
+          <div className="min-w-0 lg:pl-4">
+            <Portrait />
+          </div>
+        </div>
+      </section>
+    </HeroPointerProvider>
   );
 }

@@ -4,6 +4,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
+import { StaggerItem, StaggerList } from "@/components/ui/Stagger";
 import { TechBadge } from "@/components/ui/TechBadge";
 import { ArrowRightIcon } from "@/components/ui/icons/ArrowRightIcon";
 import { experience } from "@/data/experience";
@@ -11,10 +12,10 @@ import { cn } from "@/lib/cn";
 
 export function Experience() {
   return (
-    <Section id="experience" labelledBy="experience-title">
+    <Section id="experience" labelledBy="experience-title" numeral="02">
       <SectionHeading
         id="experience-title"
-        index="03"
+        index="02"
         eyebrow="Experience"
         title="Where I've shipped."
         description="Three internships — from a first end-to-end application to an AI-assisted, fully industrialized system for safety-critical aerospace software."
@@ -25,7 +26,10 @@ export function Experience() {
           {experience.map((item) => {
             const headingId = `experience-${item.company.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
             return (
-              <li key={`${item.company}-${item.period}`} className="relative pl-9 md:grid md:grid-cols-[190px_minmax(0,1fr)] md:gap-[50px] md:pl-0">
+              <li
+                key={`${item.company}-${item.period}`}
+                className="relative pl-9 md:grid md:grid-cols-[190px_minmax(0,1fr)] md:gap-[50px] md:pl-0"
+              >
                 <span
                   aria-hidden="true"
                   className={cn(
@@ -46,62 +50,88 @@ export function Experience() {
                   ) : null}
                 </Reveal>
 
-                <Reveal delay={0.05}>
+                <Reveal delay={0.05} className="relative">
+                  {item.featured ? (
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute -inset-8 -z-10 rounded-[3rem] bg-[radial-gradient(60%_60%_at_30%_20%,rgb(91_130_255/0.16),transparent_70%)]"
+                    />
+                  ) : null}
                   <SpotlightCard
                     as="article"
                     labelledBy={headingId}
-                    className={cn("group overflow-hidden p-6 sm:p-8", item.featured && "border-azure-400/15")}
+                    className={cn(
+                      "group overflow-hidden p-6 sm:p-8",
+                      item.featured && "border-azure-400/20 shadow-[0_30px_100px_-40px_rgb(91_130_255/0.35)]",
+                    )}
                   >
                     {item.featured ? (
                       <div
                         aria-hidden="true"
-                        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-azure-300/60 to-transparent"
+                        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-azure-300/70 to-transparent"
                       />
                     ) : null}
 
                     <header>
-                      <h3 id={headingId} className={cn("font-semibold tracking-tight", item.featured ? "text-xl sm:text-2xl" : "text-lg sm:text-xl")}>
+                      {item.featured ? (
+                        <p className="mb-3 font-mono text-[11px] tracking-[0.2em] text-azure-300 uppercase">{item.company}</p>
+                      ) : null}
+                      <h3
+                        id={headingId}
+                        className={cn("font-semibold tracking-tight", item.featured ? "text-2xl sm:text-3xl" : "text-lg sm:text-xl")}
+                      >
                         {item.role}
                       </h3>
-                      <p className="mt-1.5 text-base font-medium text-azure-300">{item.company}</p>
+                      {item.featured ? null : <p className="mt-1.5 text-base font-medium text-azure-300">{item.company}</p>}
                       {item.context ? (
-                        <ul className="mt-4 flex flex-wrap gap-2" aria-label="Context">
-                          {item.context.map((tag) => (
-                            <li
+                        <StaggerList className="mt-4 flex flex-wrap gap-2" stagger={0.06} ariaLabel="Context">
+                          {item.context.map((tag, tagIndex) => (
+                            <StaggerItem
                               key={tag}
-                              className="rounded-md border border-white/8 bg-white/[0.03] px-2 py-0.5 font-mono text-[11px] text-mist-300"
+                              className={cn(
+                                "rounded-md border px-2 py-0.5 font-mono text-[11px]",
+                                item.featured && tagIndex === 0
+                                  ? "border-azure-400/40 bg-azure-500/10 text-azure-200"
+                                  : "border-white/8 bg-white/[0.03] text-mist-300",
+                              )}
                             >
                               {tag}
-                            </li>
+                            </StaggerItem>
                           ))}
-                        </ul>
+                        </StaggerList>
                       ) : null}
                     </header>
 
-                    <ul className="mt-6 space-y-3">
+                    <StaggerList className="mt-6 space-y-3" stagger={0.06}>
                       {item.highlights.map((highlight) => (
-                        <li key={highlight} className="flex gap-3 text-sm leading-relaxed text-mist-400 sm:text-[15px]">
+                        <StaggerItem key={highlight} className="flex gap-3 text-sm leading-relaxed text-mist-400 sm:text-[15px]">
                           <span aria-hidden="true" className="mt-[9px] h-px w-3 shrink-0 bg-azure-400/70" />
                           <span>
                             <MetricText text={highlight} />
                           </span>
-                        </li>
+                        </StaggerItem>
                       ))}
-                    </ul>
+                    </StaggerList>
 
-                    <ul className="mt-7 flex flex-wrap gap-2 border-t border-white/6 pt-6" aria-label={`Technologies used at ${item.company}`}>
+                    <StaggerList
+                      className="mt-7 flex flex-wrap gap-2 border-t border-white/6 pt-6"
+                      stagger={0.05}
+                      ariaLabel={`Technologies used at ${item.company}`}
+                    >
                       {item.tech.map((tech, index) => (
-                        <TechBadge key={tech} label={tech} index={index} />
+                        <StaggerItem key={tech}>
+                          <TechBadge label={tech} index={index} as="span" />
+                        </StaggerItem>
                       ))}
-                    </ul>
+                    </StaggerList>
 
                     {item.caseStudy ? (
                       <a
                         href={item.caseStudy.href}
-                        className="mt-6 inline-flex items-center gap-2 rounded-full border border-azure-400/30 bg-azure-500/10 px-4 py-2 text-sm font-medium text-azure-200 transition-colors hover:border-azure-400/60 hover:text-snow"
+                        className="group/cta mt-6 inline-flex items-center gap-2 rounded-full border border-azure-400/30 bg-azure-500/10 px-4 py-2 text-sm font-medium text-azure-200 transition-colors hover:border-azure-400/60 hover:text-snow"
                       >
                         {item.caseStudy.label}
-                        <ArrowRightIcon className="size-4 rotate-90" />
+                        <ArrowRightIcon className="size-4 rotate-90 transition-transform duration-300 group-hover/cta:translate-y-0.5" />
                       </a>
                     ) : null}
                   </SpotlightCard>
