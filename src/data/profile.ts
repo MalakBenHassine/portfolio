@@ -1,15 +1,18 @@
-import type { EducationItem, FocusArea, Profile } from "@/lib/types";
+import type { EducationItem, FocusArea, IdentityFact, ImpactPillar, Profile } from "@/lib/types";
 
 export const profile: Profile = {
   name: "Malak Ben Hassine",
   firstName: "Malak",
-  title: "Software Engineer — Full-Stack, Applied AI & DevOps",
+  role: "Software Engineer",
+  specialties: ["Full-Stack", "Applied AI", "DevOps"],
+  headline:
+    "I build production-ready software, automate complex engineering workflows, and integrate AI where it creates real value.",
   tagline:
     "I turn multi-day manual engineering processes into automated pipelines that run in minutes.",
   email: "benhassinemalak4@gmail.com",
   location: "Based in Tunisia · Open to international",
-  availability: "Open to full-time (CDI) roles",
-  workRegions: "Tunisia & international",
+  availability: "Open to Full-Time Opportunities",
+  workRegions: "Tunisia & International",
   github: "https://github.com/MalakBenHassine",
   linkedin: "https://www.linkedin.com/in/malakbenhassine/",
   about: [
@@ -20,18 +23,86 @@ export const profile: Profile = {
   cvPath: "/cv/Malak-Ben-Hassine-CV.pdf",
 };
 
+export const identityFacts: IdentityFact[] = [
+  {
+    icon: "code",
+    label: "Role",
+    value: "Software Engineer",
+    detail: "Full-Stack · Applied AI · DevOps",
+  },
+  {
+    icon: "briefcase",
+    label: "Latest experience",
+    value: "Capgemini Engineering",
+    detail: "Aerospace · Feb – Jun 2026",
+  },
+  {
+    icon: "mapPin",
+    label: "Location",
+    value: "Tunisia",
+    detail: "Open to international roles",
+  },
+  {
+    icon: "graduation",
+    label: "Education",
+    value: "Software Engineering",
+    detail: "Tek-Up University · 2026",
+  },
+];
+
 export const focusAreas: FocusArea[] = [
   {
+    icon: "code",
     title: "Full-Stack Engineering",
-    description: "Java/Spring Boot, Angular, Python",
+    items: ["Java", "Spring Boot", "Angular", "React", "Python"],
   },
   {
-    title: "Applied AI & Automation",
-    description: "LLMs, RAG, production AI pipelines",
+    icon: "sparkles",
+    title: "Applied AI",
+    items: ["LLMs", "Ollama", "RAG", "AI Automation"],
   },
   {
+    icon: "infinity",
     title: "DevOps",
-    description: "CI/CD, containerization, monitoring",
+    items: ["Docker", "Jenkins", "CI/CD", "Monitoring"],
+  },
+  {
+    icon: "shield",
+    title: "Software Quality",
+    items: ["Testing", "Security", "SonarQube", "OWASP"],
+  },
+];
+
+export const impactPillars: ImpactPillar[] = [
+  {
+    icon: "bolt",
+    title: "Automation",
+    proof: "Turned a 3–5 day manual documentation workflow into a run of under 10 minutes.",
+  },
+  {
+    icon: "sparkles",
+    title: "AI Integration",
+    proof: "Local LLM grounded by a deterministic AST parser, with anti-hallucination safeguards.",
+  },
+  {
+    icon: "infinity",
+    title: "CI/CD",
+    proof: "9-stage Jenkins pipeline with quality gate, image registry and automatic rollback.",
+  },
+  {
+    icon: "shield",
+    title: "Security",
+    proof: "JWT & RBAC, Trivy image scans and an OWASP ZAP audit of 1,686 attack requests.",
+  },
+  {
+    icon: "beaker",
+    title: "Testing",
+    proof: "SonarQube analysis on every build, JMeter load tests with 50 concurrent users.",
+  },
+  {
+    icon: "activity",
+    title: "Monitoring",
+    proof: "Prometheus metrics and Grafana dashboards, plus post-deploy smoke tests.",
   },
 ];
 

@@ -10,26 +10,31 @@ function resolveSiteUrl(): string {
 
 export const siteConfig = {
   url: resolveSiteUrl(),
-  title: "Malak Ben Hassine — Software Engineer",
+  title: "Malak Ben Hassine — Software Engineer | Full-Stack · AI · DevOps",
   description:
-    "Software Engineer (Full-Stack, Applied AI & DevOps). I turn multi-day manual engineering processes into automated pipelines that run in minutes.",
+    "Software Engineer (Full-Stack, Applied AI & DevOps) building production-ready systems. Built AnalyseImpacte at Capgemini Engineering: a 3–5 day aerospace documentation workflow cut to under 10 minutes, shipped through a 9-stage CI/CD pipeline.",
   keywords: [
     "Malak Ben Hassine",
     "Software Engineer",
     "Full-Stack Developer",
-    "DevOps",
-    "Applied AI",
+    "Applied AI Engineer",
+    "DevOps Engineer",
     "Spring Boot",
     "Angular",
+    "LLM",
     "CI/CD",
+    "Jenkins",
+    "Docker",
+    "Capgemini Engineering",
     "Tunisia",
   ],
 } as const;
 
 export const navItems: NavItem[] = [
-  { label: "About", href: "#about" },
-  { label: "Experience", href: "#experience" },
-  { label: "Projects", href: "#projects" },
-  { label: "Skills", href: "#skills" },
-  { label: "Contact", href: "#contact" },
+  { label: "Home", href: "#top", sections: ["top"] },
+  { label: "About", href: "#about", sections: ["about", "impact"] },
+  { label: "Experience", href: "#experience", sections: ["experience"] },
+  { label: "Projects", href: "#projects", sections: ["projects", "more-projects"] },
+  { label: "Skills", href: "#skills", sections: ["skills", "achievements"] },
+  { label: "Contact", href: "#contact", sections: ["contact"] },
 ];

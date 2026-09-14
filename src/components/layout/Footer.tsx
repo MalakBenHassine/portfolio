@@ -1,36 +1,47 @@
 import { GithubIcon } from "@/components/ui/icons/GithubIcon";
 import { LinkedinIcon } from "@/components/ui/icons/LinkedinIcon";
+import { MailIcon } from "@/components/ui/icons/MailIcon";
 import { profile } from "@/data/profile";
+
+const footerLinks = [
+  { label: "LinkedIn", href: profile.linkedin, Icon: LinkedinIcon, external: true },
+  { label: "GitHub", href: profile.github, Icon: GithubIcon, external: true },
+  { label: "Email", href: `mailto:${profile.email}`, Icon: MailIcon, external: false },
+];
 
 export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-night-700/70">
-      <div className="mx-auto flex w-full max-w-6xl flex-col items-center justify-between gap-4 px-5 py-8 text-sm text-fog-500 sm:flex-row sm:px-8">
-        <p>
-          © {year} {profile.name}. Built with Next.js, Tailwind CSS & Framer Motion.
-        </p>
-        <div className="flex items-center gap-2">
-          <a
-            href={profile.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="GitHub profile (opens in a new tab)"
-            className="grid size-10 place-items-center rounded-lg text-fog-400 transition-colors hover:text-mint-400"
-          >
-            <GithubIcon className="size-5" />
-          </a>
-          <a
-            href={profile.linkedin}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="LinkedIn profile (opens in a new tab)"
-            className="grid size-10 place-items-center rounded-lg text-fog-400 transition-colors hover:text-mint-400"
-          >
-            <LinkedinIcon className="size-5" />
-          </a>
+    <footer className="relative border-t border-white/6">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-8 px-5 py-12 sm:px-8 md:flex-row md:items-end md:justify-between">
+        <div>
+          <p className="text-lg font-semibold tracking-tight text-snow">{profile.name}</p>
+          <p className="mt-1 text-sm text-mist-400">Software Engineer · Full-Stack · AI · DevOps</p>
         </div>
+
+        <ul className="flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
+          {footerLinks.map(({ label, href, Icon, external }) => (
+            <li key={label}>
+              <a
+                href={href}
+                target={external ? "_blank" : undefined}
+                rel={external ? "noopener noreferrer" : undefined}
+                className="inline-flex items-center gap-2 text-mist-400 transition-colors hover:text-snow"
+              >
+                <Icon className="size-4" />
+                {label}
+                {external ? <span className="sr-only">(opens in a new tab)</span> : null}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className="mx-auto flex w-full max-w-6xl items-center justify-between border-t border-white/6 px-5 py-6 text-xs text-mist-500 sm:px-8">
+        <p>© {year} {profile.name}</p>
+        <a href="#top" className="font-mono transition-colors hover:text-snow">
+          Back to top ↑
+        </a>
       </div>
     </footer>
   );

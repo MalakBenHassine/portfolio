@@ -1,13 +1,15 @@
 import { ImageResponse } from "next/og";
-import { pipelineStages } from "@/data/pipeline";
 import { profile } from "@/data/profile";
 
-export const alt = `${profile.name} — ${profile.title}`;
+export const alt = `${profile.name} — ${profile.role} | ${profile.specialties.join(" · ")}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const NIGHT = "#0a0f26";
-const MINT = "#34d399";
+const INK = "#05060a";
+const SNOW = "#f5f6fa";
+const MIST = "#9499ab";
+const AZURE = "#7c9dff";
+const OK = "#4ade80";
 
 /** Social preview card (LinkedIn, X, Slack…), rendered at build time. */
 export default function OpengraphImage() {
@@ -20,78 +22,66 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          padding: "72px 80px",
-          backgroundColor: NIGHT,
+          padding: "70px 80px",
+          backgroundColor: INK,
           backgroundImage:
-            "radial-gradient(circle at 85% 10%, rgba(52,211,153,0.22), transparent 45%), radial-gradient(circle at 10% 100%, rgba(99,102,241,0.25), transparent 50%)",
-          color: "#f3f5fc",
+            "radial-gradient(circle at 80% 0%, rgba(91,130,255,0.30), transparent 45%), radial-gradient(circle at 100% 100%, rgba(160,143,255,0.16), transparent 40%)",
+          color: SNOW,
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 20 }}>
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: 60,
+                height: 60,
+                borderRadius: 16,
+                border: `2px solid ${AZURE}`,
+                fontSize: 24,
+                color: SNOW,
+              }}
+            >
+              MB
+            </div>
+            <div style={{ display: "flex", fontSize: 24, color: MIST }}>Portfolio</div>
+          </div>
           <div
             style={{
               display: "flex",
               alignItems: "center",
-              justifyContent: "center",
-              width: 64,
-              height: 64,
-              borderRadius: 16,
-              background: MINT,
-              color: NIGHT,
-              fontSize: 28,
-              fontWeight: 800,
+              gap: 12,
+              fontSize: 22,
+              color: MIST,
+              padding: "10px 20px",
+              borderRadius: 999,
+              border: "1px solid rgba(255,255,255,0.12)",
             }}
           >
-            MB
-          </div>
-          <div style={{ display: "flex", fontSize: 26, color: "#9aa3c9" }}>
-            Software Engineer · Full-Stack · Applied AI · DevOps
+            <div style={{ width: 12, height: 12, borderRadius: 6, background: OK }} />
+            {`${profile.availability} · ${profile.workRegions}`}
           </div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ display: "flex", fontSize: 88, fontWeight: 800, letterSpacing: -2 }}>
-            {profile.name}
+          <div style={{ display: "flex", fontSize: 96, letterSpacing: -4, lineHeight: 1 }}>{profile.name}</div>
+          <div style={{ display: "flex", marginTop: 22, fontSize: 38, color: SNOW }}>
+            {`${profile.role} — ${profile.specialties.join(" · ")}`}
           </div>
-          <div
-            style={{
-              display: "flex",
-              marginTop: 20,
-              fontSize: 36,
-              lineHeight: 1.35,
-              color: "#d3d8ee",
-              maxWidth: 960,
-            }}
-          >
-            {profile.tagline}
+          <div style={{ display: "flex", marginTop: 18, fontSize: 28, lineHeight: 1.4, color: MIST, maxWidth: 1000 }}>
+            {profile.headline}
           </div>
         </div>
 
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            {pipelineStages.map((stage, index) => (
-              <div key={stage.name} style={{ display: "flex", alignItems: "center" }}>
-                <div
-                  style={{
-                    width: 26,
-                    height: 26,
-                    borderRadius: 13,
-                    background: MINT,
-                    boxShadow: "0 0 24px rgba(52,211,153,0.6)",
-                  }}
-                />
-                {index < pipelineStages.length - 1 ? (
-                  <div style={{ width: 38, height: 4, background: "rgba(52,211,153,0.55)" }} />
-                ) : null}
-              </div>
-            ))}
-          </div>
-          <div style={{ display: "flex", alignItems: "center", gap: 18, fontSize: 34, fontWeight: 700 }}>
-            <span style={{ color: "#7c86b2", textDecoration: "line-through" }}>3–5 days</span>
-            <span style={{ color: "#7c86b2" }}>→</span>
-            <span style={{ color: MINT }}>&lt; 10 min</span>
-          </div>
+        <div style={{ display: "flex", alignItems: "center", gap: 18, fontSize: 26 }}>
+          <span style={{ color: MIST }}>Capgemini Engineering · AnalyseImpacte</span>
+          <span style={{ color: "#555b6e" }}>|</span>
+          <span style={{ color: MIST, textDecoration: "line-through" }}>3–5 days</span>
+          <span style={{ color: AZURE }}>→</span>
+          <span style={{ color: SNOW }}>&lt; 10 min</span>
         </div>
       </div>
     ),

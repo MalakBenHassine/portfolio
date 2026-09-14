@@ -1,10 +1,18 @@
+import { TechIcon } from "@/components/ui/TechIcon";
+
 interface TechBadgeProps {
   label: string;
+  /** Index used to stagger the hover lift inside a `group` card. */
+  index?: number;
 }
 
-export function TechBadge({ label }: TechBadgeProps) {
+export function TechBadge({ label, index = 0 }: TechBadgeProps) {
   return (
-    <li className="rounded-md border border-night-600/80 bg-night-850 px-2.5 py-1 font-mono text-xs text-fog-200">
+    <li
+      style={{ transitionDelay: `${index * 25}ms` }}
+      className="inline-flex items-center gap-1.5 rounded-full border border-white/8 bg-white/[0.025] px-2.5 py-1 text-xs text-mist-300 transition-[transform,border-color,color] duration-300 group-hover:-translate-y-0.5 group-hover:border-white/12 group-hover:text-mist-200"
+    >
+      <TechIcon tech={label} className="size-3.5 text-mist-400" brandOnHover={false} />
       {label}
     </li>
   );
