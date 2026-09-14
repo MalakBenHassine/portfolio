@@ -77,6 +77,8 @@ export interface EducationItem {
 export interface PipelineStage {
   name: string;
   tool: string;
+  /** Backend and frontend jobs run in parallel within this stage. */
+  parallel?: boolean;
 }
 
 export interface NavItem {

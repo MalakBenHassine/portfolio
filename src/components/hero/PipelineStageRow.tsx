@@ -45,6 +45,11 @@ export function PipelineStageRow({ index, stage, status }: PipelineStageRowProps
         )}
       >
         {stage.name}
+        {stage.parallel ? (
+          <span className="ml-2 rounded border border-night-600 px-1 font-mono text-[10px] text-fog-400">
+            parallel
+          </span>
+        ) : null}
         <span className="ml-2 hidden font-mono text-xs text-fog-500 sm:inline">
           {stage.tool}
         </span>
