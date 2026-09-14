@@ -1,14 +1,12 @@
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
 import { About } from "@/components/sections/About";
-import { Certifications } from "@/components/sections/Certifications";
 import { Contact } from "@/components/sections/Contact";
 import { Experience } from "@/components/sections/Experience";
 import { Hero } from "@/components/sections/Hero";
 import { Projects } from "@/components/sections/Projects";
 import { Skills } from "@/components/sections/Skills";
 import { Stats } from "@/components/sections/Stats";
-import { certifications } from "@/data/certifications";
 import { education, profile } from "@/data/profile";
 import { siteConfig } from "@/lib/site";
 
@@ -22,11 +20,6 @@ const personJsonLd = {
   email: `mailto:${profile.email}`,
   sameAs: [profile.github, profile.linkedin],
   alumniOf: education.map((item) => ({ "@type": "CollegeOrUniversity", name: item.school })),
-  hasCredential: certifications.map((certification) => ({
-    "@type": "EducationalOccupationalCredential",
-    name: certification.name,
-    recognizedBy: { "@type": "Organization", name: certification.issuer },
-  })),
 };
 
 export default function HomePage() {
@@ -44,7 +37,6 @@ export default function HomePage() {
         <Experience />
         <Projects />
         <Skills />
-        <Certifications />
         <Contact />
       </main>
       <Footer />

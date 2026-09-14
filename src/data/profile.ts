@@ -12,8 +12,11 @@ export const profile: Profile = {
   workRegions: "Tunisia & international",
   github: "https://github.com/MalakBenHassine",
   linkedin: "https://www.linkedin.com/in/malakbenhassine/",
-  about:
-    "Generalist software engineer working across three complementary axes: Full-Stack Engineering (Java/Spring Boot, Angular, Python), Applied AI & Automation (LLMs, RAG, production AI pipelines), and DevOps (CI/CD, containerization, monitoring). My flagship project, AnalyseImpacte, proves these three combine on a single system: it cut a manual 3-5 day process down to under 10 minutes, industrialized through a 9-stage CI/CD pipeline (100% success under load testing, zero critical vulnerabilities across 1,686 security tests).",
+  about: [
+    "Software engineer who designs and delivers complete, production-ready systems — from the backend and user interface to the AI layer and the pipeline that deploys them.",
+    "At Capgemini Engineering, I built AnalyseImpacte end-to-end for safety-critical aerospace software (DO-178C, DAL A). The application reduced a 3–5 day manual design-document update cycle to under 10 minutes, and ships through a 9-stage Jenkins pipeline with quality gates, security scanning and automatic rollback — validated by load testing and a 1,686-request OWASP ZAP security audit.",
+    "I'm looking for a full-time role where I can own features from design to production, in Tunisia or internationally.",
+  ],
   cvPath: "/cv/Malak-Ben-Hassine-CV.pdf",
 };
 

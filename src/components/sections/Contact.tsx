@@ -36,7 +36,7 @@ export function Contact() {
     <Section id="contact" labelledBy="contact-title">
       <SectionHeading
         id="contact-title"
-        eyebrow="06 · Contact"
+        eyebrow="05 · Contact"
         title="Let's build something that ships"
         description="I'm looking for a full-time role in full-stack engineering, DevOps or applied AI — in Tunisia or internationally. The fastest way to reach me is by email."
       />

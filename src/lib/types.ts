@@ -16,7 +16,8 @@ export interface Profile {
   workRegions: string;
   github: string;
   linkedin: string;
-  about: string;
+  /** One entry per paragraph. */
+  about: string[];
   /** Path under /public. Leave undefined to show the monogram instead. */
   photo?: ImageAsset;
   /** Path under /public to the downloadable CV. */
@@ -59,13 +60,6 @@ export interface Project {
 export interface SkillGroup {
   name: string;
   skills: string[];
-}
-
-export interface Certification {
-  name: string;
-  issuer: string;
-  year: string;
-  credentialUrl?: string;
 }
 
 export interface EducationItem {
