@@ -1,3 +1,4 @@
+import { CardSweep } from "@/components/contact/CardSweep";
 import { ContactForm } from "@/components/contact/ContactForm";
 import { CopyEmailButton } from "@/components/contact/CopyEmailButton";
 import { MagneticButton } from "@/components/ui/MagneticButton";
@@ -12,15 +13,28 @@ import { MailIcon } from "@/components/ui/icons/MailIcon";
 import { profile } from "@/data/profile";
 
 const socialLinks = [
-  { label: "LinkedIn", value: "in/malakbenhassine", href: profile.linkedin, Icon: LinkedinIcon },
-  { label: "GitHub", value: "MalakBenHassine", href: profile.github, Icon: GithubIcon },
+  {
+    label: "LinkedIn",
+    detail: "Connect with me on LinkedIn",
+    href: profile.linkedin,
+    Icon: LinkedinIcon,
+    colors: "from-[#0a66c2] to-[#084e96] shadow-[0_18px_40px_-20px_rgb(10_102_194/0.8)]",
+  },
+  {
+    label: "GitHub",
+    detail: "Explore my code on GitHub",
+    href: profile.github,
+    Icon: GithubIcon,
+    colors: "from-[#4b5260] to-[#24292f] shadow-[0_18px_40px_-20px_rgb(0_0_0/0.8)]",
+  },
 ];
 
-const linkCardClasses =
-  "group flex h-full items-center gap-4 rounded-2xl border border-white/6 bg-white/[0.02] p-4 transition-[border-color,background-color,transform] duration-300 hover:-translate-y-0.5 hover:border-white/12 hover:bg-white/[0.04]";
+/** Brand-colored channel card: white text on a gradient, lift + light sweep on hover. */
+const channelCardClasses =
+  "group relative flex h-full items-center gap-4 overflow-hidden rounded-2xl bg-linear-to-br p-5 text-white transition-transform duration-300 hover:-translate-y-1";
 
-const iconClasses =
-  "grid size-11 shrink-0 place-items-center rounded-xl bg-white/[0.04] text-mist-200 transition-[color,transform] duration-300 group-hover:-translate-y-0.5 group-hover:text-azure-300";
+const channelIconClasses =
+  "relative grid size-11 shrink-0 place-items-center rounded-xl bg-white/15 transition-transform duration-300 group-hover:scale-105";
 
 export function Contact() {
   return (
@@ -57,49 +71,63 @@ export function Contact() {
         </Reveal>
 
         <div className="mt-20 grid grid-cols-1 gap-10 lg:grid-cols-[1fr_1.1fr] lg:gap-14">
-          <StaggerList className="grid grid-cols-1 content-start gap-3 sm:grid-cols-2 lg:grid-cols-1" ariaLabel="Contact channels">
-            {socialLinks.map(({ label, value, href, Icon }) => (
-              <StaggerItem key={label}>
-                <a href={href} target="_blank" rel="noopener noreferrer" className={linkCardClasses}>
-                  <span className={iconClasses}>
-                    <Icon className="size-5" />
+          <div>
+            <h3 className="mb-5 text-xl font-semibold tracking-tight">Connect with me</h3>
+            <StaggerList className="grid grid-cols-1 content-start gap-3 sm:grid-cols-2 lg:grid-cols-1" ariaLabel="Contact channels">
+              {socialLinks.map(({ label, detail, href, Icon, colors }) => (
+                <StaggerItem key={label}>
+                  <a href={href} target="_blank" rel="noopener noreferrer" className={`${channelCardClasses} ${colors}`}>
+                    <CardSweep />
+                    <span className={channelIconClasses}>
+                      <Icon className="size-5" />
+                    </span>
+                    <span className="relative min-w-0 flex-1">
+                      <span className="block font-semibold">{label}</span>
+                      <span className="block text-sm text-white/90">{detail}</span>
+                    </span>
+                    <ArrowRightIcon className="relative size-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
+                    <span className="sr-only">(opens in a new tab)</span>
+                  </a>
+                </StaggerItem>
+              ))}
+
+              <StaggerItem className="sm:col-span-2 lg:col-span-1">
+                <div
+                  className={`${channelCardClasses} from-azure-600 to-[#5a3fd1] shadow-[0_18px_40px_-20px_rgb(91_130_255/0.8)]`}
+                >
+                  <CardSweep />
+                  <span className={channelIconClasses}>
+                    <MailIcon className="size-5" />
                   </span>
-                  <span className="min-w-0 flex-1">
-                    <span className="block font-mono text-[10px] tracking-[0.18em] text-mist-500 uppercase">{label}</span>
-                    <span className="block truncate text-snow">{value}</span>
+                  <a href={`mailto:${profile.email}`} className="relative min-w-0 flex-1">
+                    <span className="block font-semibold">Email</span>
+                    <span className="block text-sm [overflow-wrap:anywhere] text-white/90">{profile.email}</span>
+                  </a>
+                  <span className="relative">
+                    <CopyEmailButton email={profile.email} tone="onColor" />
                   </span>
-                  <ArrowRightIcon className="size-4 shrink-0 text-mist-500 transition-[transform,color] duration-300 group-hover:translate-x-0.5 group-hover:text-snow" />
-                  <span className="sr-only">(opens in a new tab)</span>
+                </div>
+              </StaggerItem>
+
+              <StaggerItem className="sm:col-span-2 lg:col-span-1">
+                <a
+                  href={profile.cvPath}
+                  download
+                  className={`${channelCardClasses} from-[#0f766e] to-[#0b4f4a] shadow-[0_18px_40px_-20px_rgb(15_118_110/0.8)]`}
+                >
+                  <CardSweep />
+                  <span className={channelIconClasses}>
+                    <DownloadIcon className="size-5" />
+                  </span>
+                  <span className="relative min-w-0 flex-1">
+                    <span className="block font-semibold">Resume</span>
+                    <span className="block text-sm text-white/90">Download my CV (PDF)</span>
+                  </span>
+                  <ArrowRightIcon className="relative size-4 shrink-0 rotate-90 transition-transform duration-300 group-hover:translate-y-1" />
                 </a>
               </StaggerItem>
-            ))}
-
-            <StaggerItem className="sm:col-span-2 lg:col-span-1">
-              <div className={linkCardClasses}>
-                <span className={iconClasses}>
-                  <MailIcon className="size-5" />
-                </span>
-                <a href={`mailto:${profile.email}`} className="min-w-0 flex-1">
-                  <span className="block font-mono text-[10px] tracking-[0.18em] text-mist-500 uppercase">Email</span>
-                  <span className="block text-[15px] [overflow-wrap:anywhere] text-snow sm:text-base">{profile.email}</span>
-                </a>
-                <CopyEmailButton email={profile.email} />
-              </div>
-            </StaggerItem>
-
-            <StaggerItem className="sm:col-span-2 lg:col-span-1">
-              <a href={profile.cvPath} download className={linkCardClasses}>
-                <span className={iconClasses}>
-                  <DownloadIcon className="size-5" />
-                </span>
-                <span className="min-w-0 flex-1">
-                  <span className="block font-mono text-[10px] tracking-[0.18em] text-mist-500 uppercase">Resume</span>
-                  <span className="block truncate text-snow">Download CV (PDF)</span>
-                </span>
-                <ArrowRightIcon className="size-4 shrink-0 rotate-90 text-mist-500 transition-[color] duration-300 group-hover:text-snow" />
-              </a>
-            </StaggerItem>
-          </StaggerList>
+            </StaggerList>
+          </div>
 
           <Reveal delay={0.1}>
             <ContactForm />
