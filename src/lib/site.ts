@@ -33,8 +33,8 @@ export const siteConfig = {
 export const navItems: NavItem[] = [
   { label: "Home", href: "#top", sections: ["top"] },
   { label: "About", href: "#about", sections: ["about", "impact"] },
-  { label: "Experience", href: "#experience", sections: ["experience"] },
-  { label: "Projects", href: "#projects", sections: ["projects", "more-projects"] },
+  { label: "Experience", href: "#experience", sections: ["experience", "case-study"] },
+  { label: "Projects", href: "#projects", sections: ["projects"] },
   { label: "Skills", href: "#skills", sections: ["skills", "achievements"] },
   { label: "Contact", href: "#contact", sections: ["contact"] },
 ];

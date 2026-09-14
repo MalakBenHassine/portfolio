@@ -31,7 +31,7 @@ export function Contact() {
           <div>
             <Reveal>
               <p className="flex items-center gap-3 font-mono text-xs tracking-[0.2em] text-mist-400 uppercase">
-                <span className="text-azure-400">08</span>
+                <span className="text-azure-400">07</span>
                 <span aria-hidden="true" className="h-px w-8 bg-linear-to-r from-azure-400/70 to-transparent" />
                 Contact
               </p>

@@ -28,7 +28,11 @@ function matchesFilter(categories: ProjectCategory[], filter: ProjectFilterOptio
 export function ProjectGrid({ items, categories }: ProjectGridProps) {
   const [activeFilter, setActiveFilter] = useState<ProjectFilterOption>("All");
 
-  const filterOptions = useMemo<readonly ProjectFilterOption[]>(() => ["All", ...categories], [categories]);
+  // Only offer categories that actually contain a project.
+  const filterOptions = useMemo<readonly ProjectFilterOption[]>(
+    () => ["All", ...categories.filter((category) => items.some((item) => item.categories.includes(category)))],
+    [categories, items],
+  );
 
   const filterCounts = useMemo(
     () =>
@@ -48,7 +52,7 @@ export function ProjectGrid({ items, categories }: ProjectGridProps) {
         {`Showing ${visibleItems.length} ${visibleItems.length === 1 ? "project" : "projects"}`}
       </p>
 
-      <motion.ul layout className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2">
+      <motion.ul layout className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
         <AnimatePresence mode="popLayout" initial={false}>
           {visibleItems.map((item) => (
             <motion.li

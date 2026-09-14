@@ -2,42 +2,32 @@ import type { Project, ProjectCategory } from "@/lib/types";
 
 export const projectCategories: ProjectCategory[] = ["Full-Stack", "AI", "DevOps"];
 
+/**
+ * Personal and team projects with public source code on GitHub.
+ * Internship work (AnalyseImpacte at Capgemini Engineering) lives in the Experience section.
+ * Every claim below is verifiable in the linked repositories.
+ */
 export const projects: Project[] = [
-  {
-    slug: "analyseimpacte",
-    title: "AnalyseImpacte",
-    subtitle: "AI-assisted impact analysis · Capgemini Engineering",
-    description:
-      "AI-assisted impact analysis system for certified aeronautical software, cutting a 3-5 day manual process to under 10 minutes.",
-    result: "3–5 days → under 10 minutes, shipped through a 9-stage CI/CD pipeline",
-    categories: ["Full-Stack", "AI", "DevOps"],
-    featured: true,
-    tech: ["Java 21", "Spring Boot", "Angular", "SQLite", "Ollama", "Jenkins", "Docker", "Prometheus", "Grafana"],
-    links: [{ kind: "case-study", label: "Read the case study", href: "#projects" }],
-    note: "Client project — source code confidential",
-  },
   {
     slug: "careermatch",
     title: "CareerMatch",
-    subtitle: "AI-Powered RH Matching",
+    subtitle: "RAG-based HR matching engine",
     description:
-      "Semantic candidate-job matching engine reaching 90% scoring accuracy, auto-generating 10 personalized interview questions via Llama 3.2.",
-    result: "90% scoring accuracy · 10 tailored interview questions per candidate",
+      "Semantic candidate-to-job matching engine combining vector search and a local LLM, with automatic generation of personalized interview questions.",
+    result: "90% scoring accuracy · 10 personalized interview questions per match (Llama 3.2)",
     categories: ["AI"],
-    tech: ["Python", "FastAPI", "Streamlit", "Qdrant", "Sentence-Transformers", "Ollama", "Docker Compose"],
-    links: [
-      { kind: "github", label: "Source code", href: "https://github.com/MalakBenHassine/CareerMatch" },
-    ],
+    tech: ["Python", "FastAPI", "Sentence-Transformers", "Qdrant", "Ollama", "Streamlit", "Docker Compose"],
+    links: [{ kind: "github", label: "Source code", href: "https://github.com/MalakBenHassine/CareerMatch" }],
   },
   {
     slug: "assistant-medical-intelligent",
     title: "Assistant Médical Intelligent",
-    subtitle: "Clinic SaaS · MedFlow",
+    subtitle: "MedFlow · Clinic SaaS · Team project",
     description:
-      "Multi-tenant clinical management platform (patients, consultations, invoices, prescriptions) with an AI-assisted diagnosis endpoint.",
-    result: "Multi-tenant SaaS with role-based dashboards and AI-assisted diagnosis",
-    categories: ["Full-Stack", "AI"],
-    tech: ["React", "Next.js", "Tailwind CSS", "Python", "Django", "PostgreSQL", "Scikit-learn", "Docker", "GitLab CI/CD"],
+      "Multi-tenant clinic management platform: patient records, appointments, consultations, prescriptions and billing, with role-based dashboards for admins, doctors, receptionists and patients.",
+    result: "Stripe payments, PDF invoices, JWT sessions via NextAuth, and a GitLab CI/CD pipeline building Docker images",
+    categories: ["Full-Stack", "DevOps"],
+    tech: ["Next.js", "TypeScript", "Tailwind CSS", "NextAuth", "Django", "PostgreSQL", "Docker", "GitLab CI/CD"],
     links: [
       { kind: "github", label: "Frontend", href: "https://github.com/MalakBenHassine/Med-Flow-Front" },
       { kind: "github", label: "Backend", href: "https://github.com/MalakBenHassine/medflow-backend" },
@@ -46,12 +36,33 @@ export const projects: Project[] = [
   {
     slug: "hr-platform-ai",
     title: "HR Platform with AI",
-    subtitle: "Team project",
+    subtitle: "ApricityHR · Team project",
     description:
-      "Automated resume screening via matching algorithm, HR chatbot for candidates, and employee wellbeing reporting tool.",
-    result: "Automated resume screening, candidate chatbot and wellbeing reports",
+      "AI-powered HR platform: automated resume screening with a matching algorithm, a candidate-facing HR chatbot, and employee well-being surveys and reports.",
+    result: "HR assistant chatbot on a custom local LLM (Ollama, Llama 3) and PDF resume parsing with match scoring",
     categories: ["Full-Stack", "AI"],
-    tech: [".NET Core", "Angular", "SQL Server", "Entity Framework"],
-    links: [{ kind: "github", label: "Source code", href: "https://github.com/MalakBenHassine/back-hr" }],
+    tech: [".NET Core", "C#", "Entity Framework", "SQL Server", "Ollama", "JWT", "Angular"],
+    links: [{ kind: "github", label: "Backend source", href: "https://github.com/MalakBenHassine/back-hr" }],
+  },
+  {
+    slug: "event-app",
+    title: "Event-App",
+    subtitle: "Event management · Team project",
+    description:
+      "Event management platform with participant registration and matching between users and events, built as an academic team project.",
+    result: "Event and participant management, user–event matching, functional tests, Docker setup",
+    categories: ["Full-Stack"],
+    tech: ["PHP", "Symfony", "Twig", "JavaScript", "Docker"],
+    links: [{ kind: "github", label: "Source code", href: "https://github.com/MalakBenHassine/Event-App" }],
+  },
+  {
+    slug: "gestion-rdv",
+    title: "Gestion-RDV",
+    subtitle: "Appointment scheduling",
+    description: "Appointment management application with server-rendered views and an MVC-style structure.",
+    result: "Appointment creation and scheduling with controllers, models, routes and middlewares",
+    categories: ["Full-Stack"],
+    tech: ["Node.js", "Express", "EJS", "JavaScript"],
+    links: [{ kind: "github", label: "Source code", href: "https://github.com/MalakBenHassine/Gestion-RDV" }],
   },
 ];

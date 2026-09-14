@@ -5,9 +5,9 @@ import { Achievements } from "@/components/sections/Achievements";
 import { Contact } from "@/components/sections/Contact";
 import { EngineeringImpact } from "@/components/sections/EngineeringImpact";
 import { Experience } from "@/components/sections/Experience";
-import { FeaturedProject } from "@/components/sections/FeaturedProject";
 import { Hero } from "@/components/sections/Hero";
 import { IdentityStrip } from "@/components/sections/IdentityStrip";
+import { InternshipCaseStudy } from "@/components/sections/InternshipCaseStudy";
 import { Projects } from "@/components/sections/Projects";
 import { Skills } from "@/components/sections/Skills";
 import { experience } from "@/data/experience";
@@ -49,7 +49,7 @@ export default function HomePage() {
         <About />
         <EngineeringImpact />
         <Experience />
-        <FeaturedProject />
+        <InternshipCaseStudy />
         <Projects />
         <Skills />
         <Achievements />

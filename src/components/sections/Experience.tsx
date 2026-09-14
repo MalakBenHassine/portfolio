@@ -5,6 +5,7 @@ import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { TechBadge } from "@/components/ui/TechBadge";
+import { ArrowRightIcon } from "@/components/ui/icons/ArrowRightIcon";
 import { experience } from "@/data/experience";
 import { cn } from "@/lib/cn";
 
@@ -93,6 +94,16 @@ export function Experience() {
                         <TechBadge key={tech} label={tech} index={index} />
                       ))}
                     </ul>
+
+                    {item.caseStudy ? (
+                      <a
+                        href={item.caseStudy.href}
+                        className="mt-6 inline-flex items-center gap-2 rounded-full border border-azure-400/30 bg-azure-500/10 px-4 py-2 text-sm font-medium text-azure-200 transition-colors hover:border-azure-400/60 hover:text-snow"
+                      >
+                        {item.caseStudy.label}
+                        <ArrowRightIcon className="size-4 rotate-90" />
+                      </a>
+                    ) : null}
                   </SpotlightCard>
                 </Reveal>
               </li>

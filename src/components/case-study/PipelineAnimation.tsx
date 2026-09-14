@@ -2,8 +2,8 @@
 
 import { motion, useInView } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
-import { PipelineStageRow } from "@/components/featured/PipelineStageRow";
-import type { StageStatus } from "@/components/featured/PipelineStageRow";
+import { PipelineStageRow } from "@/components/case-study/PipelineStageRow";
+import type { StageStatus } from "@/components/case-study/PipelineStageRow";
 import { CheckIcon } from "@/components/ui/icons/CheckIcon";
 import { pipelineStages } from "@/data/pipeline";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";

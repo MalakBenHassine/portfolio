@@ -15,7 +15,9 @@ npm run lint
 
 ## Page structure (scroll storytelling)
 
-Hero → Profile at a glance → About → Engineering Impact → Experience → Featured project (AnalyseImpacte case study) → More projects → Skills → Achievements → Contact
+Hero → Profile at a glance → About → Engineering Impact → Experience → Internship case study (AnalyseImpacte, Capgemini Engineering) → Projects (public GitHub repositories) → Skills → Achievements → Contact
+
+Projects only list work whose source code is public; every claim is checked against the linked repository.
 
 ## Project structure
 
@@ -25,7 +27,7 @@ src/
 ├── components/
 │   ├── sections/         # One component per page section
 │   ├── hero/             # Terminal visual, tech orbit, background
-│   ├── featured/         # AnalyseImpacte case study: pipeline, results, workflow, architecture
+│   ├── case-study/       # AnalyseImpacte internship case study: pipeline, results, workflow, architecture
 │   ├── experience/       # Scroll-linked timeline rail
 │   ├── projects/         # Filterable grid (client) + server-rendered cards
 │   ├── contact/          # Contact form (Formspree / mailto fallback), copy-email button
