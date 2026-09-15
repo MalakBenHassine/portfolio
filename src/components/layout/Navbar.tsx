@@ -71,7 +71,7 @@ export function Navbar() {
       >
         <a href="#top" className="group flex items-center gap-3">
           {/* Accessible name = visible text (+ purpose), so labels and speech input stay consistent. */}
-          <span className="sr-only sm:hidden">{profile.name}</span>
+          <span className="sr-only sm:hidden md:inline lg:hidden">{profile.name}</span>
           <span
             aria-hidden="true"
             className="relative grid size-9 place-items-center overflow-hidden rounded-xl border border-white/10 bg-ink-850 font-mono text-xs font-semibold text-snow transition-colors group-hover:border-azure-400/50"
@@ -79,7 +79,8 @@ export function Navbar() {
             <span className="absolute inset-0 bg-linear-to-br from-azure-500/25 via-transparent to-iris-400/15" />
             <span className="relative">MB</span>
           </span>
-          <span className="hidden flex-col leading-tight sm:flex">
+          {/* Name hidden on tablets, where the section links need the room. */}
+          <span className="hidden flex-col leading-tight whitespace-nowrap sm:flex md:hidden lg:flex">
             <span className="text-sm font-semibold text-snow">{profile.name}</span>
             <span className="font-mono text-[10px] tracking-wider text-mist-500 uppercase">Software Engineer</span>
           </span>

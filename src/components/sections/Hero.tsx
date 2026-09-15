@@ -3,7 +3,7 @@ import { HeroBackground } from "@/components/hero/HeroBackground";
 import { HeroPointerProvider } from "@/components/hero/HeroPointer";
 import { HeroReveal } from "@/components/hero/HeroReveal";
 import { Portrait } from "@/components/hero/Portrait";
-import { MagneticButton } from "@/components/ui/MagneticButton";
+import { ButtonLink } from "@/components/ui/ButtonLink";
 import { ArrowRightIcon } from "@/components/ui/icons/ArrowRightIcon";
 import { DownloadIcon } from "@/components/ui/icons/DownloadIcon";
 import { GithubIcon } from "@/components/ui/icons/GithubIcon";
@@ -83,14 +83,14 @@ export function Hero() {
 
             <HeroReveal delay={0.5} y={12}>
               <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
-                <MagneticButton href="#projects" className="uppercase tracking-[0.08em]">
+                <ButtonLink href="#projects" className="uppercase tracking-[0.08em]">
                   View My Work
                   <ArrowRightIcon className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </MagneticButton>
-                <MagneticButton href={profile.cvPath} variant="secondary" download className="uppercase tracking-[0.08em]">
+                </ButtonLink>
+                <ButtonLink href={profile.cvPath} variant="secondary" download className="uppercase tracking-[0.08em]">
                   <DownloadIcon className="size-4 transition-transform duration-300 group-hover:translate-y-0.5" />
                   Download CV
-                </MagneticButton>
+                </ButtonLink>
               </div>
             </HeroReveal>
 

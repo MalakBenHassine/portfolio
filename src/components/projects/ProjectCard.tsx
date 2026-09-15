@@ -16,7 +16,7 @@ function LinkLabel({ link, title }: { link: ProjectLink; title: string }) {
   return (
     <>
       {link.kind === "github" ? (
-        <GithubIcon className="size-4 transition-transform duration-300 group-hover/link:-rotate-8 group-hover/link:scale-110" />
+        <GithubIcon className="size-4 transition-transform duration-300 group-hover/link:-translate-y-0.5" />
       ) : (
         <ExternalLinkIcon className="size-4 transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
       )}
@@ -35,7 +35,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
       labelledBy={headingId}
       className="group flex h-full flex-col overflow-hidden transition-[transform,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1.5 hover:shadow-[0_30px_80px_-40px_rgb(91_130_255/0.45)]"
     >
-      <div data-cursor="View" className="relative aspect-[16/10] overflow-hidden border-b border-white/6">
+      <div className="relative aspect-[16/10] overflow-hidden border-b border-white/6">
         <div
           aria-hidden="true"
           className="absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.02]"

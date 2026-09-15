@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 import { AnimatedWords } from "@/components/ui/AnimatedWords";
 import type { HeadingText } from "@/components/ui/AnimatedWords";
-import { blurUp, easeOutExpo, inViewOnce, staggerContainer } from "@/lib/motion";
+import { easeOutExpo, fadeUp, inViewOnce, staggerContainer } from "@/lib/motion";
 import { cn } from "@/lib/cn";
 
 interface SectionHeadingProps {
@@ -31,7 +31,7 @@ export function SectionHeading({ id, index, eyebrow, title, description, align =
     >
       <motion.p
         data-reveal
-        variants={blurUp}
+        variants={fadeUp}
         className={cn(
           "flex items-center gap-3 font-mono text-xs tracking-[0.22em] text-mist-400 uppercase",
           isCentered && "justify-center",
@@ -54,7 +54,7 @@ export function SectionHeading({ id, index, eyebrow, title, description, align =
         <AnimatedWords text={title} />
       </motion.h2>
       {description ? (
-        <motion.p data-reveal variants={blurUp} className="mt-5 text-base leading-relaxed text-mist-400 sm:text-lg">
+        <motion.p data-reveal variants={fadeUp} className="mt-5 text-base leading-relaxed text-mist-400 sm:text-lg">
           {description}
         </motion.p>
       ) : null}

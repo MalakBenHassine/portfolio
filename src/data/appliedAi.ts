@@ -40,7 +40,11 @@ export const groundedGenerationSnippet = [
 export const groundedGenerationFlow = [
   { label: "AST", line: 0 },
   { label: "Facts", line: 0 },
-  { label: "LLM", line: 1 },
+  { label: "Local LLM", line: 1 },
+  { label: "Draft", line: 1 },
   { label: "Validation", line: 2 },
   { label: "SDDD", line: 4 },
 ];
+
+export const groundedGenerationSummary =
+  "The model never writes freely: it drafts only from facts extracted from the source code, and every draft is validated against them.";

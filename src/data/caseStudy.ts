@@ -172,7 +172,6 @@ export const analyseImpacte: CaseStudy = {
       ["ai", "backend"],
       ["frontend", "backend"],
       ["backend", "database"],
-      ["backend", "security"],
       ["backend", "cicd"],
       ["security", "cicd"],
       ["cicd", "production"],

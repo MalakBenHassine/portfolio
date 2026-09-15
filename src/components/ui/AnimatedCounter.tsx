@@ -25,7 +25,7 @@ function format(value: number, suffix: string, pad: number): string {
  * Counts up to `value` once visible. The number is written straight to the
  * DOM node (no React re-render per frame); screen readers get the final value.
  */
-export function AnimatedCounter({ value, suffix = "", pad = 0, duration = 1.6, className }: AnimatedCounterProps) {
+export function AnimatedCounter({ value, suffix = "", pad = 0, duration = 1.2, className }: AnimatedCounterProps) {
   const nodeRef = useRef<HTMLSpanElement>(null);
   const isInView = useInView(nodeRef, { once: true, margin: "0px 0px -60px 0px" });
   const prefersReducedMotion = useReducedMotion();
@@ -69,7 +69,7 @@ export function AnimatedCounter({ value, suffix = "", pad = 0, duration = 1.6, c
             initial={{ opacity: 0, scale: 1 }}
             whileInView={{ opacity: [0.8, 0], scale: [1, 1.8] }}
             viewport={{ once: true, margin: "0px 0px -60px 0px" }}
-            transition={{ delay: 0.6, duration: 0.9, ease: "easeOut" }}
+            transition={{ delay: 0.6, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           />
         </motion.span>
       </span>

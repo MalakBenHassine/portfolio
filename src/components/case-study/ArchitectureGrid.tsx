@@ -35,10 +35,10 @@ export function ArchitectureGrid({ diagram }: ArchitectureGridProps) {
     <motion.div
       data-reveal
       className="grid grid-cols-1 gap-5 lg:grid-cols-[minmax(0,1.25fr)_minmax(0,1fr)]"
-      initial={{ opacity: 0, y: 30, filter: "blur(4px)" }}
-      whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+      initial={{ opacity: 0, y: 24 }}
+      whileInView={{ opacity: 1, y: 0 }}
       viewport={inViewOnce}
-      transition={{ duration: 0.7, ease: easeOutExpo }}
+      transition={{ duration: 0.6, ease: easeOutExpo }}
     >
       <div className="surface relative rounded-2xl p-3 sm:p-5" onPointerLeave={() => setHoveredId(null)}>
         <div className="relative grid h-[23rem] grid-cols-3 grid-rows-4 sm:h-[26rem]">
@@ -61,7 +61,7 @@ export function ArchitectureGrid({ diagram }: ArchitectureGridProps) {
                     className={cn(
                       "transition-[stroke,opacity] duration-300",
                       isActive ? "stroke-azure-400/70" : "stroke-white/10",
-                      isExploring && !isActive && "opacity-40",
+                      isExploring && !isActive && "opacity-50",
                     )}
                     strokeWidth={1}
                   />
@@ -103,11 +103,11 @@ export function ArchitectureGrid({ diagram }: ArchitectureGridProps) {
                   className={cn(
                     "flex w-full max-w-[10.5rem] flex-col items-center gap-1.5 rounded-xl border bg-ink-900 px-1.5 py-2.5 text-center transition-[opacity,transform,border-color,box-shadow] duration-300 sm:flex-row sm:gap-2.5 sm:px-3 sm:text-left",
                     isFocus
-                      ? "-translate-y-0.5 border-azure-400/60 shadow-[0_0_0_4px_rgb(91_130_255/0.1),0_16px_40px_-18px_rgb(91_130_255/0.7)]"
+                      ? "border-azure-400/60 shadow-[0_0_0_4px_rgb(91_130_255/0.1),0_16px_40px_-18px_rgb(91_130_255/0.7)]"
                       : isNeighbour
                         ? "border-azure-400/25"
                         : "border-white/10 hover:border-white/20",
-                    isDimmed && "opacity-45",
+                    isDimmed && "opacity-55",
                   )}
                 >
                   <span

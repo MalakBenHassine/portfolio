@@ -55,8 +55,8 @@ export function BeforeAfterMetric({ before, after, stacked = false, className, a
         data-reveal
         className={cn("inline-block", afterClassName)}
         variants={{
-          hidden: { opacity: 0, y: 10, filter: "blur(4px)" },
-          show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.6, delay: 0.7, ease: easeOutExpo } },
+          hidden: { opacity: 0, y: 10 },
+          show: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.7, ease: easeOutExpo } },
         }}
       >
         {after}

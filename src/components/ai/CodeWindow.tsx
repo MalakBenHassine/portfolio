@@ -21,19 +21,21 @@ interface CodeWindowProps {
   lines: CodeLine[];
   /** The architecture the code implements, lit up in sync with the lines. */
   flow?: FlowNode[];
+  /** One sentence stating what the flow guarantees. */
+  flowSummary?: string;
   result?: string;
   caption: string;
 }
 
 const START = 0.2;
-const LINE_STAGGER = 0.4;
+const LINE_STAGGER = 0.3;
 const lineDelay = (line: number) => START + line * LINE_STAGGER;
 
 /**
  * Minimal editor window: lines run one by one, the stage each line implements lights up in the
  * flow below (AST → Facts → LLM → Validation → SDDD), then the grounded result is confirmed.
  */
-export function CodeWindow({ filename, lines, flow = [], result, caption }: CodeWindowProps) {
+export function CodeWindow({ filename, lines, flow = [], flowSummary, result, caption }: CodeWindowProps) {
   const resultDelay = lineDelay(lines.length) + 0.2;
 
   return (
@@ -82,10 +84,13 @@ export function CodeWindow({ filename, lines, flow = [], result, caption }: Code
           ))}
         </ol>
 
+        {flowSummary ? (
+          <p className="mx-4 mb-2 text-xs leading-relaxed text-mist-300 sm:mx-5">{flowSummary}</p>
+        ) : null}
         {flow.length ? (
           <ol
             aria-label="Grounded generation flow"
-            className="mx-4 flex flex-wrap items-center gap-y-2 rounded-xl border border-white/6 bg-white/[0.015] px-3 py-3 font-mono text-[10px] tracking-[0.12em] uppercase sm:mx-5"
+            className="mx-4 flex flex-wrap items-center gap-y-2 rounded-xl border border-white/6 bg-white/[0.015] px-3 py-3 font-mono text-[10px] tracking-[0.04em] uppercase sm:mx-5"
           >
             {flow.map((node, index) => {
               const delay = lineDelay(node.line) + 0.3;
@@ -95,7 +100,7 @@ export function CodeWindow({ filename, lines, flow = [], result, caption }: Code
                   {index > 0 ? (
                     <motion.li
                       aria-hidden="true"
-                      className="mx-1.5"
+                      className="mx-1"
                       variants={{
                         hidden: { color: "#7a8094" },
                         show: { color: "#7c9dff", transition: { delay: delay - 0.1, duration: 0.3 } },
@@ -106,7 +111,7 @@ export function CodeWindow({ filename, lines, flow = [], result, caption }: Code
                   ) : null}
                   {/* Idle stages stay readable (muted text), they only light up — never hidden. */}
                   <motion.li
-                    className={cn("rounded-md border px-2 py-1", isLast ? "border-ok-400/40" : "border-iris-400/35")}
+                    className={cn("rounded-md border px-1.5 py-1", isLast ? "border-ok-400/40" : "border-iris-400/35")}
                     variants={{
                       hidden: { color: "#7a8094", borderColor: "rgba(255,255,255,0.08)" },
                       show: {

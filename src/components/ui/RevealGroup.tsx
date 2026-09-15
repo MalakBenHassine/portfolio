@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 import { AnimatedWords } from "@/components/ui/AnimatedWords";
 import type { HeadingText } from "@/components/ui/AnimatedWords";
-import { blurUp, inViewOnce, staggerContainer } from "@/lib/motion";
+import { fadeUp, inViewOnce, staggerContainer } from "@/lib/motion";
 
 interface RevealGroupProps {
   children: ReactNode;
@@ -36,7 +36,7 @@ interface RevealBlockProps {
 
 export function RevealBlock({ children, className }: RevealBlockProps) {
   return (
-    <motion.div data-reveal variants={blurUp} className={className}>
+    <motion.div data-reveal variants={fadeUp} className={className}>
       {children}
     </motion.div>
   );
