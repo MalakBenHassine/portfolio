@@ -2,6 +2,7 @@ import Image from "next/image";
 import { ProjectVisual } from "@/components/projects/visuals/ProjectVisual";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { TechBadge } from "@/components/ui/TechBadge";
+import { ArrowRightIcon } from "@/components/ui/icons/ArrowRightIcon";
 import { BoltIcon } from "@/components/ui/icons/BoltIcon";
 import { ExternalLinkIcon } from "@/components/ui/icons/ExternalLinkIcon";
 import { GithubIcon } from "@/components/ui/icons/GithubIcon";
@@ -33,7 +34,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
       <div data-cursor="View" className="relative aspect-[16/10] overflow-hidden border-b border-white/6">
         <div
           aria-hidden="true"
-          className="absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.03]"
+          className="absolute inset-0 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:scale-[1.02]"
         >
           {project.image ? (
             <Image
@@ -70,8 +71,12 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
       <div className="flex flex-1 flex-col p-6">
         <p className="font-mono text-[11px] tracking-wide text-mist-500 uppercase">{project.categories.join(" · ")}</p>
-        <h3 id={headingId} className="mt-2 text-xl font-semibold tracking-tight">
+        <h3 id={headingId} className="mt-2 flex items-center justify-between gap-3 text-xl font-semibold tracking-tight">
           {project.title}
+          <ArrowRightIcon
+            aria-hidden="true"
+            className="size-4 shrink-0 -rotate-45 text-mist-500 transition-[transform,color] duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-azure-300"
+          />
         </h3>
         {project.subtitle ? <p className="mt-1 text-sm text-azure-300">{project.subtitle}</p> : null}
         <p className="mt-3 text-sm leading-relaxed text-mist-400">{project.description}</p>

@@ -2,7 +2,7 @@ import { ArchitectureGrid } from "@/components/case-study/ArchitectureGrid";
 import { CaseStudyResults } from "@/components/case-study/CaseStudyResults";
 import { CaseStudySubheading } from "@/components/case-study/CaseStudySubheading";
 import { PipelineAnimation } from "@/components/case-study/PipelineAnimation";
-import { WorkflowDiagram } from "@/components/case-study/WorkflowDiagram";
+import { WorkflowStory } from "@/components/case-study/WorkflowStory";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -20,7 +20,7 @@ export function InternshipCaseStudy() {
   const study = analyseImpacte;
 
   return (
-    <Section id="case-study" labelledBy="case-study-title" className="overflow-hidden" divider={false}>
+    <Section id="case-study" labelledBy="case-study-title" className="overflow-x-clip" divider={false}>
       <div
         aria-hidden="true"
         className="pointer-events-none absolute top-40 left-1/2 -z-10 size-[1000px] -translate-x-1/2 rounded-full bg-[radial-gradient(closest-side,rgb(91_130_255/0.09),transparent)]"
@@ -30,7 +30,7 @@ export function InternshipCaseStudy() {
         id="case-study-title"
         index="02"
         eyebrow="Experience · Internship case study"
-        title={<span className="text-gradient pb-1">{study.title}</span>}
+        title={[{ text: study.title, className: "text-gradient pb-1", whole: true }]}
         description={study.subtitle}
       />
 
@@ -87,10 +87,11 @@ export function InternshipCaseStudy() {
       </Reveal>
 
       <div className="mt-20">
-        <CaseStudySubheading label="Workflow" title="From a code change to production." />
-        <SpotlightCard className="p-6 sm:p-10">
-          <WorkflowDiagram steps={study.workflow} highlightIndex={AI_STEP_INDEX} />
-        </SpotlightCard>
+        <WorkflowStory
+          heading={<CaseStudySubheading label="Workflow" title="From a code change to production." />}
+          steps={study.workflow}
+          highlightIndex={AI_STEP_INDEX}
+        />
       </div>
 
       <div className="mt-20">

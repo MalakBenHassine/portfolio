@@ -18,11 +18,11 @@ export function About() {
         id="about-title"
         index="01"
         eyebrow="About"
-        title={
-          <>
-            From code <span className="text-mist-500">to</span> <span className="text-gradient">production.</span>
-          </>
-        }
+        title={[
+          { text: "From code" },
+          { text: "to", className: "text-mist-500" },
+          { text: "production.", className: "text-gradient" },
+        ]}
       />
 
       <div className="grid grid-cols-1 gap-12 lg:grid-cols-[1.35fr_1fr] lg:gap-16">

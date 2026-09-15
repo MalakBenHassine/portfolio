@@ -11,10 +11,12 @@ import { LinkedinIcon } from "@/components/ui/icons/LinkedinIcon";
 import { MailIcon } from "@/components/ui/icons/MailIcon";
 import { profile } from "@/data/profile";
 
+const handleFrom = (url: string) => new URL(url).pathname.replace(/^\/|\/$/g, "");
+
 const secondaryLinks = [
-  { label: "LinkedIn", href: profile.linkedin, Icon: LinkedinIcon, external: true },
-  { label: "GitHub", href: profile.github, Icon: GithubIcon, external: true },
-  { label: "Email", href: `mailto:${profile.email}`, Icon: MailIcon, external: false },
+  { label: "LinkedIn", hint: handleFrom(profile.linkedin), href: profile.linkedin, Icon: LinkedinIcon, external: true },
+  { label: "GitHub", hint: `@${handleFrom(profile.github)}`, href: profile.github, Icon: GithubIcon, external: true },
+  { label: "Email", hint: profile.email, href: `mailto:${profile.email}`, Icon: MailIcon, external: false },
 ];
 
 /*
@@ -50,7 +52,8 @@ export function Hero() {
             {/* The name is static on purpose: it is the LCP and the first thing a recruiter must read. */}
             <h1
               id="hero-title"
-              className="mt-8 text-[2.55rem] leading-[0.95] font-semibold tracking-[-0.045em] uppercase sm:text-6xl lg:text-[4.1rem] xl:text-[4.6rem]"
+              tabIndex={-1}
+              className="mt-8 outline-none text-[2.55rem] leading-[0.95] font-semibold tracking-[-0.045em] uppercase sm:text-6xl lg:text-[4.1rem] xl:text-[4.6rem]"
             >
               <span className="block">{profile.firstName}</span>{" "}
               <span className="text-gradient block pb-1">Ben Hassine</span>
@@ -93,18 +96,24 @@ export function Hero() {
 
             <HeroReveal delay={0.95} y={8}>
               <ul className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-3" aria-label="Contact links">
-                {secondaryLinks.map(({ label, href, Icon, external }) => (
-                  <li key={label}>
+                {secondaryLinks.map(({ label, hint, href, Icon, external }) => (
+                  <li key={label} className="relative">
                     <a
                       href={href}
                       target={external ? "_blank" : undefined}
                       rel={external ? "noopener noreferrer" : undefined}
-                      className="group inline-flex min-h-11 items-center gap-2 text-sm text-mist-400 transition-colors hover:text-snow"
+                      className="group peer inline-flex min-h-11 items-center gap-2 text-sm text-mist-400 transition-colors duration-200 hover:text-snow"
                     >
-                      <Icon className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5" />
+                      <Icon className="size-4 transition-transform duration-200 group-hover:scale-[1.08] group-hover:text-azure-300" />
                       <span className="link-underline">{label}</span>
                       {external ? <span className="sr-only">(opens in a new tab)</span> : null}
                     </a>
+                    <span
+                      aria-hidden="true"
+                      className="pointer-events-none absolute bottom-full left-0 mb-1 hidden translate-y-1 rounded-md border border-white/10 bg-ink-800 px-2 py-1 font-mono text-[11px] whitespace-nowrap text-mist-200 opacity-0 shadow-[0_10px_30px_-10px_rgb(0_0_0/0.8)] transition-[opacity,transform] duration-200 peer-hover:translate-y-0 peer-hover:opacity-100 peer-focus-visible:translate-y-0 peer-focus-visible:opacity-100 pointer-fine:block"
+                    >
+                      {hint}
+                    </span>
                   </li>
                 ))}
               </ul>

@@ -12,7 +12,9 @@ export type IconName =
   | "monitor"
   | "briefcase"
   | "mapPin"
-  | "graduation";
+  | "graduation"
+  | "file"
+  | "scan";
 
 export interface ImageAsset {
   src: string;
@@ -127,6 +129,13 @@ export interface WorkflowStep {
   caption: string;
 }
 
+/** A step of the scroll-driven AnalyseImpacte workflow story. */
+export interface StoryStep extends WorkflowStep {
+  icon: IconName;
+  /** One or two sentences shown while the step is active. */
+  detail: string;
+}
+
 export interface ArchitectureLayer {
   icon: IconName;
   title: string;
@@ -140,7 +149,7 @@ export interface CaseStudy {
   problem: string;
   solution: string;
   results: CaseStudyResult[];
-  workflow: WorkflowStep[];
+  workflow: StoryStep[];
   architecture: ArchitectureLayer[];
   tech: string[];
   note: string;

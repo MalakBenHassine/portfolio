@@ -1,4 +1,5 @@
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
+import { BeforeAfterMetric } from "@/components/ui/BeforeAfterMetric";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { StaggerItem, StaggerList } from "@/components/ui/Stagger";
 import type { CaseStudyResult } from "@/lib/types";
@@ -15,12 +16,7 @@ export function CaseStudyResults({ results }: CaseStudyResultsProps) {
           <SpotlightCard className="flex h-full flex-col p-6">
             <p className="text-4xl font-semibold tracking-[-0.04em] sm:text-[2.6rem]">
               {result.kind === "before-after" ? (
-                <span className="flex flex-col">
-                  <span className="font-mono text-sm font-normal tracking-normal text-mist-500 line-through">
-                    {result.before}
-                  </span>
-                  <span className="text-gradient">{result.after}</span>
-                </span>
+                <BeforeAfterMetric before={result.before ?? ""} after={result.after ?? ""} stacked afterClassName="text-gradient" />
               ) : (
                 <span className="text-gradient">
                   <AnimatedCounter value={result.value ?? 0} suffix={result.suffix} />

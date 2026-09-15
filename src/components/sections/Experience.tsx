@@ -1,6 +1,8 @@
+import { TimelineDot } from "@/components/experience/TimelineDot";
 import { TimelineRail } from "@/components/experience/TimelineRail";
 import { MetricText } from "@/components/ui/MetricText";
 import { Reveal } from "@/components/ui/Reveal";
+import { RevealBlock, RevealGroup, RevealHeading } from "@/components/ui/RevealGroup";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
@@ -30,15 +32,7 @@ export function Experience() {
                 key={`${item.company}-${item.period}`}
                 className="relative pl-9 md:grid md:grid-cols-[190px_minmax(0,1fr)] md:gap-[50px] md:pl-0"
               >
-                <span
-                  aria-hidden="true"
-                  className={cn(
-                    "absolute top-1.5 left-0 grid size-[15px] place-items-center rounded-full border bg-ink-950 md:left-[208px]",
-                    item.featured ? "border-azure-400 shadow-[0_0_0_5px_rgb(91_130_255/0.15)]" : "border-white/20",
-                  )}
-                >
-                  {item.featured ? <span className="size-1.5 rounded-full bg-azure-300" /> : null}
-                </span>
+                <TimelineDot featured={item.featured} className="top-1.5 left-0 md:left-[208px]" />
 
                 <Reveal className="mb-4 md:mb-0 md:pt-0.5 md:text-right" y={12}>
                   <p className="font-mono text-sm text-mist-300">{item.period}</p>
@@ -50,7 +44,7 @@ export function Experience() {
                   ) : null}
                 </Reveal>
 
-                <Reveal delay={0.05} className="relative">
+                <Reveal delay={0.05} className="relative" y={item.featured ? 44 : 30} scale={item.featured ? 0.98 : 1}>
                   {item.featured ? (
                     <div
                       aria-hidden="true"
@@ -74,17 +68,34 @@ export function Experience() {
 
                     <header>
                       {item.featured ? (
-                        <p className="mb-3 font-mono text-[11px] tracking-[0.2em] text-azure-300 uppercase">{item.company}</p>
-                      ) : null}
-                      <h3
-                        id={headingId}
-                        className={cn("font-semibold tracking-tight", item.featured ? "text-2xl sm:text-3xl" : "text-lg sm:text-xl")}
-                      >
-                        {item.role}
-                      </h3>
-                      {item.featured ? null : <p className="mt-1.5 text-base font-medium text-azure-300">{item.company}</p>}
+                        // Strongest experience: company → role → project → domain → standard, one after another.
+                        <RevealGroup stagger={0.15} delay={0.2}>
+                          <RevealBlock>
+                            <p className="mb-3 font-mono text-[11px] tracking-[0.2em] text-azure-300 uppercase">{item.company}</p>
+                          </RevealBlock>
+                          <RevealHeading
+                            as="h3"
+                            id={headingId}
+                            text={item.role}
+                            stagger={0.05}
+                            className="text-2xl font-semibold tracking-tight sm:text-3xl"
+                          />
+                        </RevealGroup>
+                      ) : (
+                        <>
+                          <h3 id={headingId} className="text-lg font-semibold tracking-tight sm:text-xl">
+                            {item.role}
+                          </h3>
+                          <p className="mt-1.5 text-base font-medium text-azure-300">{item.company}</p>
+                        </>
+                      )}
                       {item.context ? (
-                        <StaggerList className="mt-4 flex flex-wrap gap-2" stagger={0.06} ariaLabel="Context">
+                        <StaggerList
+                          className="mt-4 flex flex-wrap gap-2"
+                          stagger={item.featured ? 0.15 : 0.06}
+                          delay={item.featured ? 0.75 : 0}
+                          ariaLabel="Context"
+                        >
                           {item.context.map((tag, tagIndex) => (
                             <StaggerItem
                               key={tag}

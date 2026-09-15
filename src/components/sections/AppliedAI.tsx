@@ -22,11 +22,7 @@ export function AppliedAI() {
             index="04"
             eyebrow="Applied AI"
             className="mb-10 sm:mb-12"
-            title={
-              <>
-                AI, <span className="text-gradient">but practical.</span>
-              </>
-            }
+            title={[{ text: "AI," }, { text: "but practical.", className: "text-gradient", whole: true }]}
             description="I use AI to solve engineering problems — running models locally, grounding them in real data, and wiring them into production workflows. Not prompts for the sake of it."
           />
 
