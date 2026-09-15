@@ -42,12 +42,10 @@ export function PipelineAnimation() {
   return (
     <figure
       ref={containerRef}
-      aria-labelledby="pipeline-caption"
+      id="pipeline-figure"
+      aria-label="The AnalyseImpacte Jenkins pipeline: nine stages from checkout to smoke tests, with automatic rollback."
       className="relative h-full w-full overflow-hidden rounded-2xl border border-white/8 bg-ink-950/80"
     >
-      <figcaption id="pipeline-caption" className="sr-only">
-        The AnalyseImpacte Jenkins pipeline: nine stages from checkout to smoke tests, with automatic rollback.
-      </figcaption>
 
       <div className="flex items-center justify-between gap-3 border-b border-white/6 px-4 py-3">
         <span className="truncate font-mono text-xs text-mist-400">

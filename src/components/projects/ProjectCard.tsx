@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { ProjectVisual } from "@/components/projects/visuals/ProjectVisual";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
+import { NEW_TAB_HINT_ID } from "@/components/ui/NewTabHint";
 import { TechBadge } from "@/components/ui/TechBadge";
 import { ArrowRightIcon } from "@/components/ui/icons/ArrowRightIcon";
 import { BoltIcon } from "@/components/ui/icons/BoltIcon";
@@ -12,7 +13,7 @@ interface ProjectCardProps {
   project: Project;
 }
 
-function LinkLabel({ link, title }: { link: ProjectLink; title: string }) {
+function LinkLabel({ link }: { link: ProjectLink }) {
   return (
     <>
       {link.kind === "github" ? (
@@ -21,7 +22,6 @@ function LinkLabel({ link, title }: { link: ProjectLink; title: string }) {
         <ExternalLinkIcon className="size-4 transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
       )}
       {link.label}
-      <span className="sr-only">{` — ${title} (opens in a new tab)`}</span>
     </>
   );
 }
@@ -64,9 +64,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`${link.label} — ${project.title}`}
+                aria-describedby={NEW_TAB_HINT_ID}
                 className="group/link inline-flex items-center gap-2 rounded-full bg-snow px-3.5 py-1.5 text-xs font-medium text-ink-950 transition-colors hover:bg-white"
               >
-                <LinkLabel link={link} title={project.title} />
+                <LinkLabel link={link} />
               </a>
             ))}
           </div>
@@ -87,10 +89,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
         <p className="mt-4 flex items-start gap-2.5 text-sm text-mist-200">
           <BoltIcon className="mt-0.5 size-4 shrink-0 text-azure-400" />
-          <span>
-            <span className="sr-only">Result: </span>
-            {project.result}
-          </span>
+          <span>{project.result}</span>
         </p>
 
         <ul className="mt-5 flex flex-wrap gap-1.5 pb-1" aria-label={`${project.title} tech stack`}>
@@ -108,9 +107,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`${link.label} — ${project.title}`}
+                aria-describedby={NEW_TAB_HINT_ID}
                 className="group/link inline-flex min-h-11 items-center gap-2 text-sm font-medium text-mist-300 transition-colors hover:text-snow"
               >
-                <LinkLabel link={link} title={project.title} />
+                <LinkLabel link={link} />
               </a>
             ))}
           </div>

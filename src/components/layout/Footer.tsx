@@ -1,4 +1,5 @@
 import { JobTitle } from "@/components/ui/JobTitle";
+import { NEW_TAB_HINT_ID } from "@/components/ui/NewTabHint";
 import { GithubIcon } from "@/components/ui/icons/GithubIcon";
 import { LinkedinIcon } from "@/components/ui/icons/LinkedinIcon";
 import { MailIcon } from "@/components/ui/icons/MailIcon";
@@ -34,11 +35,11 @@ export function Footer() {
                 href={href}
                 target={external ? "_blank" : undefined}
                 rel={external ? "noopener noreferrer" : undefined}
+                aria-describedby={external ? NEW_TAB_HINT_ID : undefined}
                 className="group inline-flex items-center gap-2 text-mist-400 transition-colors hover:text-snow"
               >
                 <Icon className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5" />
                 <span className="link-underline">{label}</span>
-                {external ? <span className="sr-only"> (opens in a new tab)</span> : null}
               </a>
             </li>
           ))}

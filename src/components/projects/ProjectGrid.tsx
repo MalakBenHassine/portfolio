@@ -71,8 +71,9 @@ export function ProjectGrid({ items, categories }: ProjectGridProps) {
         <ProjectFilter options={filterOptions} active={activeFilter} counts={filterCounts} onChange={changeFilter} />
       </motion.div>
 
+      {/* Announces the result of a filter change; empty until the visitor filters, so it isn't page text. */}
       <p className="sr-only" aria-live="polite">
-        {`Showing ${visibleItems.length} ${visibleItems.length === 1 ? "project" : "projects"}`}
+        {hasFiltered ? `Showing ${visibleItems.length} ${visibleItems.length === 1 ? "project" : "projects"}` : ""}
       </p>
 
       <motion.ul ref={listRef} layout className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">

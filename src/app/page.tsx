@@ -13,6 +13,7 @@ import { IdentityStrip } from "@/components/sections/IdentityStrip";
 import { InternshipCaseStudy } from "@/components/sections/InternshipCaseStudy";
 import { Projects } from "@/components/sections/Projects";
 import { Skills } from "@/components/sections/Skills";
+import { NewTabHint } from "@/components/ui/NewTabHint";
 import { TechIconSprite } from "@/components/ui/TechIcon";
 import { experience } from "@/data/experience";
 import { education, profile } from "@/data/profile";
@@ -47,6 +48,7 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd).replace(/</g, "\\u003c") }}
       />
       <TechIconSprite />
+      <NewTabHint />
       <ScrollProgress />
       <Navbar />
       <main id="main">

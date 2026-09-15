@@ -20,14 +20,18 @@ export function SkillChip({ skill, variant = "proven" }: SkillChipProps) {
   const usedIn = isLearning ? [] : getSkillContexts(skill.name);
   const shownContexts = usedIn.slice(0, 3).join(" · ") + (usedIn.length > 3 ? ` +${usedIn.length - 3}` : "");
   const tooltipFooter = isLearning ? "In progress · 2026 training" : usedIn.length ? `Used in ${shownContexts}` : undefined;
-  const srDetail = isLearning
-    ? ` — ${skill.role} (currently learning)`
-    : ` — ${skill.role}${usedIn.length ? `, used in ${usedIn.join(", ")}` : ""}`;
+  // Details for assistive technologies, attached with aria-describedby to a `hidden` element:
+  // announced on focus, but never mixed into the page's visible/copied text.
+  const detailId = `skill-${variant}-${skill.name.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`;
+  const detail = isLearning
+    ? `${skill.role} (currently learning)`
+    : `${skill.role}${usedIn.length ? `, used in ${usedIn.join(", ")}` : ""}`;
 
   return (
     <StaggerItem className="group/skill relative">
       <span
         tabIndex={0}
+        aria-describedby={detailId}
         className={cn(
           "group inline-flex items-center gap-2.5 rounded-xl border px-3 py-2 text-sm transition-[transform,border-color,background-color,color] duration-200 group-hover/skill:-translate-y-0.5",
           isLearning
@@ -41,7 +45,9 @@ export function SkillChip({ skill, variant = "proven" }: SkillChipProps) {
           brandOnHover={false}
         />
         {skill.name}
-        <span className="sr-only">{srDetail}</span>
+      </span>
+      <span id={detailId} hidden>
+        {detail}
       </span>
 
       <span

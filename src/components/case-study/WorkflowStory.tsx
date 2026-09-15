@@ -148,7 +148,8 @@ export function WorkflowStory({ heading, steps, highlightIndex }: WorkflowStoryP
                       <p className="mt-1 text-sm leading-snug text-mist-400 lg:hidden lg:motion-reduce:block lg:motion-reduce:text-[12px]">
                         {step.caption}
                       </p>
-                      <p className="mt-2 max-w-md text-sm leading-relaxed text-mist-400 lg:sr-only lg:motion-reduce:not-sr-only lg:motion-reduce:mt-2 lg:motion-reduce:text-[12px]">
+                      {/* Desktop: the detail is shown once, in the step panel below (not repeated here). */}
+                      <p className="mt-2 max-w-md text-sm leading-relaxed text-mist-400 lg:hidden lg:motion-reduce:block lg:motion-reduce:text-[12px]">
                         {step.detail}
                       </p>
                       <StepVisual
@@ -164,14 +165,11 @@ export function WorkflowStory({ heading, steps, highlightIndex }: WorkflowStoryP
           </div>
 
           {/*
-           * Detail of the current step (desktop, once hydrated). It repeats the list's text visually, so it is
-           * not server-rendered: the page text contains each step once (list), never twice.
+           * Detail of the current step (desktop, once hydrated). On desktop this panel is the only place the
+           * step details are shown — the list above shows titles only — so nothing is written twice.
            */}
           {isDesktop ? (
-            <div
-              aria-hidden="true"
-              className="relative mt-8 hidden min-h-[14.5rem] border-t border-white/6 pt-7 lg:block lg:motion-reduce:hidden"
-            >
+            <div className="relative mt-8 hidden min-h-[14.5rem] border-t border-white/6 pt-7 lg:block lg:motion-reduce:hidden">
               <AnimatePresence mode="wait" initial={false}>
                 <motion.div
                   key={panelStep.title}
