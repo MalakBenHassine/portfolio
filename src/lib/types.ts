@@ -194,7 +194,6 @@ export interface LearningSkills {
   title: string;
   note: string;
   core: SkillItem[];
-  more?: string[];
   /** Link to the practice project, once online. */
   proof?: { label: string; href: string };
 }

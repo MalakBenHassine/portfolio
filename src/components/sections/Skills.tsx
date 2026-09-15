@@ -61,15 +61,15 @@ export function Skills() {
         })}
       </StaggerList>
 
-      {/* In progress: kept apart so the list above only claims skills already used on delivered work. */}
-      <Reveal className="mt-4">
-        <section
-          aria-labelledby="skills-learning"
-          className="rounded-2xl border border-dashed border-white/12 bg-white/[0.015] p-6"
-        >
+      {/*
+       * In progress: visually distinct from the proven skills above — dashed outline, no card surface,
+       * muted title and chips, an "In progress" badge — so a recruiter never confuses the two.
+       */}
+      <Reveal className="mt-8">
+        <section aria-labelledby="skills-learning" className="rounded-2xl border border-dashed border-white/15 p-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <h3 id="skills-learning" className="flex items-center gap-3 text-lg font-semibold tracking-tight">
-              <span aria-hidden="true" className="size-1.5 rounded-full bg-mist-500" />
+            <h3 id="skills-learning" className="flex items-center gap-3 text-lg font-semibold tracking-tight text-mist-300">
+              <span aria-hidden="true" className="size-1.5 rounded-full border border-mist-500" />
               {learningSkills.title}
             </h3>{" "}
             {learningSkills.proof ? (
@@ -84,7 +84,12 @@ export function Skills() {
                 <span className="sr-only"> (opens in a new tab)</span>
               </a>
             ) : (
-              <span className="rounded-full border border-white/10 px-2.5 py-1 font-mono text-[11px] tracking-wider text-mist-400 uppercase">
+              <span className="inline-flex items-center gap-2 rounded-full border border-dashed border-white/20 px-2.5 py-1 font-mono text-[11px] tracking-wider text-mist-300 uppercase">
+                {/* Half-filled circle: in progress */}
+                <span
+                  aria-hidden="true"
+                  className="size-2.5 rounded-full border border-mist-300 bg-[linear-gradient(90deg,var(--color-mist-300)_50%,transparent_50%)]"
+                />
                 In progress
               </span>
             )}
@@ -93,16 +98,9 @@ export function Skills() {
 
           <StaggerList className="mt-5 flex flex-wrap gap-2" stagger={0.04} ariaLabel={learningSkills.title}>
             {learningSkills.core.map((skill) => (
-              <SkillChip key={skill.name} skill={skill} />
+              <SkillChip key={skill.name} skill={skill} variant="learning" />
             ))}
           </StaggerList>
-
-          {learningSkills.more ? (
-            <p className="pt-5 text-sm leading-relaxed text-mist-500">
-              <span className="font-mono text-[11px] tracking-wider text-mist-400 uppercase">Also · </span>
-              {learningSkills.more.join(", ")}
-            </p>
-          ) : null}
         </section>
       </Reveal>
     </Section>

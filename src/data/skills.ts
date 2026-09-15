@@ -52,13 +52,11 @@ export const skillGroups: SkillGroup[] = [
       { name: "Docker", role: "Containerization" },
       { name: "Docker Compose", role: "Multi-container orchestration" },
       { name: "Jenkins", role: "CI/CD automation" },
+      { name: "GitHub Actions", role: "CI/CD workflows" },
       { name: "GitLab CI/CD", role: "Build pipelines" },
       { name: "Nexus", role: "Artifact registry" },
-      { name: "Prometheus", role: "Metrics collection" },
-      { name: "Grafana", role: "Observability dashboards" },
-      { name: "Linux", role: "Server administration" },
     ],
-    more: ["Ubuntu Server", "Git", "GitHub"],
+    more: ["Git", "GitHub"],
     wide: true,
   },
   {
@@ -72,6 +70,15 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
   {
+    name: "Infrastructure & Monitoring",
+    core: [
+      { name: "Linux", role: "Server administration" },
+      { name: "Prometheus", role: "Metrics collection" },
+      { name: "Grafana", role: "Observability dashboards" },
+    ],
+    more: ["Ubuntu Server"],
+  },
+  {
     name: "Quality & Security",
     core: [
       { name: "SonarQube", role: "Code quality gates" },
@@ -82,7 +89,6 @@ export const skillGroups: SkillGroup[] = [
       { name: "Testing", role: "Unit & smoke tests" },
     ],
     more: ["Load testing", "Scrum/Agile", "MVC", "N-tier", "Microservices"],
-    wide: true,
   },
 ];
 
@@ -97,9 +103,13 @@ export const learningSkills: LearningSkills = {
   core: [
     { name: "Ansible", role: "Infrastructure as Code" },
     { name: "Nginx", role: "Reverse proxy & HTTPS" },
-    { name: "GitHub Actions", role: "CI/CD workflows & secrets" },
+    { name: "VPS deployment", role: "Deploying to a remote server" },
+    { name: "SSH", role: "Secure remote access" },
+    { name: "Domain & DNS setup", role: "Custom domains" },
     { name: "Snyk", role: "Dependency vulnerability scans" },
+    { name: "DevSecOps", role: "Security built into the pipeline" },
+    { name: "Secrets management", role: "Credentials kept out of code" },
+    { name: "Firewall configuration", role: "Server network hardening" },
     { name: "Let's Encrypt", role: "SSL/TLS certificates" },
   ],
-  more: ["VPS deployment", "SSH", "Domain & DNS setup", "DevSecOps", "Secrets management", "Firewall configuration"],
 };
