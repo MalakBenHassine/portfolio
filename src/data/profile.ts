@@ -51,7 +51,7 @@ export const identityFacts: IdentityFact[] = [
     icon: "briefcase",
     label: "Latest experience",
     value: "Capgemini Engineering",
-    detail: "Aerospace · Feb – Jun 2026",
+    detail: "AnalyseImpacte · 3–5 days → < 10 min",
   },
   {
     icon: "mapPin",

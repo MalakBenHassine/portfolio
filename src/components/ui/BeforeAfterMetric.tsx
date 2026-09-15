@@ -1,66 +1,77 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { ArrowRightIcon } from "@/components/ui/icons/ArrowRightIcon";
 import { easeOutExpo, inViewOnce } from "@/lib/motion";
 import { cn } from "@/lib/cn";
 
 interface BeforeAfterMetricProps {
   before: string;
   after: string;
-  /** Stack "before" above "after" instead of inline. */
+  /** Stacked card layout with visible BEFORE / AFTER labels; inline otherwise. */
   stacked?: boolean;
   className?: string;
   afterClassName?: string;
 }
 
+const strike = {
+  hidden: { scaleX: 0 },
+  show: { scaleX: 1, transition: { duration: 0.5, delay: 0.25, ease: easeOutExpo } },
+};
+
+const land = {
+  hidden: { opacity: 0, y: 8 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.5, delay: 0.55, ease: easeOutExpo } },
+};
+
+/** Old value, struck through as it comes into view. Real text: it reads "3–5 days" in any context. */
+function Before({ value, className }: { value: string; className?: string }) {
+  return (
+    <span className={cn("relative inline-block text-mist-500", className)}>
+      {value}
+      <motion.span
+        data-reveal
+        aria-hidden="true"
+        variants={strike}
+        style={{ transformOrigin: "left" }}
+        className="absolute inset-x-[-2px] top-1/2 h-[1.5px] bg-mist-400"
+      />
+    </span>
+  );
+}
+
 /**
- * "3–5 days → < 10 min": the old value is struck through as it comes into view,
- * then the new value lands. Text is real text throughout (visible without JavaScript).
+ * "3–5 days → < 10 min". The text is exactly what is displayed — no hidden helper words — so it
+ * reads cleanly for screen readers, crawlers and copy/paste. Only the strike line and the new value animate.
  */
 export function BeforeAfterMetric({ before, after, stacked = false, className, afterClassName }: BeforeAfterMetricProps) {
+  if (stacked) {
+    return (
+      <motion.span className={cn("flex flex-col gap-1.5", className)} initial="hidden" whileInView="show" viewport={inViewOnce}>
+        <span className="flex items-baseline gap-2">
+          <Before value={before} className="font-mono text-base font-normal tracking-normal" />{" "}
+          <span className="font-mono text-[10px] font-normal tracking-[0.18em] text-mist-500 uppercase">Before</span>
+        </span>{" "}
+        <ArrowRightIcon className="size-4 rotate-90 text-azure-400" />
+        <motion.span data-reveal variants={land} className="flex items-baseline gap-2">
+          <span className={afterClassName}>{after}</span>{" "}
+          <span className="font-mono text-[10px] font-normal tracking-[0.18em] text-mist-400 uppercase">After</span>
+        </motion.span>
+      </motion.span>
+    );
+  }
+
   return (
     <motion.span
-      className={cn(stacked ? "flex flex-col" : "inline-flex flex-wrap items-baseline gap-x-2", className)}
+      className={cn("inline-flex flex-wrap items-baseline gap-x-2", className)}
       initial="hidden"
       whileInView="show"
       viewport={inViewOnce}
     >
-      <span className={cn("relative inline-block self-start", stacked && "font-mono text-sm font-normal tracking-normal")}>
-        <span className="text-mist-500">{before}</span>
-        <motion.span
-          data-reveal
-          aria-hidden="true"
-          className="absolute inset-x-[-2px] top-1/2 h-[1.5px] origin-left bg-mist-400"
-          variants={{
-            hidden: { scaleX: 0, opacity: 1 },
-            show: { scaleX: 1, transition: { duration: 0.5, delay: 0.25, ease: easeOutExpo } },
-          }}
-        />
-        <span className="sr-only"> (before)</span>
-      </span>
-      {stacked ? null : (
-        <motion.span
-          data-reveal
-          aria-hidden="true"
-          className="inline-block text-azure-400"
-          variants={{
-            hidden: { opacity: 0, x: -6 },
-            show: { opacity: 1, x: 0, transition: { duration: 0.4, delay: 0.55, ease: easeOutExpo } },
-          }}
-        >
-          →
-        </motion.span>
-      )}
-      <motion.span
-        data-reveal
-        className={cn("inline-block", afterClassName)}
-        variants={{
-          hidden: { opacity: 0, y: 10 },
-          show: { opacity: 1, y: 0, transition: { duration: 0.6, delay: 0.7, ease: easeOutExpo } },
-        }}
-      >
+      <Before value={before} />{" "}
+      <span className="text-azure-400">→</span>{" "}
+      <motion.span data-reveal variants={land} className={cn("inline-block", afterClassName)}>
         {after}
-        <span className="sr-only"> (after)</span>
       </motion.span>
     </motion.span>
   );

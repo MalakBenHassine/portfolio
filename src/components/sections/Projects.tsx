@@ -37,7 +37,7 @@ export function Projects() {
           <GithubIcon className="size-4" />
           Explore all repositories on GitHub
           <ArrowRightIcon className="size-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-          <span className="sr-only">(opens in a new tab)</span>
+          <span className="sr-only"> (opens in a new tab)</span>
         </a>
       </Reveal>
     </Section>

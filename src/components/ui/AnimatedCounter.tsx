@@ -22,32 +22,46 @@ function format(value: number, suffix: string, pad: number): string {
 }
 
 /**
- * Counts up to `value` once visible. The number is written straight to the
- * DOM node (no React re-render per frame); screen readers get the final value.
+ * Counts up to `value` the first time it scrolls into view.
+ * The server renders the FINAL value (so crawlers, no-JS and screen readers always read the real
+ * number, never "0" next to it). Only once hydrated, and only if the counter is still below the
+ * fold, it is reset to 0 and counted up — written straight to the DOM, no re-render per frame.
  */
 export function AnimatedCounter({ value, suffix = "", pad = 0, duration = 1.2, className }: AnimatedCounterProps) {
   const nodeRef = useRef<HTMLSpanElement>(null);
+  const isArmedRef = useRef(false);
   const isInView = useInView(nodeRef, { once: true, margin: "0px 0px -60px 0px" });
   const prefersReducedMotion = useReducedMotion();
 
+  // Arm the count-up only for counters the visitor has not seen yet.
   useEffect(() => {
     const node = nodeRef.current;
-    if (!node || !isInView) return;
-
-    if (prefersReducedMotion || value === 0) {
-      node.textContent = format(value, suffix, pad);
-      return;
+    if (!node || prefersReducedMotion || value === 0) return;
+    if (node.getBoundingClientRect().top > window.innerHeight) {
+      node.textContent = format(0, suffix, pad);
+      isArmedRef.current = true;
     }
+  }, [prefersReducedMotion, value, suffix, pad]);
 
+  useEffect(() => {
+    const node = nodeRef.current;
+    if (!node || !isInView || !isArmedRef.current) return;
+    isArmedRef.current = false;
     const controls = animate(0, value, {
       duration,
       ease: [0.16, 1, 0.3, 1],
       onUpdate(latest) {
         node.textContent = format(Math.round(latest), suffix, pad);
       },
+      onComplete() {
+        node.textContent = format(value, suffix, pad);
+      },
     });
-    return () => controls.stop();
-  }, [isInView, prefersReducedMotion, value, suffix, pad, duration]);
+    return () => {
+      controls.stop();
+      node.textContent = format(value, suffix, pad);
+    };
+  }, [isInView, value, suffix, pad, duration]);
 
   // A zero is a result, not a count: show it as-is and confirm it with a quiet success mark.
   if (value === 0) {
@@ -64,24 +78,14 @@ export function AnimatedCounter({ value, suffix = "", pad = 0, duration = 1.2, c
           transition={{ delay: 0.35, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
         >
           <CheckIcon className="size-[55%]" />
-          <motion.span
-            className="absolute inset-0 rounded-full border border-ok-400/60 motion-reduce:hidden"
-            initial={{ opacity: 0, scale: 1 }}
-            whileInView={{ opacity: [0.8, 0], scale: [1, 1.8] }}
-            viewport={{ once: true, margin: "0px 0px -60px 0px" }}
-            transition={{ delay: 0.6, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          />
         </motion.span>
       </span>
     );
   }
 
   return (
-    <span className={className}>
-      <span ref={nodeRef} aria-hidden="true" className="tabular-nums">
-        {format(0, suffix, pad)}
-      </span>
-      <span className="sr-only">{format(value, suffix, 0)}</span>
+    <span ref={nodeRef} className={cn("tabular-nums", className)}>
+      {format(value, suffix, pad)}
     </span>
   );
 }

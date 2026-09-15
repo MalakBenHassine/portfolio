@@ -124,6 +124,8 @@ export interface CaseStudyResult {
   kind: "counter" | "before-after";
   value?: number;
   suffix?: string;
+  /** Zero-pad the number (e.g. 9 → "09"). */
+  pad?: number;
   before?: string;
   after?: string;
   label: string;

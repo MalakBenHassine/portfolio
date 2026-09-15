@@ -45,10 +45,10 @@ export function About() {
                 </h3>
                 <ul className="mt-4 space-y-3">
                   {education.map((item) => (
-                    <li key={item.school} className="text-sm">
+                    <li key={item.school} className="text-sm leading-relaxed">
                       <span className="font-medium text-snow">{item.school}</span>
-                      <span className="text-mist-400"> — {item.degree}</span>
-                      <span className="ml-2 font-mono text-xs text-mist-500">{item.period}</span>
+                      <span className="text-mist-400"> — {item.degree}</span>{" "}
+                      <span className="font-mono text-xs whitespace-nowrap text-mist-500">{item.period}</span>
                     </li>
                   ))}
                 </ul>

@@ -72,7 +72,7 @@ export function RollbackDemo() {
   return (
     <div ref={ref} className="flex h-full flex-col overflow-hidden rounded-2xl border border-white/8 bg-ink-950/80">
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/6 px-4 py-3">
-        <span className="font-mono text-xs text-mist-400">Rollback · simulation</span>
+        <span className="font-mono text-xs text-mist-400">Rollback · simulation</span>{" "}
         <div role="group" aria-label="Choose a scenario" className="flex gap-1 rounded-full border border-white/8 p-0.5">
           {(["success", "failure"] as const).map((option) => (
             <button
@@ -128,7 +128,7 @@ export function RollbackDemo() {
                 {isRunning ? (
                   <span className="absolute -inset-px animate-spin rounded-full border border-transparent border-t-azure-200" />
                 ) : null}
-              </span>
+              </span>{" "}
               <span
                 className={cn(
                   "min-w-0 flex-1 truncate font-mono text-xs tracking-[0.08em] uppercase transition-colors duration-300",
@@ -136,7 +136,7 @@ export function RollbackDemo() {
                 )}
               >
                 {step.label}
-              </span>
+              </span>{" "}
               <span
                 className={cn(
                   "font-mono text-[10px] transition-colors duration-300",

@@ -167,7 +167,7 @@ function SourceVisual() {
         {files.map((file, index) => (
           <Node key={file.name} delay={0.05 + index * 0.12} tone={index === 2 ? "default" : "active"}>
             <span className="flex flex-wrap items-baseline justify-between gap-x-1">
-              <span className="text-snow">{file.name}</span>
+              <span className="text-snow">{file.name}</span>{" "}
               <span className="text-mist-500">{file.version}</span>
             </span>
             <DiffLines delay={0.25 + index * 0.12} rows={[...file.rows]} />
@@ -268,7 +268,7 @@ function SdddVisual() {
     <Frame from="grounded draft" to="SDDD v03" statusDelay={1.05} status={[{ text: "✓ DO-178C traceability kept", tone: "ok" }]}>
       <Node delay={0.05} className="p-2">
         <p className="flex items-center justify-between border-b border-white/8 pb-1.5">
-          <span className="text-snow">SDDD</span>
+          <span className="text-snow">SDDD</span>{" "}
           <span>
             <span className="text-mist-500 line-through">v02</span> → <span className="text-azure-200">v03</span>
           </span>
@@ -281,7 +281,7 @@ function SdddVisual() {
               variants={appear(0.3 + index * 0.15)}
               className="flex items-center justify-between gap-2"
             >
-              <span>{section.name}</span>
+              <span>{section.name}</span>{" "}
               <span className="text-azure-200">{section.value}</span>
             </motion.li>
           ))}
@@ -304,7 +304,7 @@ function TestingVisual() {
         {checks.map((check, index) => (
           <motion.li data-reveal key={check.tool} variants={appear(0.05 + index * 0.25)} className="font-mono text-[10px]">
             <span className="flex items-center justify-between gap-2">
-              <span className="text-snow">{check.tool}</span>
+              <span className="text-snow">{check.tool}</span>{" "}
               <span className="text-ok-400">✓ {check.result}</span>
             </span>
             <span className="mt-1 block h-1 overflow-hidden rounded-full bg-white/8">

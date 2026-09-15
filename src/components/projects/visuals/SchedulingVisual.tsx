@@ -15,9 +15,7 @@ export function SchedulingVisual() {
       <div className="flex h-full flex-col gap-1.5">
         <div className="grid grid-cols-5 gap-1">
           {["Mon", "Tue", "Wed", "Thu", "Fri"].map((day) => (
-            <span key={day} className="text-center font-mono text-[8px] text-mist-500">
-              {day}
-            </span>
+            <span key={day} className="text-center font-mono text-[10px] text-mist-500" data-decor={day} />
           ))}
         </div>
         <div className="grid flex-1 grid-cols-5 grid-rows-4 gap-1 rounded-md bg-white/[0.02] p-1">

@@ -13,6 +13,9 @@ interface PipelineStageRowProps {
   status: StageStatus;
 }
 
+const statusLabel: Record<StageStatus, string> = { queued: "Queued", running: "Running", passed: "Passed" };
+
+/** One stage: status dot, number, name, tool, and a status pill (QUEUED → RUNNING → PASSED). */
 export function PipelineStageRow({ index, stage, status }: PipelineStageRowProps) {
   return (
     <li
@@ -34,10 +37,8 @@ export function PipelineStageRow({ index, stage, status }: PipelineStageRowProps
         {status === "running" ? (
           <span className="absolute -inset-px animate-spin rounded-full border border-transparent border-t-azure-200 motion-reduce:animate-none" />
         ) : null}
-      </span>
-
-      <span className="font-mono text-[11px] text-mist-500 tabular-nums">{String(index + 1).padStart(2, "0")}</span>
-
+      </span>{" "}
+      <span className="font-mono text-[11px] text-mist-500 tabular-nums">{String(index + 1).padStart(2, "0")}</span>{" "}
       <span
         className={cn(
           "min-w-0 flex-1 truncate font-mono text-xs tracking-[0.08em] uppercase transition-colors duration-300",
@@ -46,23 +47,24 @@ export function PipelineStageRow({ index, stage, status }: PipelineStageRowProps
       >
         {stage.name}
         {stage.parallel ? (
-          <span className="ml-2 hidden rounded border border-white/10 px-1 text-[9px] tracking-normal text-mist-400 normal-case sm:inline">
-            parallel
-          </span>
-        ) : null}
-        <span className="ml-2 hidden tracking-normal text-mist-500 normal-case sm:inline">{stage.tool}</span>
-      </span>
-
+          <>
+            {" "}
+            <span className="ml-1 hidden rounded border border-white/10 px-1 text-[10px] tracking-normal text-mist-400 normal-case sm:inline">
+              parallel
+            </span>
+          </>
+        ) : null}{" "}
+        <span className="ml-1 hidden tracking-normal text-mist-500 normal-case sm:inline">{stage.tool}</span>
+      </span>{" "}
       <span
         className={cn(
-          "inline-flex w-[4.5rem] items-center justify-end gap-1 font-mono text-[10px] tracking-[0.12em] uppercase transition-colors duration-300",
-          status === "passed" && "text-ok-400",
-          status === "running" && "text-azure-300",
-          status === "queued" && "text-mist-500",
+          "inline-flex w-[5.25rem] shrink-0 items-center justify-center gap-1 rounded-full border px-2 py-0.5 font-mono text-[10px] tracking-[0.1em] uppercase transition-colors duration-300",
+          status === "passed" && "border-ok-400/30 bg-ok-400/10 text-ok-400",
+          status === "running" && "border-azure-400/40 bg-azure-400/10 text-azure-300",
+          status === "queued" && "border-white/8 text-mist-500",
         )}
       >
-        {status}
-        {status === "passed" ? <span aria-hidden="true">✓</span> : null}
+        {statusLabel[status]}
       </span>
     </li>
   );

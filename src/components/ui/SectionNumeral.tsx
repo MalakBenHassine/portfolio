@@ -21,10 +21,10 @@ export function SectionNumeral({ value, className }: SectionNumeralProps) {
     <motion.span
       ref={ref}
       aria-hidden="true"
+      // The digits are drawn by CSS (see [data-decor] in globals.css): decorative, so kept out of the page text.
+      data-decor={value}
       style={prefersReducedMotion ? undefined : { y }}
       className={cn("text-numeral pointer-events-none absolute -z-10 select-none", className)}
-    >
-      {value}
-    </motion.span>
+    />
   );
 }

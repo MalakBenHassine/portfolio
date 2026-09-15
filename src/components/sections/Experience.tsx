@@ -101,7 +101,7 @@ export function Experience() {
                             <StaggerItem
                               key={tag}
                               className={cn(
-                                "rounded-md border px-2 py-0.5 font-mono text-[11px]",
+                                "rounded-full border px-2.5 py-1 font-mono text-[11px]",
                                 item.featured && tagIndex === 0
                                   ? "border-azure-400/40 bg-azure-500/10 text-azure-200"
                                   : "border-white/8 bg-white/[0.03] text-mist-300",
@@ -114,10 +114,10 @@ export function Experience() {
                       ) : null}
                       {item.impact ? (
                         <div className="mt-5 inline-flex flex-wrap items-baseline gap-x-3 gap-y-1 rounded-xl border border-azure-400/20 bg-azure-500/[0.06] px-4 py-2.5">
-                          <span className="font-mono text-[10px] tracking-[0.18em] text-azure-300 uppercase">Impact</span>
+                          <span className="font-mono text-[10px] tracking-[0.18em] text-azure-300 uppercase">Impact</span>{" "}
                           <span className="text-lg font-semibold tracking-tight text-snow sm:text-xl">
                             <BeforeAfterMetric before={item.impact.before} after={item.impact.after} afterClassName="text-gradient" />
-                          </span>
+                          </span>{" "}
                           <span className="text-sm text-mist-400">{item.impact.label}</span>
                         </div>
                       ) : null}

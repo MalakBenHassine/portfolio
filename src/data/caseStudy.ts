@@ -26,6 +26,7 @@ export const analyseImpacte: CaseStudy = {
     {
       kind: "counter",
       value: 9,
+      pad: 2,
       label: "CI/CD pipeline stages",
       detail: "Jenkins · quality gate · automatic rollback",
     },
