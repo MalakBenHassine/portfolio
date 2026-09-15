@@ -25,9 +25,7 @@ export function Projects() {
         description="Personal and team projects outside my internships — full-stack platforms and applied AI. The source code is public on GitHub."
       />
 
-      <Reveal>
-        <ProjectGrid items={items} categories={projectCategories} />
-      </Reveal>
+      <ProjectGrid items={items} categories={projectCategories} />
 
       <Reveal className="mt-12 flex justify-center">
         <a

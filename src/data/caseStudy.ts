@@ -44,14 +44,54 @@ export const analyseImpacte: CaseStudy = {
     },
   ],
   workflow: [
-    { title: "Source Code", caption: "Code, SRD & SDDD imported" },
-    { title: "Static Analysis", caption: "Deterministic AST parsing" },
-    { title: "Impact Analysis", caption: "Cross-impact matrix, 4 severity levels" },
-    { title: "Local AI", caption: "Ollama · qwen2.5-coder, grounded output" },
-    { title: "SDDD Update", caption: "DO-178C traceability, PDF & CSV reports" },
-    { title: "Testing", caption: "SonarQube, JMeter, OWASP ZAP" },
-    { title: "CI/CD", caption: "9-stage Jenkins pipeline" },
-    { title: "Deployment", caption: "Docker, rollback, Prometheus & Grafana" },
+    {
+      icon: "code",
+      title: "Source Code",
+      caption: "Code, SRD & SDDD imported",
+      detail: "A code change comes in. The source code, the requirements (SRD) and the certified design document (SDDD) are imported side by side.",
+    },
+    {
+      icon: "scan",
+      title: "Static Analysis",
+      caption: "Deterministic AST parsing",
+      detail: "A deterministic AST parser reads the code structure. It is the ground truth every later step is checked against.",
+    },
+    {
+      icon: "bolt",
+      title: "Impact Analysis",
+      caption: "Cross-impact matrix, 4 severity levels",
+      detail: "Each change is traced across code and requirements, then classified on 4 severity levels in a cross-impact matrix.",
+    },
+    {
+      icon: "sparkles",
+      title: "Local AI",
+      caption: "Ollama · qwen2.5-coder, grounded output",
+      detail: "A local LLM (Ollama · qwen2.5-coder) drafts the update. Anti-hallucination safeguards reject anything not grounded in the source code.",
+    },
+    {
+      icon: "file",
+      title: "SDDD Update",
+      caption: "DO-178C traceability, PDF & CSV reports",
+      detail: "The design document is updated with full DO-178C traceability, and exported as PDF and CSV reports.",
+    },
+    {
+      icon: "beaker",
+      title: "Testing",
+      caption: "SonarQube, JMeter, OWASP ZAP",
+      detail: "Static analysis with SonarQube, load testing with JMeter (50 concurrent users) and a 1,686-request OWASP ZAP security audit.",
+    },
+    {
+      icon: "infinity",
+      title: "CI/CD",
+      caption: "9-stage Jenkins pipeline",
+      detail: "A 9-stage Jenkins pipeline: tests, quality gate, build, Trivy scan, backup, push to Nexus, deploy and smoke tests.",
+    },
+    {
+      icon: "server",
+      title: "Deployment",
+      caption: "Docker, rollback, Prometheus & Grafana",
+      detail: "Shipped in Docker containers with automatic rollback, and monitored live with Prometheus and Grafana.",
+    },
   ],
   architecture: [
     {

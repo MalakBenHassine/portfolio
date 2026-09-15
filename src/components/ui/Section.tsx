@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import { SectionDivider } from "@/components/ui/SectionDivider";
 import { SectionNumeral } from "@/components/ui/SectionNumeral";
 import { cn } from "@/lib/cn";
 
@@ -20,7 +21,7 @@ export function Section({ id, labelledBy, children, className, divider = true, n
       aria-labelledby={labelledBy}
       className={cn("relative isolate py-24 sm:py-32", numeral && "overflow-hidden", className)}
     >
-      {divider ? <div aria-hidden="true" className="divider-x absolute inset-x-0 top-0" /> : null}
+      {divider ? <SectionDivider /> : null}
       {numeral ? <SectionNumeral value={numeral} className="top-10 right-2 sm:right-6 lg:right-[max(1.5rem,calc(50%-36rem))]" /> : null}
       <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">{children}</div>
     </section>

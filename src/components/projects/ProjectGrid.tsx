@@ -1,7 +1,7 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
-import { useMemo, useState } from "react";
+import { AnimatePresence, motion, useInView } from "framer-motion";
+import { useMemo, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import { ProjectFilter } from "@/components/projects/ProjectFilter";
 import { easeOutExpo } from "@/lib/motion";
@@ -21,12 +21,22 @@ interface ProjectGridProps {
   categories: readonly ProjectCategory[];
 }
 
+const ENTRANCE_STAGGER = 0.1;
+
+const cardVariants = {
+  hidden: { opacity: 0, y: 32, scale: 0.97, filter: "blur(4px)" },
+  show: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
+};
+
 function matchesFilter(categories: ProjectCategory[], filter: ProjectFilterOption): boolean {
   return filter === "All" || categories.includes(filter);
 }
 
 export function ProjectGrid({ items, categories }: ProjectGridProps) {
   const [activeFilter, setActiveFilter] = useState<ProjectFilterOption>("All");
+  const [hasFiltered, setHasFiltered] = useState(false);
+  const listRef = useRef<HTMLUListElement>(null);
+  const isInView = useInView(listRef, { once: true, margin: "0px 0px -80px 0px" });
 
   // Only offer categories that actually contain a project.
   const filterOptions = useMemo<readonly ProjectFilterOption[]>(
@@ -44,24 +54,44 @@ export function ProjectGrid({ items, categories }: ProjectGridProps) {
 
   const visibleItems = items.filter((item) => matchesFilter(item.categories, activeFilter));
 
+  const changeFilter = (option: ProjectFilterOption) => {
+    setHasFiltered(true);
+    setActiveFilter(option);
+  };
+
   return (
     <div>
-      <ProjectFilter options={filterOptions} active={activeFilter} counts={filterCounts} onChange={setActiveFilter} />
+      <motion.div
+        data-reveal
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6, ease: easeOutExpo }}
+      >
+        <ProjectFilter options={filterOptions} active={activeFilter} counts={filterCounts} onChange={changeFilter} />
+      </motion.div>
 
       <p className="sr-only" aria-live="polite">
         {`Showing ${visibleItems.length} ${visibleItems.length === 1 ? "project" : "projects"}`}
       </p>
 
-      <motion.ul layout className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <motion.ul ref={listRef} layout className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
         <AnimatePresence mode="popLayout" initial={false}>
-          {visibleItems.map((item) => (
+          {visibleItems.map((item, index) => (
             <motion.li
+              data-reveal
               key={item.slug}
               layout
-              initial={{ opacity: 0, y: 16, scale: 0.98 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.35, ease: easeOutExpo }}
+              variants={cardVariants}
+              initial="hidden"
+              animate={isInView ? "show" : "hidden"}
+              exit={{ opacity: 0, scale: 0.94, filter: "blur(4px)", transition: { duration: 0.25, ease: easeOutExpo } }}
+              transition={{
+                duration: hasFiltered ? 0.4 : 0.7,
+                // First entrance: cards arrive one after another. Filtering: all at once.
+                delay: hasFiltered ? 0.05 : index * ENTRANCE_STAGGER,
+                ease: easeOutExpo,
+              }}
             >
               {item.card}
             </motion.li>

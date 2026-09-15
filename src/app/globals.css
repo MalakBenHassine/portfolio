@@ -105,6 +105,11 @@
   mask-image: radial-gradient(ellipse 75% 65% at 50% 35%, black 25%, transparent 100%);
 }
 
+/* Same fade as the grid, for elements drawn on top of it */
+@utility grid-mask {
+  mask-image: radial-gradient(ellipse 75% 65% at 50% 35%, black 25%, transparent 100%);
+}
+
 /* Dot matrix accent */
 @utility bg-dots {
   background-image: radial-gradient(rgb(163 188 255 / 0.28) 1px, transparent 1.5px);
@@ -257,10 +262,83 @@
   animation: hero-rule 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0s) both;
 }
 
+/*
+ * Hero ambience (large screens): the light drifts very slowly, and a rare pulse of light
+ * travels along a grid line — data moving through the system. Transform only.
+ */
+@keyframes hero-drift {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(-3%, 4%, 0) scale(1.06);
+  }
+}
+
+@keyframes data-flow-x {
+  0% {
+    transform: translate3d(-50%, 0, 0);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  45%,
+  100% {
+    transform: translate3d(50%, 0, 0);
+    opacity: 0;
+  }
+}
+
+@keyframes data-flow-y {
+  0% {
+    transform: translate3d(0, -50%, 0);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  45%,
+  100% {
+    transform: translate3d(0, 50%, 0);
+    opacity: 0;
+  }
+}
+
+@media (min-width: 64rem) {
+  .hero-drift {
+    animation: hero-drift 24s ease-in-out infinite alternate;
+  }
+}
+
+.data-flow {
+  opacity: 0;
+  animation: var(--flow-duration, 12s) cubic-bezier(0.45, 0, 0.55, 1) var(--flow-delay, 0s) infinite both;
+}
+
+.data-flow-x {
+  width: 200%;
+  left: -50%;
+  background-image: linear-gradient(90deg, transparent 46%, rgb(163 188 255 / 0.75) 50%, transparent 50.5%);
+  animation-name: data-flow-x;
+}
+
+.data-flow-y {
+  height: 200%;
+  top: -50%;
+  background-image: linear-gradient(180deg, transparent 46%, rgb(163 188 255 / 0.75) 50%, transparent 50.5%);
+  animation-name: data-flow-y;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .hero-rise,
-  .hero-rule {
+  .hero-rule,
+  .hero-drift {
     animation: none;
+  }
+
+  .data-flow {
+    display: none;
   }
 }
 
@@ -271,12 +349,19 @@
 html:not(.js) [data-reveal] {
   opacity: 1 !important;
   transform: none !important;
+  filter: none !important;
+}
+
+/* Without JavaScript the scroll-driven workflow cannot advance: don't pin it. */
+html:not(.js) .workflow-pin {
+  height: auto !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
+    filter: none !important;
   }
 }
 

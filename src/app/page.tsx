@@ -1,3 +1,4 @@
+import { BackToTop } from "@/components/layout/BackToTop";
 import { CustomCursor } from "@/components/layout/CustomCursor";
 import { Footer } from "@/components/layout/Footer";
 import { Navbar } from "@/components/layout/Navbar";
@@ -61,6 +62,7 @@ export default function HomePage() {
         <Contact />
       </main>
       <Footer />
+      <BackToTop />
       <CustomCursor />
     </>
   );

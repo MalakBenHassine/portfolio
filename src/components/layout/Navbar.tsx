@@ -59,9 +59,9 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300",
+        "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter,box-shadow] duration-300",
         isScrolled || isMenuOpen
-          ? "border-b border-white/6 bg-ink-950/75 backdrop-blur-xl"
+          ? "border-b border-white/6 bg-ink-950/75 shadow-[0_10px_40px_-20px_rgb(0_0_0/0.9)] backdrop-blur-xl"
           : "border-b border-transparent",
       )}
     >
@@ -97,7 +97,10 @@ export function Navbar() {
                     aria-hidden="true"
                     className="absolute inset-0 rounded-full border border-white/8 bg-white/[0.07]"
                     transition={{ type: "spring", stiffness: 380, damping: 32 }}
-                  />
+                  >
+                    {/* Small glowing indicator under the current section */}
+                    <span className="absolute -bottom-px left-1/2 h-[2px] w-4 -translate-x-1/2 rounded-full bg-azure-300 shadow-[0_0_10px_rgb(124_157_255/0.9)]" />
+                  </motion.span>
                 ) : null}
                 <a
                   href={item.href}
@@ -134,7 +137,6 @@ export function Navbar() {
           </button>
         </div>
       </nav>
-
 
       <AnimatePresence>
         {isMenuOpen ? (

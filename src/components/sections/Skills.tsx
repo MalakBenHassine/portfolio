@@ -41,11 +41,11 @@ export function Skills() {
                   </span>
                 </div>
 
-                <ul className="mt-5 flex flex-wrap gap-2">
+                <StaggerList className="mt-5 flex flex-wrap gap-2" stagger={0.04} delay={0.15} ariaLabel={group.name}>
                   {group.core.map((skill) => (
                     <SkillChip key={skill.name} skill={skill} />
                   ))}
-                </ul>
+                </StaggerList>
 
                 {group.more ? (
                   <p className="mt-auto pt-5 text-sm leading-relaxed text-mist-500">

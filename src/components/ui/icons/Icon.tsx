@@ -4,10 +4,12 @@ import { BeakerIcon } from "@/components/ui/icons/BeakerIcon";
 import { BoltIcon } from "@/components/ui/icons/BoltIcon";
 import { BriefcaseIcon } from "@/components/ui/icons/BriefcaseIcon";
 import { CodeIcon } from "@/components/ui/icons/CodeIcon";
+import { FileTextIcon } from "@/components/ui/icons/FileTextIcon";
 import { GraduationIcon } from "@/components/ui/icons/GraduationIcon";
 import { InfinityIcon } from "@/components/ui/icons/InfinityIcon";
 import { MapPinIcon } from "@/components/ui/icons/MapPinIcon";
 import { MonitorIcon } from "@/components/ui/icons/MonitorIcon";
+import { ScanIcon } from "@/components/ui/icons/ScanIcon";
 import { ServerIcon } from "@/components/ui/icons/ServerIcon";
 import { ShieldCheckIcon } from "@/components/ui/icons/ShieldCheckIcon";
 import { SparklesIcon } from "@/components/ui/icons/SparklesIcon";
@@ -19,10 +21,12 @@ const icons: Record<IconName, ComponentType<SVGProps<SVGSVGElement>>> = {
   bolt: BoltIcon,
   briefcase: BriefcaseIcon,
   code: CodeIcon,
+  file: FileTextIcon,
   graduation: GraduationIcon,
   infinity: InfinityIcon,
   mapPin: MapPinIcon,
   monitor: MonitorIcon,
+  scan: ScanIcon,
   server: ServerIcon,
   shield: ShieldCheckIcon,
   sparkles: SparklesIcon,

@@ -58,9 +58,12 @@ Utilities: `surface`, `glass`, `spotlight`, `text-gradient`, `bg-grid`, `bg-dots
 
 ## Motion principles
 
-- Transform/opacity only; no endless animations. The particle field runs only while the mouse moves and the Hero is on screen.
+- Every animation communicates something: hierarchy, progress, technical flow, interaction or a result.
+- Transform/opacity (plus a one-time blur → sharp on reveals). The particle field runs only while the mouse moves and the Hero is on screen; the only ambient loops are a very slow light drift and rare data pulses along the Hero grid (CSS, large screens).
 - The Hero intro is pure CSS (`.hero-rise`), so it plays at first paint without waiting for JavaScript. The name is static (LCP).
-- Scroll reveals use Framer Motion and carry `data-reveal`: without JavaScript, or with `prefers-reduced-motion`, they are shown immediately.
+- Headings reveal word by word (`AnimatedWords`, `RevealGroup`); metrics count up (`AnimatedCounter`) or strike through the old value (`BeforeAfterMetric`).
+- Scroll storytelling: the About delivery chain and the AnalyseImpacte workflow (`WorkflowStory`, pinned on desktop) advance with the scroll position; the Jenkins pipeline plays once when visible.
+- Scroll reveals use Framer Motion and carry `data-reveal`: without JavaScript, or with `prefers-reduced-motion`, they are shown immediately (and the workflow is not pinned).
 - Pointer effects (custom cursor, parallax, particles, magnetic buttons) are enabled only on fine pointers without reduced motion.
 
 ## Configuration
