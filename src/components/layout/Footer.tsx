@@ -18,7 +18,13 @@ export function Footer() {
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-5 py-14 sm:px-8 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="font-mono text-xs tracking-[0.3em] text-snow uppercase">{profile.name}</p>
-          <JobTitle className="mt-4" roleClassName="text-lg font-medium text-snow" focusClassName="mt-1 text-sm text-mist-400" />
+          <JobTitle
+            className="mt-4"
+            roleClassName="text-lg font-medium text-snow"
+            focusClassName="mt-1 text-sm text-mist-400"
+            withAvailability
+            availabilityClassName="mt-1 text-sm text-mist-500"
+          />
         </div>
 
         <ul className="flex flex-wrap items-center gap-x-8 gap-y-3 text-sm">

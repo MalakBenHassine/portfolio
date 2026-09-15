@@ -1,18 +1,21 @@
-import { profile } from "@/data/profile";
+import { getTitleParts } from "@/lib/headline";
 import { cn } from "@/lib/cn";
 
 interface JobTitleProps {
   className?: string;
   roleClassName?: string;
   focusClassName?: string;
+  /** Also show the availability line (off in the Hero, where the status pill already shows it). */
+  withAvailability?: boolean;
+  availabilityClassName?: string;
 }
 
 /**
- * The professional title, displayed on two lines ("Software Engineer" / "Full-Stack, DevOps & Applied AI")
- * but always read as the exact single formula — the em dash is kept for screen readers, crawlers and copy/paste.
+ * The professional headline on separate lines ("Software Engineer" / "Full-Stack · Applied AI · DevOps" /
+ * availability), always read as the exact single formula: separators are kept for screen readers, crawlers and copy/paste.
  */
-export function JobTitle({ className, roleClassName, focusClassName }: JobTitleProps) {
-  const [role, focus] = profile.title.split(" — ");
+export function JobTitle({ className, roleClassName, focusClassName, withAvailability = false, availabilityClassName }: JobTitleProps) {
+  const { role, focus, availability } = getTitleParts();
   return (
     <p className={className}>
       <span className={cn("block", roleClassName)}>{role}</span>
@@ -20,6 +23,12 @@ export function JobTitle({ className, roleClassName, focusClassName }: JobTitleP
         <>
           <span className="sr-only">{" — "}</span>
           <span className={cn("block", focusClassName)}>{focus}</span>
+        </>
+      ) : null}
+      {withAvailability && availability ? (
+        <>
+          <span className="sr-only">{" | "}</span>
+          <span className={cn("block", availabilityClassName)}>{availability}</span>
         </>
       ) : null}
     </p>

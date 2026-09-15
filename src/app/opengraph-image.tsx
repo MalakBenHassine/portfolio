@@ -1,5 +1,8 @@
 import { ImageResponse } from "next/og";
 import { profile } from "@/data/profile";
+import { getTitleParts } from "@/lib/headline";
+
+const { role, focus, availability } = getTitleParts();
 
 export const alt = `${profile.name} — ${profile.title}`;
 export const size = { width: 1200, height: 630 };
@@ -62,14 +65,14 @@ export default function OpengraphImage() {
             }}
           >
             <div style={{ width: 12, height: 12, borderRadius: 6, background: OK }} />
-            {`${profile.availability} · ${profile.workRegions}`}
+            {availability}
           </div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div style={{ display: "flex", fontSize: 96, letterSpacing: -4, lineHeight: 1 }}>{profile.name}</div>
           <div style={{ display: "flex", marginTop: 22, fontSize: 38, color: SNOW }}>
-            {profile.title}
+            {`${role} — ${focus}`}
           </div>
           <div style={{ display: "flex", marginTop: 18, fontSize: 28, lineHeight: 1.4, color: MIST, maxWidth: 1000 }}>
             {profile.headline}

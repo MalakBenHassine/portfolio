@@ -11,8 +11,11 @@ import { GithubIcon } from "@/components/ui/icons/GithubIcon";
 import { LinkedinIcon } from "@/components/ui/icons/LinkedinIcon";
 import { MailIcon } from "@/components/ui/icons/MailIcon";
 import { profile } from "@/data/profile";
+import { getTitleParts } from "@/lib/headline";
 
-const handleFrom = (url: string) => new URL(url).pathname.replace(/^\/|\/$/g, "");
+const titleParts = getTitleParts();
+
+const handleFrom =(url: string) => new URL(url).pathname.replace(/^\/|\/$/g, "");
 
 const secondaryLinks = [
   { label: "LinkedIn", hint: handleFrom(profile.linkedin), href: profile.linkedin, Icon: LinkedinIcon, external: true },
@@ -44,8 +47,10 @@ export function Hero() {
                   <span className="relative size-2 rounded-full bg-ok-400" />
                 </span>
                 <span className="font-mono text-[10px] tracking-[0.18em] text-mist-200 uppercase sm:text-[11px]">
-                  {profile.availability}
-                  <span className="hidden text-mist-500 sm:inline"> · {profile.workRegions}</span>
+                  {titleParts.availabilityShort}
+                  {titleParts.regions ? (
+                    <span className="hidden text-mist-500 sm:inline">{` (${titleParts.regions})`}</span>
+                  ) : null}
                 </span>
               </p>
             </HeroReveal>

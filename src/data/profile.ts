@@ -3,16 +3,17 @@ import type { EducationItem, FocusArea, IdentityFact, ImpactPillar, Profile, Wor
 export const profile: Profile = {
   name: "Malak Ben Hassine",
   firstName: "Malak",
-  /** The one professional title, used verbatim on the portfolio, the GitHub bio and the CV. */
-  title: "Software Engineer — Full-Stack, DevOps & Applied AI",
+  /**
+   * The one professional headline, used verbatim on the portfolio and the GitHub bio.
+   * Split for display by `getTitleParts` (src/lib/headline.ts) — edit it only here.
+   */
+  title: "Software Engineer — Full-Stack · Applied AI · DevOps | Open to full-time opportunities (Tunisia & international)",
   headline:
     "I build production-ready software, automate complex engineering workflows, and integrate AI where it creates real value.",
   tagline:
     "I turn multi-day manual engineering processes into automated pipelines that run in minutes.",
   email: "benhassinemalak4@gmail.com",
   location: "Based in Tunisia · Open to international",
-  availability: "Open to Full-Time Opportunities",
-  workRegions: "Tunisia & International",
   github: "https://github.com/MalakBenHassine",
   linkedin: "https://www.linkedin.com/in/malakbenhassine/",
   about: [

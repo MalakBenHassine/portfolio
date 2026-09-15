@@ -47,7 +47,7 @@ export const skillGroups: SkillGroup[] = [
     more: ["Text-to-SQL", "Qdrant", "Deep Learning"],
   },
   {
-    name: "DevOps, CI/CD & Monitoring",
+    name: "DevOps & CI/CD",
     core: [
       { name: "Docker", role: "Containerization" },
       { name: "Docker Compose", role: "Multi-container orchestration" },
