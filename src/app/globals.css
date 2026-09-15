@@ -210,7 +210,7 @@
 
 /* Huge editorial chapter numeral behind a section */
 @utility text-numeral {
-  font-size: clamp(9rem, 26vw, 22rem);
+  font-size: clamp(8rem, 20vw, 16rem);
   font-weight: 700;
   line-height: 0.8;
   letter-spacing: -0.06em;
@@ -248,6 +248,22 @@
 
 .hero-rise {
   animation: hero-rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--delay, 0s) both;
+}
+
+/* The navbar settles in first */
+@keyframes nav-enter {
+  from {
+    opacity: 0;
+    transform: translate3d(0, -10px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.nav-enter {
+  animation: nav-enter 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
 /* LCP-sized text on small screens: shown instantly; the entrance only plays from lg up. */
@@ -305,6 +321,18 @@
   }
 }
 
+/* Data flowing along an active architecture link (only while a component is in focus) */
+@keyframes link-flow {
+  to {
+    stroke-dashoffset: -24;
+  }
+}
+
+.link-flow {
+  stroke-dasharray: 4 20;
+  animation: link-flow 1.2s linear infinite;
+}
+
 @media (min-width: 64rem) {
   .hero-drift {
     animation: hero-drift 24s ease-in-out infinite alternate;
@@ -333,12 +361,18 @@
 @media (prefers-reduced-motion: reduce) {
   .hero-rise,
   .hero-rule,
-  .hero-drift {
+  .hero-drift,
+  .nav-enter {
     animation: none;
   }
 
   .data-flow {
     display: none;
+  }
+
+  .link-flow {
+    animation: none;
+    stroke-dasharray: none;
   }
 }
 

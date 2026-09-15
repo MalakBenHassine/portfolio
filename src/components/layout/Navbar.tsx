@@ -59,7 +59,7 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter,box-shadow] duration-300",
+        "nav-enter fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter,box-shadow] duration-300",
         isScrolled || isMenuOpen
           ? "border-b border-white/6 bg-ink-950/75 shadow-[0_10px_40px_-20px_rgb(0_0_0/0.9)] backdrop-blur-xl"
           : "border-b border-transparent",

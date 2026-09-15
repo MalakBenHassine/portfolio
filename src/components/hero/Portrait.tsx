@@ -1,8 +1,8 @@
 import Image from "next/image";
 import portrait from "../../../public/images/malak-profile.webp";
 import { HeroReveal } from "@/components/hero/HeroReveal";
+import { HeroTerminal } from "@/components/hero/HeroTerminal";
 import { ParallaxLayer } from "@/components/hero/ParallaxLayer";
-import { CheckIcon } from "@/components/ui/icons/CheckIcon";
 import { profile } from "@/data/profile";
 
 /**
@@ -13,7 +13,7 @@ export function Portrait() {
   return (
     <div className="relative mx-auto w-full max-w-[22rem] sm:max-w-[26rem] lg:max-w-none">
       {/* Atmospheric glow — fades in with the portrait so font-swap reflow never counts as a visible layout shift. */}
-      <HeroReveal delay={0.1} y={0} decorative className="pointer-events-none absolute -inset-10 -z-10">
+      <HeroReveal delay={0.55} y={0} decorative className="pointer-events-none absolute -inset-10 -z-10">
         <div className="absolute inset-0">
           <ParallaxLayer depth={-18} className="absolute inset-0">
             <div className="absolute inset-0 rounded-full bg-[radial-gradient(closest-side,rgb(91_130_255/0.28),rgb(160_143_255/0.08)_60%,transparent)]" />
@@ -22,10 +22,10 @@ export function Portrait() {
       </HeroReveal>
 
       {/* Short, early fade (transform + opacity only): keeps font-swap reflow from registering as layout shift. */}
-      <HeroReveal delay={0.1} y={20} scale={0.96}>
+      <HeroReveal delay={0.55} y={20} scale={0.97}>
         <ParallaxLayer depth={10}>
-          <figure className="relative">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-t-[14rem] rounded-b-[2rem] border border-white/10 bg-ink-900 shadow-[0_40px_120px_-40px_rgb(0_0_0/0.9)]">
+          <figure className="group/photo relative">
+            <div className="relative aspect-[4/5] overflow-hidden rounded-t-[14rem] rounded-b-[2rem] border border-white/10 bg-ink-900 shadow-[0_40px_120px_-40px_rgb(0_0_0/0.9)] transition-[border-color,box-shadow] duration-500 group-hover/photo:border-azure-300/25 group-hover/photo:shadow-[0_40px_120px_-40px_rgb(91_130_255/0.45)]">
               <Image
                 src={portrait}
                 alt={profile.photo.alt}
@@ -47,6 +47,11 @@ export function Portrait() {
                 aria-hidden="true"
                 className="absolute inset-0 rounded-[inherit] shadow-[inset_0_1px_0_rgb(255_255_255/0.12)]"
               />
+              {/* Soft rim light on hover — a light on the frame, the photo itself is untouched. */}
+              <div
+                aria-hidden="true"
+                className="absolute inset-0 rounded-[inherit] bg-[radial-gradient(80%_45%_at_50%_0%,rgb(163_188_255/0.14),transparent_70%)] opacity-0 transition-opacity duration-500 group-hover/photo:opacity-100"
+              />
             </div>
           </figure>
         </ParallaxLayer>
@@ -63,18 +68,10 @@ export function Portrait() {
         </ParallaxLayer>
       </HeroReveal>
 
-      <HeroReveal delay={1.25} y={12} className="absolute -right-4 -bottom-6 hidden sm:block xl:-right-12">
-        <ParallaxLayer depth={30}>
-          <div className="glass rounded-2xl px-4 py-3 shadow-[0_20px_60px_-20px_rgb(0_0_0/0.8)]">
-            <p className="flex items-center gap-2 font-mono text-[10px] tracking-[0.18em] text-ok-400 uppercase">
-              <CheckIcon className="size-3" />
-              Pipeline deployed
-            </p>
-            <p className="mt-1 font-mono text-sm text-snow">
-              <span className="text-mist-500 line-through">3–5 days</span> → &lt; 10 min
-            </p>
-            <p className="text-xs text-mist-400">AnalyseImpacte · 9 CI/CD stages</p>
-          </div>
+      {/* Live system: a short deploy run, docked over the bottom fade of the photo (never over the face). */}
+      <HeroReveal delay={1.05} y={14} className="relative z-10 mx-auto -mt-8 w-[94%] sm:-mt-10 lg:w-[88%]">
+        <ParallaxLayer depth={16}>
+          <HeroTerminal />
         </ParallaxLayer>
       </HeroReveal>
     </div>

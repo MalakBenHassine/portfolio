@@ -3,6 +3,7 @@
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
 import { useRef, useState } from "react";
 import type { ReactNode } from "react";
+import { StepVisual } from "@/components/case-study/StepVisuals";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { Icon } from "@/components/ui/icons/Icon";
 import { useMediaQuery } from "@/hooks/useMediaQuery";
@@ -54,7 +55,7 @@ export function WorkflowStory({ heading, steps, highlightIndex }: WorkflowStoryP
   return (
     <div ref={pinRef} className="workflow-pin relative lg:h-[250vh] lg:motion-reduce:h-auto">
       {/* Pinned roughly in the middle of the viewport (heading + card ≈ 32rem), never under the navbar. */}
-      <div className="lg:sticky lg:top-[max(5.5rem,calc(50vh-16rem))] lg:motion-reduce:static">
+      <div className="lg:sticky lg:top-[max(5.5rem,calc(50vh-19rem))] lg:motion-reduce:static">
         {heading}
         <SpotlightCard className="p-6 sm:p-10">
           <div className="mb-8 hidden items-center justify-between gap-4 lg:flex lg:motion-reduce:hidden" aria-hidden="true">
@@ -150,6 +151,11 @@ export function WorkflowStory({ heading, steps, highlightIndex }: WorkflowStoryP
                       <p className="mt-2 max-w-md text-sm leading-relaxed text-mist-400 lg:sr-only lg:motion-reduce:not-sr-only lg:motion-reduce:mt-2 lg:motion-reduce:text-[12px]">
                         {step.detail}
                       </p>
+                      <StepVisual
+                        index={index}
+                        trigger="view"
+                        className="mt-4 max-w-sm rounded-xl border border-white/6 bg-ink-950/60 p-3 lg:hidden"
+                      />
                     </div>
                   </li>
                 );
@@ -160,12 +166,12 @@ export function WorkflowStory({ heading, steps, highlightIndex }: WorkflowStoryP
           {/* Detail of the current step (desktop). The same text is in the list for assistive technologies. */}
           <div
             aria-hidden="true"
-            className="relative mt-10 hidden min-h-[8.5rem] border-t border-white/6 pt-8 lg:block lg:motion-reduce:hidden"
+            className="relative mt-8 hidden min-h-[13rem] border-t border-white/6 pt-7 lg:block lg:motion-reduce:hidden"
           >
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={panelStep.title}
-                className="grid grid-cols-[auto_minmax(0,1fr)] items-start gap-8"
+                className="grid grid-cols-[auto_minmax(0,1fr)_minmax(0,27rem)] items-start gap-8"
                 initial={{ opacity: 0, y: 14, filter: "blur(4px)" }}
                 animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
                 exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
@@ -186,6 +192,10 @@ export function WorkflowStory({ heading, steps, highlightIndex }: WorkflowStoryP
                   <p className="mt-2 text-2xl font-semibold tracking-[-0.02em] text-snow">{panelStep.title}</p>
                   <p className="mt-2 max-w-2xl text-base leading-relaxed text-mist-400">{panelStep.detail}</p>
                 </div>
+                <StepVisual
+                  index={Math.max(0, current)}
+                  className="rounded-xl border border-white/6 bg-ink-950/60 p-3"
+                />
               </motion.div>
             </AnimatePresence>
           </div>

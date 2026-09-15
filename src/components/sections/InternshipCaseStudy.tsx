@@ -101,7 +101,7 @@ export function InternshipCaseStudy() {
 
       <div className="mt-20">
         <CaseStudySubheading label="Architecture" title="A complete system, not just an interface." />
-        <ArchitectureGrid layers={study.architecture} />
+        <ArchitectureGrid diagram={study.architecture} />
       </div>
     </Section>
   );

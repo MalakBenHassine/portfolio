@@ -1,5 +1,6 @@
 import { CardSweep } from "@/components/contact/CardSweep";
 import { ContactForm } from "@/components/contact/ContactForm";
+import { ShipSequence } from "@/components/contact/ShipSequence";
 import { CopyEmailButton } from "@/components/contact/CopyEmailButton";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { Reveal } from "@/components/ui/Reveal";
@@ -49,7 +50,7 @@ export function Contact() {
       <SectionNumeral value="05" className="top-10 right-2 sm:right-6 lg:right-[max(1.5rem,calc(50%-36rem))]" />
 
       <div className="mx-auto w-full max-w-6xl px-5 sm:px-8">
-        {/* Final reveal: eyebrow → headline word by word → promise → call to action. */}
+        {/* Final reveal: eyebrow → idea-to-deploy sequence → headline word by word → promise → call to action. */}
         <RevealGroup className="max-w-5xl" stagger={0.18}>
           <RevealBlock>
             <p className="flex items-center gap-3 font-mono text-xs tracking-[0.22em] text-mist-400 uppercase">
@@ -57,6 +58,9 @@ export function Contact() {
               <span aria-hidden="true" className="h-px w-10 bg-linear-to-r from-azure-400/80 to-transparent" />
               Contact
             </p>
+          </RevealBlock>
+          <RevealBlock className="mt-8">
+            <ShipSequence />
           </RevealBlock>
           <RevealHeading
             id="contact-title"

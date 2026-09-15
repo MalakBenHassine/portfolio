@@ -1,5 +1,6 @@
 import { StaggerItem } from "@/components/ui/Stagger";
 import { TechIcon } from "@/components/ui/TechIcon";
+import { getSkillContexts } from "@/lib/skillContext";
 import type { SkillItem } from "@/lib/types";
 
 interface SkillChipProps {
@@ -8,12 +9,15 @@ interface SkillChipProps {
 
 /** Technology tile: appears in sequence with its category, scales up, takes its brand color and reveals what it is used for on hover. */
 export function SkillChip({ skill }: SkillChipProps) {
+  const usedIn = getSkillContexts(skill.name);
+  const shownContexts = usedIn.slice(0, 2).join(" · ") + (usedIn.length > 2 ? ` +${usedIn.length - 2}` : "");
+
   return (
     <StaggerItem className="group/skill relative">
       <span className="group inline-flex items-center gap-2.5 rounded-xl border border-white/6 bg-white/[0.02] px-3 py-2 text-sm text-mist-200 transition-[transform,border-color,background-color] duration-300 group-hover/skill:-translate-y-0.5 group-hover/skill:scale-[1.05] group-hover/skill:border-white/15 group-hover/skill:bg-white/[0.05]">
         <TechIcon tech={skill.name} className="size-4 text-mist-400 group-hover/skill:text-(--brand)" brandOnHover={false} />
         {skill.name}
-        <span className="sr-only">{` — ${skill.role}`}</span>
+        <span className="sr-only">{` — ${skill.role}${usedIn.length ? `, used in ${usedIn.join(", ")}` : ""}`}</span>
       </span>
 
       <span
@@ -22,6 +26,11 @@ export function SkillChip({ skill }: SkillChipProps) {
       >
         <span className="block text-xs font-medium text-snow">{skill.name}</span>
         <span className="block font-mono text-[11px] text-azure-200">{skill.role}</span>
+        {usedIn.length ? (
+          <span className="mt-1 block border-t border-white/8 pt-1 font-mono text-[10px] text-mist-400">
+            Used in <span className="text-mist-200">{shownContexts}</span>
+          </span>
+        ) : null}
       </span>
     </StaggerItem>
   );

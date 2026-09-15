@@ -14,7 +14,9 @@ export type IconName =
   | "mapPin"
   | "graduation"
   | "file"
-  | "scan";
+  | "scan"
+  | "database"
+  | "container";
 
 export interface ImageAsset {
   src: string;
@@ -136,10 +138,22 @@ export interface StoryStep extends WorkflowStep {
   detail: string;
 }
 
-export interface ArchitectureLayer {
+export interface ArchitectureNode {
+  id: string;
   icon: IconName;
   title: string;
+  /** One-line responsibility of the component. */
+  role: string;
   items: string[];
+  /** Position in the diagram grid (3 columns × 4 rows, 1-based). */
+  col: 1 | 2 | 3;
+  row: 1 | 2 | 3 | 4;
+}
+
+export interface ArchitectureDiagram {
+  nodes: ArchitectureNode[];
+  /** Connected component ids. */
+  links: [string, string][];
 }
 
 export interface CaseStudy {
@@ -150,7 +164,7 @@ export interface CaseStudy {
   solution: string;
   results: CaseStudyResult[];
   workflow: StoryStep[];
-  architecture: ArchitectureLayer[];
+  architecture: ArchitectureDiagram;
   tech: string[];
   note: string;
 }

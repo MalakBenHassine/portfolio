@@ -15,7 +15,11 @@ interface ProjectCardProps {
 function LinkLabel({ link, title }: { link: ProjectLink; title: string }) {
   return (
     <>
-      {link.kind === "github" ? <GithubIcon className="size-4" /> : <ExternalLinkIcon className="size-4" />}
+      {link.kind === "github" ? (
+        <GithubIcon className="size-4 transition-transform duration-300 group-hover/link:-rotate-8 group-hover/link:scale-110" />
+      ) : (
+        <ExternalLinkIcon className="size-4 transition-transform duration-300 group-hover/link:translate-x-0.5 group-hover/link:-translate-y-0.5" />
+      )}
       {link.label}
       <span className="sr-only">{` — ${title} (opens in a new tab)`}</span>
     </>
@@ -60,7 +64,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 rounded-full bg-snow px-3.5 py-1.5 text-xs font-medium text-ink-950 transition-colors hover:bg-white"
+                className="group/link inline-flex items-center gap-2 rounded-full bg-snow px-3.5 py-1.5 text-xs font-medium text-ink-950 transition-colors hover:bg-white"
               >
                 <LinkLabel link={link} title={project.title} />
               </a>
@@ -104,7 +108,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 href={link.href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex min-h-11 items-center gap-2 text-sm font-medium text-mist-300 transition-colors hover:text-snow"
+                className="group/link inline-flex min-h-11 items-center gap-2 text-sm font-medium text-mist-300 transition-colors hover:text-snow"
               >
                 <LinkLabel link={link} title={project.title} />
               </a>
