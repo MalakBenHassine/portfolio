@@ -1,3 +1,4 @@
+import { profile } from "@/data/profile";
 import type { NavItem } from "@/lib/types";
 
 function resolveSiteUrl(): string {
@@ -10,9 +11,9 @@ function resolveSiteUrl(): string {
 
 export const siteConfig = {
   url: resolveSiteUrl(),
-  title: "Malak Ben Hassine — Software Engineer — Full-Stack, DevOps & Applied AI",
+  title: `${profile.name} — ${profile.title}`,
   description:
-    "Software Engineer — Full-Stack, DevOps & Applied AI. Built AnalyseImpacte at Capgemini Engineering: a 3–5 day aerospace documentation workflow cut to under 10 minutes, shipped through a 9-stage CI/CD pipeline.",
+    "Software Engineer — Full-Stack · Applied AI · DevOps. Built AnalyseImpacte at Capgemini Engineering: a 3–5 day aerospace documentation workflow cut to under 10 minutes, shipped through a 9-stage CI/CD pipeline.",
   keywords: [
     "Malak Ben Hassine",
     "Software Engineer",

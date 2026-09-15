@@ -26,7 +26,7 @@ export interface ImageAsset {
 export interface Profile {
   name: string;
   firstName: string;
-  /** Exact professional title, e.g. "Software Engineer — Full-Stack, DevOps & Applied AI". */
+  /** Exact professional headline: "<role> — <focus> | <availability>". Also used as the GitHub bio. */
   title: string;
   /** Short value proposition shown in the Hero. */
   headline: string;
@@ -34,8 +34,6 @@ export interface Profile {
   tagline: string;
   email: string;
   location: string;
-  availability: string;
-  workRegions: string;
   github: string;
   linkedin: string;
   /** One entry per paragraph. */
