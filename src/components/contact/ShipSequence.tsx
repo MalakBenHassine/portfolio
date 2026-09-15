@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 import { Fragment } from "react";
 import { easeOutExpo, inViewOnce } from "@/lib/motion";
 
-const steps = ["Idea", "Code", "Build", "Test", "Deploy"];
-const STEP_DELAY = 0.22;
+const steps = ["Idea", "Code", "Build", "Test", "Deploy", "Production"];
+const STEP_DELAY = 0.18;
 
 /** The end of the journey: an idea travels to production, and the headline lands right after. */
 export function ShipSequence() {
@@ -13,7 +13,7 @@ export function ShipSequence() {
   return (
     <motion.ol
       className="flex flex-wrap items-center gap-y-2 font-mono text-[10px] tracking-[0.18em] uppercase sm:text-[11px]"
-      aria-label="From idea to deployment"
+      aria-label="From idea to production"
       initial="hidden"
       whileInView="show"
       viewport={inViewOnce}

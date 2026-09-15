@@ -65,6 +65,8 @@ export interface ImpactPillar {
   /** Short headline metric shown large on the card. */
   metric: string;
   proof: string;
+  /** Technologies behind the proof, highlighted on hover. */
+  tech: string[];
 }
 
 export interface Stat {
@@ -179,7 +181,8 @@ export interface SkillGroup {
   name: string;
   core: SkillItem[];
   more?: string[];
-  wide?: boolean;
+  /** Span two columns on large screens, or the full row ("full"). */
+  wide?: boolean | "full";
 }
 
 export interface AiUseCase {

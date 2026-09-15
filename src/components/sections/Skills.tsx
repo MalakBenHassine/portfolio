@@ -25,7 +25,11 @@ export function Skills() {
           return (
             <StaggerItem
               key={group.name}
-              className={cn(group.wide && "lg:col-span-2", isLast && hasOddCount && "md:col-span-2 lg:col-span-2")}
+              className={cn(
+                group.wide === "full" ? "lg:col-span-3" : group.wide && "lg:col-span-2",
+                isLast && hasOddCount && "md:col-span-2",
+                isLast && hasOddCount && !group.wide && "lg:col-span-2",
+              )}
             >
               <SpotlightCard as="article" labelledBy={`skills-${index}`} className="group/card flex h-full flex-col p-6">
                 <div className="flex items-center justify-between gap-4">

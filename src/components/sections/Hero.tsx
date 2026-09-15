@@ -20,8 +20,8 @@ const secondaryLinks = [
 ];
 
 /*
- * Intro choreography (seconds, CSS only): navbar + background 0 → availability 0.2 → role 0.35 →
- * description 0.5 → portrait 0.55 → accent rule 0.6 → CTAs 0.8 → links 0.95 → terminal 1.05 (its deploy run starts ~1.3).
+ * Intro choreography (seconds, CSS only, ~1s): navbar + background 0 → availability 0.1 → accent rule 0.3 →
+ * role 0.25 → description 0.35 → CTAs 0.5 → links 0.6 → portrait 0.7 → terminal 0.85 (its deploy run starts ~1.15).
  * The name is static; role and description (the mobile LCP) are instant below lg and never start transparent.
  */
 export function Hero() {
@@ -36,7 +36,7 @@ export function Hero() {
 
         <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-16 px-5 sm:px-8 lg:grid-cols-[1.12fr_0.88fr] lg:gap-14">
           <div className="min-w-0">
-            <HeroReveal delay={0.2} y={10}>
+            <HeroReveal delay={0.1} y={10}>
               <p className="inline-flex items-center gap-3 rounded-full border border-white/8 bg-white/[0.03] py-1.5 pr-4 pl-2">
                 <span aria-hidden="true" className="relative flex size-5 shrink-0 items-center justify-center rounded-full bg-ok-400/10">
                   <span className="absolute size-2 animate-ping rounded-full bg-ok-400/50 [animation-iteration-count:3] motion-reduce:hidden" />
@@ -61,11 +61,11 @@ export function Hero() {
             <span
               aria-hidden="true"
               className="hero-rule mt-5 block h-px w-24 bg-linear-to-r from-azure-400 to-transparent"
-              style={{ "--delay": "0.6s" } as CSSProperties}
+              style={{ "--delay": "0.3s" } as CSSProperties}
             />
 
             {/* Role and description are the LCP on mobile: shown instantly there, gentle rise on large screens. */}
-            <HeroReveal delay={0.35} y={10} fade={false} largeScreensOnly>
+            <HeroReveal delay={0.25} y={10} fade={false} largeScreensOnly>
               <p className="mt-7 text-2xl font-medium tracking-tight text-snow sm:text-3xl">{profile.role}</p>
               <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-sm tracking-[0.08em] text-mist-300 uppercase sm:text-base">
                 {profile.specialties.map((specialty, index) => (
@@ -77,11 +77,11 @@ export function Hero() {
               </p>
             </HeroReveal>
 
-            <HeroReveal delay={0.5} y={10} fade={false} largeScreensOnly>
+            <HeroReveal delay={0.35} y={10} fade={false} largeScreensOnly>
               <p className="mt-7 max-w-[34rem] text-base leading-relaxed text-mist-400 sm:text-lg">{profile.headline}</p>
             </HeroReveal>
 
-            <HeroReveal delay={0.8} y={12}>
+            <HeroReveal delay={0.5} y={12}>
               <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:items-center">
                 <MagneticButton href="#projects" className="uppercase tracking-[0.08em]">
                   View My Work
@@ -94,7 +94,7 @@ export function Hero() {
               </div>
             </HeroReveal>
 
-            <HeroReveal delay={0.95} y={8}>
+            <HeroReveal delay={0.6} y={8}>
               <ul className="mt-8 flex flex-wrap items-center gap-x-7 gap-y-3" aria-label="Contact links">
                 {secondaryLinks.map(({ label, hint, href, Icon, external }) => (
                   <li key={label} className="relative">

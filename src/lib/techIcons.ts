@@ -1,4 +1,5 @@
 import {
+  siAnsible,
   siAngular,
   siApachejmeter,
   siApachemaven,
@@ -10,15 +11,20 @@ import {
   siExpress,
   siFastapi,
   siGit,
+  siGithub,
+  siGithubactions,
   siGitlab,
   siGrafana,
   siHuggingface,
   siJavascript,
   siJenkins,
   siJsonwebtokens,
+  siLetsencrypt,
+  siLinux,
   siMongodb,
   siMysql,
   siNextdotjs,
+  siNginx,
   siNodedotjs,
   siOllama,
   siOpenjdk,
@@ -30,6 +36,7 @@ import {
   siQdrant,
   siReact,
   siScikitlearn,
+  siSnyk,
   siSonarqubeserver,
   siSonatype,
   siSpring,
@@ -47,6 +54,8 @@ import {
 import type { SimpleIcon } from "simple-icons";
 
 export interface TechIconData {
+  /** Symbol id in the page sprite. */
+  id: string;
   path: string;
   /** Brand color, lightened fallback when too dark for the dark theme. */
   color: string;
@@ -88,6 +97,13 @@ const iconsByTech: Record<string, SimpleIcon> = {
   "Docker Compose": siDocker,
   Jenkins: siJenkins,
   "GitLab CI/CD": siGitlab,
+  "GitHub Actions": siGithubactions,
+  GitHub: siGithub,
+  Ansible: siAnsible,
+  Nginx: siNginx,
+  Linux: siLinux,
+  Snyk: siSnyk,
+  "Let's Encrypt": siLetsencrypt,
   SonarQube: siSonarqubeserver,
   Nexus: siSonatype,
   Trivy: siTrivy,
@@ -120,14 +136,18 @@ export function getTechIcon(tech: string): TechIconData | null {
   const icon = iconsByTech[tech];
   if (!icon) return null;
   const isReadableOnDark = relativeLuminance(icon.hex) > 0.12;
-  return { path: icon.path, color: isReadableOnDark ? `#${icon.hex}` : FALLBACK_COLOR };
+  return { id: techIconId(icon.slug), path: icon.path, color: isReadableOnDark ? `#${icon.hex}` : FALLBACK_COLOR };
 }
 
-/** Two-letter monogram for technologies without a logo. */
-export function getTechMonogram(tech: string): string {
-  const cleaned = tech.replace(/[^A-Za-z0-9#+ ]/g, " ").trim();
-  const words = cleaned.split(/\s+/);
-  if (words.length > 1) return `${words[0][0]}${words[1][0]}`.toUpperCase();
-  if (cleaned.length <= 4) return cleaned;
-  return cleaned.slice(0, 2).toUpperCase();
+/** Id of a logo's <symbol> in the page sprite. */
+export const techIconId = (slug: string) => `ti-${slug}`;
+
+/** Unique logos (by slug) for the given technology names — each is drawn once in the sprite. */
+export function getSpriteIcons(techs: Iterable<string>): { id: string; path: string }[] {
+  const bySlug = new Map<string, string>();
+  for (const tech of techs) {
+    const icon = iconsByTech[tech];
+    if (icon) bySlug.set(icon.slug, icon.path);
+  }
+  return [...bySlug].map(([slug, path]) => ({ id: techIconId(slug), path }));
 }

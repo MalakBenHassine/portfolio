@@ -34,10 +34,10 @@ export const deliveryFlow: WorkflowStep[] = [
   { title: "Code", caption: "Java · Python · TypeScript" },
   { title: "Backend", caption: "Spring Boot · REST APIs · JWT/RBAC" },
   { title: "AI", caption: "Local LLMs · RAG · grounded generation" },
-  { title: "CI/CD", caption: "Jenkins · Docker · Nexus" },
-  { title: "Security", caption: "SonarQube · Trivy · OWASP ZAP" },
+  { title: "CI/CD", caption: "Jenkins · GitHub Actions · Docker" },
+  { title: "Security", caption: "SonarQube · Trivy · Snyk · OWASP ZAP" },
   { title: "Monitoring", caption: "Prometheus · Grafana" },
-  { title: "Production", caption: "Smoke tests · automatic rollback" },
+  { title: "Production", caption: "Ansible · Nginx · SSL · automatic rollback" },
 ];
 
 export const identityFacts: IdentityFact[] = [
@@ -81,12 +81,12 @@ export const focusAreas: FocusArea[] = [
   {
     icon: "infinity",
     title: "DevOps",
-    items: ["Docker", "Jenkins", "CI/CD", "Monitoring"],
+    items: ["Docker", "Jenkins", "GitHub Actions", "Ansible", "Nginx", "Monitoring"],
   },
   {
     icon: "shield",
     title: "Software Quality",
-    items: ["Testing", "Security", "SonarQube", "OWASP"],
+    items: ["Testing", "DevSecOps", "SonarQube", "Trivy", "Snyk", "OWASP"],
   },
 ];
 
@@ -96,36 +96,42 @@ export const impactPillars: ImpactPillar[] = [
     title: "Automation",
     metric: "3–5 days → < 10 min",
     proof: "Turned a manual, multi-day documentation workflow into an automated run.",
+    tech: ["Java 21", "Spring Boot", "Angular"],
   },
   {
     icon: "sparkles",
     title: "AI Integration",
     metric: "AST + local LLM",
     proof: "Generation grounded by a deterministic parser, with anti-hallucination safeguards.",
+    tech: ["Ollama", "qwen2.5-coder"],
   },
   {
     icon: "infinity",
     title: "CI/CD",
     metric: "9-stage Jenkins pipeline",
     proof: "Quality gate, image registry and automatic rollback on every delivery.",
+    tech: ["Jenkins", "Nexus", "Docker"],
   },
   {
     icon: "shield",
     title: "Security",
     metric: "OWASP ZAP + Trivy",
     proof: "1,686 attack requests audited, container images scanned, JWT & RBAC.",
+    tech: ["OWASP ZAP", "Trivy", "JWT"],
   },
   {
     icon: "beaker",
     title: "Testing",
     metric: "JMeter + SonarQube",
     proof: "100% success with 50 concurrent users, static analysis on every build.",
+    tech: ["JMeter", "SonarQube"],
   },
   {
     icon: "activity",
     title: "Monitoring",
     metric: "Prometheus + Grafana",
     proof: "Live system and container metrics, plus post-deploy smoke tests.",
+    tech: ["Prometheus", "Grafana"],
   },
 ];
 

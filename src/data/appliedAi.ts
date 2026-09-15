@@ -35,3 +35,12 @@ export const groundedGenerationSnippet = [
   { code: "    reject(draft)", comment: "no hallucinations" },
   { code: "sddd.update(draft)", comment: "traceable" },
 ];
+
+/** The stage each line of the snippet implements (line index, 0-based). */
+export const groundedGenerationFlow = [
+  { label: "AST", line: 0 },
+  { label: "Facts", line: 0 },
+  { label: "LLM", line: 1 },
+  { label: "Validation", line: 2 },
+  { label: "SDDD", line: 4 },
+];
