@@ -24,8 +24,8 @@ interface ProjectGridProps {
 const ENTRANCE_STAGGER = 0.1;
 
 const cardVariants = {
-  hidden: { opacity: 0, y: 32, scale: 0.97, filter: "blur(4px)" },
-  show: { opacity: 1, y: 0, scale: 1, filter: "blur(0px)" },
+  hidden: { opacity: 0, y: 24, scale: 0.98 },
+  show: { opacity: 1, y: 0, scale: 1 },
 };
 
 function matchesFilter(categories: ProjectCategory[], filter: ProjectFilterOption): boolean {
@@ -85,9 +85,9 @@ export function ProjectGrid({ items, categories }: ProjectGridProps) {
               variants={cardVariants}
               initial="hidden"
               animate={isInView ? "show" : "hidden"}
-              exit={{ opacity: 0, scale: 0.94, filter: "blur(4px)", transition: { duration: 0.25, ease: easeOutExpo } }}
+              exit={{ opacity: 0, scale: 0.96, transition: { duration: 0.25, ease: easeOutExpo } }}
               transition={{
-                duration: hasFiltered ? 0.4 : 0.7,
+                duration: hasFiltered ? 0.4 : 0.6,
                 // First entrance: cards arrive one after another. Filtering: all at once.
                 delay: hasFiltered ? 0.05 : index * ENTRANCE_STAGGER,
                 ease: easeOutExpo,

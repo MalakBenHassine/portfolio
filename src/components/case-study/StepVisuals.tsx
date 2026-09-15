@@ -6,67 +6,75 @@ import { easeOutExpo } from "@/lib/motion";
 import { cn } from "@/lib/cn";
 
 /*
- * One small, technically faithful illustration per AnalyseImpacte step (terms from the
- * internship report: C code V1/V2, SRD, SDDD, No Impact/Minor/Major/Complex,
- * Refined/Extended/Derived, Calls, Input/Output Data). Driven by variants from the parent:
- * "hidden" → "show" plays the sequence once. Decorative: the step text carries the meaning.
+ * One small, technically faithful illustration per AnalyseImpacte step, all built from the same
+ * grammar so the eight steps read as one system:
+ *   header  — "input → output"; each step's output is the next step's input
+ *   body    — nodes (boxes) joined by connectors, bars for progress
+ *   footer  — one status line (✓ passed · ✕ rejected · neutral note)
+ * Terms come from the internship report (C code V1/V2, SRD, SDDD, No Impact/Minor/Major/Complex,
+ * Refined/Extended, Calls, Input/Output Data). Decorative: the step text carries the meaning.
  */
 
+type Tone = "default" | "active" | "ai" | "ok" | "fail";
+
 const appear = (delay: number) => ({
-  hidden: { opacity: 0, y: 8 },
+  hidden: { opacity: 0, y: 6 },
   show: { opacity: 1, y: 0, transition: { delay, duration: 0.4, ease: easeOutExpo } },
 });
 
-const growX = (delay: number, duration = 0.45) => ({
-  hidden: { scaleX: 0 },
-  show: { scaleX: 1, transition: { delay, duration, ease: easeOutExpo } },
+const grow = (delay: number, axis: "x" | "y" = "x", duration = 0.35) => ({
+  hidden: axis === "x" ? { scaleX: 0 } : { scaleY: 0 },
+  show: { ...(axis === "x" ? { scaleX: 1 } : { scaleY: 1 }), transition: { delay, duration, ease: easeOutExpo } },
 });
 
-const draw = (delay: number, duration = 0.5) => ({
-  hidden: { pathLength: 0, opacity: 0 },
-  show: { pathLength: 1, opacity: 1, transition: { delay, duration, ease: "easeInOut" as const } },
-});
+const toneClasses: Record<Tone, string> = {
+  default: "border-white/10 text-mist-300",
+  active: "border-azure-400/45 text-azure-200",
+  ai: "border-iris-400/45 text-iris-400",
+  ok: "border-ok-400/40 text-ok-400",
+  fail: "border-rose-400/40 text-rose-300",
+};
 
-function Box({ children, className, delay }: { children: ReactNode; className?: string; delay: number }) {
+function Node({ children, delay, tone = "default", className }: { children: ReactNode; delay: number; tone?: Tone; className?: string }) {
   return (
     <motion.div
       data-reveal
       variants={appear(delay)}
-      className={cn("rounded-lg border border-white/10 bg-ink-850/90 px-2.5 py-1.5 font-mono text-[10px] leading-tight text-mist-300", className)}
+      className={cn("rounded-lg border bg-ink-850/90 px-2.5 py-1.5 font-mono text-[10px] leading-snug", toneClasses[tone], className)}
     >
       {children}
     </motion.div>
   );
 }
 
-function Wire({ delay, className }: { delay: number; className?: string }) {
+function Connector({ delay, axis = "x", className }: { delay: number; axis?: "x" | "y"; className?: string }) {
   return (
     <motion.span
       data-reveal
       aria-hidden="true"
-      variants={growX(delay, 0.3)}
-      style={{ transformOrigin: "left" }}
-      className={cn("block h-px w-4 shrink-0 bg-azure-400/60", className)}
+      variants={grow(delay, axis, 0.3)}
+      style={{ transformOrigin: axis === "x" ? "left" : "top" }}
+      className={cn("block shrink-0 bg-azure-400/55", axis === "x" ? "h-px w-4" : "h-3 w-px", className)}
     />
   );
 }
 
-/** A → B → C flow: drawn wires on wide containers, compact wrapping arrows on phones. */
-function Chain({ nodes, step = 0.22 }: { nodes: { label: string; className?: string }[]; step?: number }) {
+/** A → B → C: drawn connectors on wide containers, wrapping arrows on phones. */
+function Chain({ nodes, step = 0.2, start = 0.05 }: { nodes: { label: string; tone?: Tone }[]; step?: number; start?: number }) {
   return (
     <div className="flex flex-wrap items-center gap-y-1.5 sm:flex-nowrap">
       {nodes.map((node, index) => (
         <span key={node.label} className="flex items-center sm:flex-1 sm:last:flex-none">
-          <Box delay={0.05 + index * step} className={cn("whitespace-nowrap", node.className)}>
+          <Node delay={start + index * step} tone={node.tone} className="whitespace-nowrap">
             {node.label}
-          </Box>
+          </Node>
           {index < nodes.length - 1 ? (
             <>
-              <Wire delay={0.2 + index * step} className="hidden flex-1 sm:block" />
+              <Connector delay={start + 0.15 + index * step} className="hidden flex-1 sm:block" />
               <motion.span
                 data-reveal
                 aria-hidden="true"
-                variants={appear(0.2 + index * step)}
+                variants={appear(start + 0.15 + index * step)}
                 className="px-1 font-mono text-[10px] text-azure-400 sm:hidden"
               >
                 →
@@ -79,31 +87,55 @@ function Chain({ nodes, step = 0.22 }: { nodes: { label: string; className?: str
   );
 }
 
-function Label({ children, delay, tone = "mist" }: { children: ReactNode; delay: number; tone?: "mist" | "ok" | "iris" }) {
+interface StatusItem {
+  text: string;
+  tone?: "ok" | "fail" | "neutral";
+}
+
+/** The single status-line format shared by every step. */
+function Status({ items, delay }: { items: StatusItem[]; delay: number }) {
   return (
-    <motion.p
-      data-reveal
-      variants={appear(delay)}
-      className={cn(
-        "font-mono text-[10px] tracking-[0.14em] uppercase",
-        tone === "ok" && "text-ok-400",
-        tone === "iris" && "text-iris-400",
-        tone === "mist" && "text-mist-500",
-      )}
-    >
-      {children}
-    </motion.p>
+    <div className="flex flex-wrap gap-x-4 gap-y-1 border-t border-white/6 pt-2">
+      {items.map((item, index) => (
+        <motion.p
+          data-reveal
+          key={item.text}
+          variants={appear(delay + index * 0.12)}
+          className={cn(
+            "font-mono text-[10px] tracking-[0.08em] uppercase",
+            item.tone === "ok" && "text-ok-400",
+            item.tone === "fail" && "text-rose-300",
+            (!item.tone || item.tone === "neutral") && "text-mist-400",
+          )}
+        >
+          {item.text}
+        </motion.p>
+      ))}
+    </div>
+  );
+}
+
+function Frame({ from, to, children, status, statusDelay }: { from: string; to: string; children: ReactNode; status: StatusItem[]; statusDelay: number }) {
+  return (
+    <div className="flex h-full flex-col gap-2.5">
+      <p className="font-mono text-[10px] text-mist-500">
+        <span className="text-mist-400">{from}</span> <span className="text-azure-400">→</span>{" "}
+        <span className="text-azure-200">{to}</span>
+      </p>
+      <div className="flex min-h-0 flex-1 flex-col justify-center gap-2.5">{children}</div>
+      <Status items={status} delay={statusDelay} />
+    </div>
   );
 }
 
 function DiffLines({ delay, rows }: { delay: number; rows: ("same" | "add" | "del")[] }) {
   return (
-    <span className="mt-2 flex flex-col gap-1">
+    <span className="mt-1.5 flex flex-col gap-1">
       {rows.map((row, index) => (
         <motion.span
           data-reveal
           key={index}
-          variants={growX(delay + index * 0.06, 0.35)}
+          variants={grow(delay + index * 0.05)}
           style={{ transformOrigin: "left", width: `${55 + ((index * 17) % 40)}%` }}
           className={cn(
             "block h-1 rounded-full",
@@ -120,146 +152,111 @@ function DiffLines({ delay, rows }: { delay: number; rows: ("same" | "add" | "de
 /* 01 — Code V1/V2, SRD V1/V2 and the existing SDDD come in */
 function SourceVisual() {
   const files = [
-    { name: "Code C", version: "V1 → V2", rows: ["same", "del", "add", "same"] as const },
-    { name: "SRD", version: "V1 → V2", rows: ["same", "same", "add", "same"] as const },
-    { name: "SDDD", version: "v02", rows: ["same", "same", "same", "same"] as const },
+    { name: "Code C", version: "V1→V2", rows: ["same", "del", "add"] as const },
+    { name: "SRD", version: "V1→V2", rows: ["same", "add", "same"] as const },
+    { name: "SDDD", version: "v02", rows: ["same", "same", "same"] as const },
   ];
   return (
-    <div className="flex h-full flex-col justify-between gap-3">
+    <Frame
+      from="Code · SRD · SDDD"
+      to="change set"
+      statusDelay={0.7}
+      status={[{ text: "✓ Change detected", tone: "ok" }, { text: "✓ 3 artefacts imported", tone: "ok" }]}
+    >
       <div className="grid grid-cols-3 gap-2">
         {files.map((file, index) => (
-          <Box key={file.name} delay={0.05 + index * 0.12} className="px-3 py-2.5">
-            <span className="flex items-center justify-between gap-1">
+          <Node key={file.name} delay={0.05 + index * 0.12} tone={index === 2 ? "default" : "active"}>
+            <span className="flex flex-wrap items-baseline justify-between gap-x-1">
               <span className="text-snow">{file.name}</span>
               <span className="text-mist-500">{file.version}</span>
             </span>
             <DiffLines delay={0.25 + index * 0.12} rows={[...file.rows]} />
-          </Box>
+          </Node>
         ))}
       </div>
-      <div className="flex flex-wrap gap-x-5 gap-y-1">
-        <Label delay={0.7} tone="ok">
-          ✓ Change detected
-        </Label>
-        <Label delay={0.85} tone="ok">
-          ✓ 3 artefacts imported
-        </Label>
-      </div>
-    </div>
+    </Frame>
   );
 }
 
-/* 02 — Deterministic AST parsing */
+/* 02 — Deterministic AST parsing: one root, three extracted facts */
 function AstVisual() {
   const leaves = ["signature", "calls", "globals IN/OUT"];
   return (
-    <div className="flex h-full flex-col justify-between gap-2">
-      <div className="relative">
-        <svg aria-hidden="true" viewBox="0 0 300 60" preserveAspectRatio="none" className="absolute inset-x-0 top-6 h-10 w-full">
-          {[50, 150, 250].map((x, index) => (
-            <motion.path
-              key={x}
-              d={`M150 0 C150 30 ${x} 20 ${x} 60`}
-              stroke="rgb(124 157 255 / 0.55)"
-              strokeWidth="1"
-              fill="none"
-              vectorEffect="non-scaling-stroke"
-              variants={draw(0.3 + index * 0.1)}
-            />
-          ))}
-        </svg>
-        <div className="flex justify-center">
-          <Box delay={0.05} className="text-snow">
-            function_v2( ) <span className="text-mist-500">· AST</span>
-          </Box>
-        </div>
-        <div className="mt-10 grid grid-cols-3 gap-2 text-center">
+    <Frame from="change set" to="AST facts" statusDelay={0.85} status={[{ text: "Deterministic parser · no AI in this step" }]}>
+      <div className="flex flex-col items-center">
+        <Node delay={0.05} tone="active">
+          <span className="text-snow">function</span> · AST
+        </Node>
+        <Connector delay={0.25} axis="y" />
+        <motion.span
+          data-reveal
+          aria-hidden="true"
+          variants={grow(0.35)}
+          style={{ transformOrigin: "center" }}
+          className="block h-px w-2/3 bg-azure-400/55"
+        />
+        <div className="grid w-full grid-cols-3 gap-2 text-center">
           {leaves.map((leaf, index) => (
-            <Box key={leaf} delay={0.55 + index * 0.1}>
-              {leaf}
-            </Box>
+            <div key={leaf} className="flex flex-col items-center">
+              <Connector delay={0.45} axis="y" />
+              <Node delay={0.5 + index * 0.1} className="w-full">
+                {leaf}
+              </Node>
+            </div>
           ))}
         </div>
       </div>
-      <Label delay={0.9}>Deterministic parser · no AI in this step</Label>
-    </div>
+    </Frame>
   );
 }
 
-/* 03 — Cross-impact: code change → requirement → SDDD, classified */
+/* 03 — Cross-impact: changed function → requirement → SDDD, then classified */
 function ImpactVisual() {
   const levels = ["No Impact", "Minor", "Major", "Complex"];
   return (
-    <div className="flex h-full flex-col justify-between gap-3">
-      <Chain
-        step={0.25}
-        nodes={[
-          { label: "Changed function", className: "border-amber-300/40 text-amber-200" },
-          { label: "SRD requirement" },
-          { label: "SDDD" },
-        ]}
-      />
+    <Frame
+      from="AST facts"
+      to="impact matrix"
+      statusDelay={1}
+      status={[{ text: "✓ Impact detected", tone: "ok" }, { text: "Severity: Major" }, { text: "Traceability: Extended" }]}
+    >
+      <Chain nodes={[{ label: "Changed function", tone: "active" }, { label: "SRD requirement" }, { label: "SDDD" }]} step={0.22} />
       <div className="grid grid-cols-4 gap-1">
         {levels.map((level, index) => (
-          <motion.span
-            data-reveal
+          <Node
             key={level}
-            variants={{
-              hidden: { opacity: 0 },
-              show: { opacity: 1, transition: { delay: 0.7 + index * 0.06, duration: 0.3 } },
-            }}
-            className={cn(
-              "rounded-md border px-1 py-1 text-center font-mono text-[9px]",
-              level === "Major" ? "border-amber-300/50 bg-amber-300/10 text-amber-200" : "border-white/8 text-mist-500",
-            )}
+            delay={0.7 + index * 0.05}
+            tone={level === "Major" ? "active" : "default"}
+            className={cn("px-1 text-center", level === "Major" ? "bg-azure-400/10" : "text-mist-500")}
           >
             {level}
-          </motion.span>
+          </Node>
         ))}
       </div>
-      <Box delay={1.05} className="flex flex-wrap items-center gap-x-3 gap-y-0.5 border-azure-400/25">
-        <span className="text-ok-400">✓ Impact detected</span>
-        <span>
-          Severity: <span className="text-amber-200">Major</span>
-        </span>
-        <span>
-          Traceability: <span className="text-azure-200">Extended</span>
-        </span>
-      </Box>
-    </div>
+    </Frame>
   );
 }
 
-/* 04 — Grounded AI: AST → facts → local LLM → validation */
+/* 04 — Grounded AI: the model only drafts from extracted facts, and the draft is validated */
 function GroundedAiVisual() {
   return (
-    <div className="flex h-full flex-col justify-between gap-3">
-      <Chain
-        nodes={[
-          { label: "AST" },
-          { label: "Facts" },
-          { label: "qwen2.5-coder", className: "border-iris-400/40 text-iris-400" },
-          { label: "Draft" },
-        ]}
-      />
-      <div className="flex items-center gap-2">
-        <Box delay={1} className="flex-1 border-ok-400/30">
-          <span className="text-ok-400">✓ grounded</span>
-          <span className="block text-mist-500">matches the code → kept</span>
-        </Box>
-        <Box delay={1.15} className="flex-1 border-rose-400/25">
-          <span className="text-rose-300">✕ not in source</span>
-          <span className="block text-mist-500">rejected</span>
-        </Box>
+    <Frame
+      from="facts + impacts"
+      to="grounded draft"
+      statusDelay={1.1}
+      status={[{ text: "✓ Grounded → kept", tone: "ok" }, { text: "✕ Not in source → rejected", tone: "fail" }]}
+    >
+      <Chain nodes={[{ label: "AST" }, { label: "Facts" }, { label: "qwen2.5-coder", tone: "ai" }, { label: "Draft" }]} />
+      <div className="flex items-center justify-center">
+        <Node delay={0.9} tone="active">
+          validation · grounded(draft, facts)
+        </Node>
       </div>
-      <Label delay={1.3} tone="iris">
-        Ollama · local · validated against the AST
-      </Label>
-    </div>
+    </Frame>
   );
 }
 
-/* 05 — SDDD proposal with traceability reclassification */
+/* 05 — SDDD proposal: version bump and updated subsections */
 function SdddVisual() {
   const sections = [
     { name: "Function signature", value: "updated" },
@@ -268,140 +265,118 @@ function SdddVisual() {
     { name: "Traceability", value: "Refined · Extended" },
   ];
   return (
-    <motion.div data-reveal variants={appear(0.05)} className="flex h-full flex-col rounded-lg border border-white/10 bg-ink-850/90 p-3 font-mono text-[10px]">
-      <p className="flex items-center justify-between border-b border-white/8 pb-2 text-mist-300">
-        <span className="text-snow">SDDD</span>
-        <span>
-          version <span className="text-mist-500 line-through">02</span> → <span className="text-azure-200">03</span>
-        </span>
-      </p>
-      <ul className="mt-2 space-y-1.5">
-        {sections.map((section, index) => (
-          <motion.li
-            data-reveal
-            key={section.name}
-            variants={appear(0.3 + index * 0.18)}
-            className="relative flex items-center justify-between gap-2 overflow-hidden rounded px-1.5 py-0.5"
-          >
-            <motion.span
-              aria-hidden="true"
-              variants={growX(0.35 + index * 0.18, 0.5)}
-              style={{ transformOrigin: "left" }}
-              className="absolute inset-0 bg-azure-400/8"
-            />
-            <span className="relative text-mist-300">{section.name}</span>
-            <span className="relative text-azure-200">{section.value}</span>
-          </motion.li>
-        ))}
-      </ul>
-      <motion.p data-reveal variants={appear(1.1)} className="mt-auto pt-2 text-ok-400">
-        ✓ DO-178C traceability kept · PDF & CSV
-      </motion.p>
-    </motion.div>
+    <Frame from="grounded draft" to="SDDD v03" statusDelay={1.05} status={[{ text: "✓ DO-178C traceability kept", tone: "ok" }]}>
+      <Node delay={0.05} className="p-2">
+        <p className="flex items-center justify-between border-b border-white/8 pb-1.5">
+          <span className="text-snow">SDDD</span>
+          <span>
+            <span className="text-mist-500 line-through">v02</span> → <span className="text-azure-200">v03</span>
+          </span>
+        </p>
+        <ul className="mt-1.5 space-y-1">
+          {sections.map((section, index) => (
+            <motion.li
+              data-reveal
+              key={section.name}
+              variants={appear(0.3 + index * 0.15)}
+              className="flex items-center justify-between gap-2"
+            >
+              <span>{section.name}</span>
+              <span className="text-azure-200">{section.value}</span>
+            </motion.li>
+          ))}
+        </ul>
+      </Node>
+    </Frame>
   );
 }
 
 /* 06 — Validation: quality, load, security */
 function TestingVisual() {
   const checks = [
-    { tool: "SonarQube", result: "Quality gate passed", fill: 1 },
-    { tool: "JMeter", result: "100% success · 50 users", fill: 1 },
-    { tool: "OWASP ZAP", result: "1,686 requests · 0 critical", fill: 1 },
+    { tool: "SonarQube", result: "Quality gate passed" },
+    { tool: "JMeter", result: "100% · 50 users" },
+    { tool: "OWASP ZAP", result: "1,686 req · 0 critical" },
   ];
   return (
-    <ul className="flex h-full flex-col justify-center gap-3">
-      {checks.map((check, index) => (
-        <motion.li data-reveal key={check.tool} variants={appear(0.05 + index * 0.3)} className="font-mono text-[10px]">
-          <span className="flex items-center justify-between gap-2">
-            <span className="text-snow">{check.tool}</span>
-            <span className="text-ok-400">✓ {check.result}</span>
-          </span>
-          <span className="mt-1.5 block h-1 overflow-hidden rounded-full bg-white/8">
-            <motion.span
-              className="block h-full rounded-full bg-linear-to-r from-azure-400 to-ok-400"
-              style={{ transformOrigin: "left" }}
-              variants={growX(0.15 + index * 0.3, 0.6)}
-            />
-          </span>
-        </motion.li>
-      ))}
-    </ul>
+    <Frame from="build" to="validated build" statusDelay={1.1} status={[{ text: "✓ Quality · load · security passed", tone: "ok" }]}>
+      <ul className="flex flex-col gap-2.5">
+        {checks.map((check, index) => (
+          <motion.li data-reveal key={check.tool} variants={appear(0.05 + index * 0.25)} className="font-mono text-[10px]">
+            <span className="flex items-center justify-between gap-2">
+              <span className="text-snow">{check.tool}</span>
+              <span className="text-ok-400">✓ {check.result}</span>
+            </span>
+            <span className="mt-1 block h-1 overflow-hidden rounded-full bg-white/8">
+              <motion.span
+                className="block h-full rounded-full bg-ok-400/70"
+                style={{ transformOrigin: "left" }}
+                variants={grow(0.15 + index * 0.25, "x", 0.5)}
+              />
+            </span>
+          </motion.li>
+        ))}
+      </ul>
+    </Frame>
   );
 }
 
 /* 07 — Jenkins, 9 stages */
 function PipelineVisual() {
-  const stages = ["Checkout", "Tests", "Gate", "Build", "Trivy", "Backup", "Nexus", "Deploy", "Smoke"];
+  const stages = ["Checkout", "Tests", "Gate", "Build", "Scan", "Backup", "Push", "Deploy", "Smoke"];
   return (
-    <div className="flex h-full flex-col justify-between gap-3">
+    <Frame
+      from="validated build"
+      to="images in Nexus"
+      statusDelay={1.05}
+      status={[{ text: "✓ 9 / 9 stages passed", tone: "ok" }, { text: "↓ Full run below" }]}
+    >
       <p className="font-mono text-[10px] text-mist-400">
-        <span className="text-snow">Jenkinsfile</span> · 9 stages · automatic rollback
+        <span className="text-snow">Jenkinsfile</span> · checkout → tests → gate → build → scan → backup → push → deploy → smoke
       </p>
       <ol className="grid grid-cols-9 gap-1">
         {stages.map((stage, index) => (
-          <li key={stage} className="flex flex-col items-center gap-1.5">
+          <li key={stage} className="flex flex-col items-center gap-1">
             <span className="block h-1.5 w-full overflow-hidden rounded-full bg-white/8">
               <motion.span
                 className="block h-full bg-ok-400/80"
                 style={{ transformOrigin: "left" }}
-                variants={growX(0.1 + index * 0.1, 0.25)}
+                variants={grow(0.1 + index * 0.09, "x", 0.2)}
               />
             </span>
-            <span className="font-mono text-[8px] text-mist-500">{stage}</span>
+            <span className="font-mono text-[10px] text-mist-500">
+              {String(index + 1).padStart(2, "0")}
+            </span>
           </li>
         ))}
       </ol>
-      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
-        <Label delay={1.05} tone="ok">
-          ✓ Gate · scan · registry · deploy
-        </Label>
-        <Label delay={1.2}>↓ Full run below</Label>
-      </div>
-    </div>
+    </Frame>
   );
 }
 
 /* 08 — Containers in production, monitored, with a rollback tag ready */
 function DeployVisual() {
+  const nodes: { label: ReactNode; tone: Tone }[] = [
+    { label: <>docker backend <span className="text-ok-400">● up</span></>, tone: "default" },
+    { label: <>docker frontend <span className="text-ok-400">● up</span></>, tone: "default" },
+    { label: "↺ rollback tag ready", tone: "active" },
+    { label: "Prometheus → Grafana", tone: "default" },
+  ];
   return (
-    <div className="flex h-full flex-col gap-2">
-    <div className="grid flex-1 grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] gap-3">
-      <div className="flex flex-col justify-between gap-2">
-        <Box delay={0.05}>
-          <span className="text-snow">docker</span> backend <span className="text-ok-400">● up</span>
-        </Box>
-        <Box delay={0.2}>
-          <span className="text-snow">docker</span> frontend <span className="text-ok-400">● up</span>
-        </Box>
-        <Box delay={0.35} className="border-azure-400/25">
-          ↺ rollback tag ready
-        </Box>
+    <Frame
+      from="images"
+      to="production"
+      statusDelay={0.8}
+      status={[{ text: "✓ Smoke tests passed", tone: "ok" }, { text: "✓ Production ready", tone: "ok" }]}
+    >
+      <div className="grid grid-cols-2 gap-2">
+        {nodes.map((node, index) => (
+          <Node key={index} delay={0.05 + index * 0.12} tone={node.tone}>
+            {node.label}
+          </Node>
+        ))}
       </div>
-      <motion.div data-reveal variants={appear(0.3)} className="flex flex-col rounded-lg border border-white/10 bg-ink-850/90 p-2.5">
-        <p className="font-mono text-[10px] text-mist-400">
-          <span className="text-snow">Prometheus</span> → Grafana
-        </p>
-        <svg aria-hidden="true" viewBox="0 0 120 40" className="mt-auto h-12 w-full" preserveAspectRatio="none">
-          <motion.path
-            d="M0 30 L15 26 L28 28 L40 20 L55 23 L68 14 L82 18 L95 11 L108 15 L120 9"
-            fill="none"
-            stroke="rgb(74 222 128 / 0.8)"
-            strokeWidth="1.5"
-            vectorEffect="non-scaling-stroke"
-            variants={draw(0.55, 0.9)}
-          />
-        </svg>
-        <p className="font-mono text-[9px] text-ok-400">✓ smoke tests passed</p>
-      </motion.div>
-    </div>
-      <motion.p
-        data-reveal
-        variants={appear(1.4)}
-        className="rounded-md border border-ok-400/30 bg-ok-400/10 py-1 text-center font-mono text-[10px] font-semibold tracking-[0.2em] text-ok-400 uppercase"
-      >
-        Production ready
-      </motion.p>
-    </div>
+    </Frame>
   );
 }
 
@@ -421,7 +396,7 @@ export function StepVisual({ index, trigger = "mount", className }: StepVisualPr
   return (
     <motion.div
       aria-hidden="true"
-      className={cn("min-h-[150px] min-w-0 select-none", trigger === "mount" && "h-[168px]", className)}
+      className={cn("min-w-0 select-none", trigger === "mount" && "h-[188px]", className)}
       initial="hidden"
       {...play}
     >

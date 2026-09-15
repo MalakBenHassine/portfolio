@@ -26,7 +26,7 @@ src/
 ├── app/                  # layout (SEO metadata), page (JSON-LD), OG image, icon, robots, sitemap
 ├── components/
 │   ├── sections/         # One component per page section
-│   ├── hero/             # Portrait, CSS intro reveal, pointer parallax, particle field
+│   ├── hero/             # Portrait, CSS intro reveal, subtle pointer parallax, deploy terminal
 │   ├── about/            # "From code to production" delivery flow
 │   ├── ai/               # Code window for the Applied AI section
 │   ├── skills/           # Skill chip with hover role tooltip
@@ -34,9 +34,9 @@ src/
 │   ├── experience/       # Scroll-linked timeline rail
 │   ├── projects/         # Filterable grid (client), server-rendered cards, illustrative visuals
 │   ├── contact/          # Contact form (Formspree / mailto fallback), copy-email button
-│   ├── layout/           # Navbar, Footer, top scroll progress, custom cursor (desktop only)
+│   ├── layout/           # Navbar, Footer, top scroll progress, back to top
 │   ├── providers/        # Framer Motion config (respects prefers-reduced-motion)
-│   └── ui/               # Design-system primitives (Reveal, Stagger, SpotlightCard, MagneticButton…) + icons
+│   └── ui/               # Design-system primitives (Reveal, Stagger, SpotlightCard, ButtonLink, TechIcon sprite…) + icons
 ├── data/                 # All site content — edit text here, not in components
 ├── hooks/                # useActiveSection, useMediaQuery, usePrefersReducedMotion, useFinePointer
 └── lib/                  # Types, site config, motion presets, tech icon mapping, helpers
@@ -59,13 +59,13 @@ Utilities: `surface`, `glass`, `spotlight`, `text-gradient`, `bg-grid`, `bg-dots
 ## Motion principles
 
 - Every animation communicates something: hierarchy, progress, technical flow, interaction or a result.
-- Transform/opacity (plus a one-time blur → sharp on reveals). The particle field runs only while the mouse moves and the Hero is on screen; the only ambient loops are a very slow light drift and rare data pulses along the Hero grid (CSS, large screens).
+- One motion language (`src/lib/motion.ts`): opacity + slight rise (+ very light scale for cards), one easing curve, short durations. No blur, no rotation, no bounce. The only ambient loops are a very slow light drift and rare data pulses along the Hero grid (CSS, large screens).
 - The Hero intro is pure CSS (`.hero-rise`), so it plays at first paint without waiting for JavaScript. The name is static (LCP).
 - Headings reveal word by word (`AnimatedWords`, `RevealGroup`); metrics count up (`AnimatedCounter`) or strike through the old value (`BeforeAfterMetric`).
 - Scroll storytelling: the About delivery chain and the AnalyseImpacte workflow (`WorkflowStory`, pinned on desktop) advance with the scroll position; each workflow step has a technical illustration (`StepVisuals`) built only from terms in the internship report. The Jenkins pipeline and the Hero `analyseimpacte deploy` terminal play once when visible.
 - The architecture is an explorable system diagram (hover on desktop, tap on touch); connections animate only while a component is being explored.
 - Scroll reveals use Framer Motion and carry `data-reveal`: without JavaScript, or with `prefers-reduced-motion`, they are shown immediately (and the workflow is not pinned).
-- Pointer effects (custom cursor, parallax, particles, magnetic buttons) are enabled only on fine pointers without reduced motion.
+- The Hero pointer parallax (a few pixels) is enabled only on fine pointers without reduced motion. Everything hover-only is also available on tap/focus or in the text.
 
 ## Configuration
 
@@ -81,4 +81,4 @@ Copy `.env.example` to `.env.local`:
 - **CV**: `public/cv/Malak-Ben-Hassine-CV.pdf`.
 - **Portrait**: `public/images/malak-profile.webp` (referenced in `src/data/profile.ts` and imported in `src/components/hero/Portrait.tsx`). To replace it, keep the same file name, or update both.
 - **Project visuals**: each project uses an illustrative, code-drawn preview (`visual`). Set `image` to show a real screenshot instead, or add a `{ kind: "demo" }` link in `src/data/projects.ts`.
-- **Technology logos**: map a technology name to a Simple Icons export in `src/lib/techIcons.ts` (a monogram is shown otherwise).
+- **Technology logos**: map a technology name to a Simple Icons export in `src/lib/techIcons.ts` (a neutral glyph with no text is shown otherwise). Logos are drawn once in a page sprite (`TechIconSprite`) and referenced with `<use>`.

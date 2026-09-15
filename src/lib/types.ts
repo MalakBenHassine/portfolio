@@ -88,6 +88,8 @@ export interface ExperienceItem {
   context?: string[];
   highlights: string[];
   tech: string[];
+  /** Headline measurable impact, shown prominently under the context tags. */
+  impact?: { before: string; after: string; label: string };
   /** In-page link to a detailed case study of this experience. */
   caseStudy?: { label: string; href: `#${string}` };
 }

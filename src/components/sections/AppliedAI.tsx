@@ -5,7 +5,13 @@ import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { StaggerItem, StaggerList } from "@/components/ui/Stagger";
 import { SparklesIcon } from "@/components/ui/icons/SparklesIcon";
-import { aiPrinciples, aiUseCases, groundedGenerationFlow, groundedGenerationSnippet } from "@/data/appliedAi";
+import {
+  aiPrinciples,
+  aiUseCases,
+  groundedGenerationFlow,
+  groundedGenerationSnippet,
+  groundedGenerationSummary,
+} from "@/data/appliedAi";
 
 export function AppliedAI() {
   return (
@@ -44,6 +50,7 @@ export function AppliedAI() {
             filename="grounded_generation.py"
             lines={groundedGenerationSnippet}
             flow={groundedGenerationFlow}
+            flowSummary={groundedGenerationSummary}
             result="Only grounded content reaches the SDDD"
             caption="Illustrative pseudocode of the grounding approach used in AnalyseImpacte."
           />

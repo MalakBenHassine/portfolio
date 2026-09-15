@@ -1,5 +1,6 @@
 import { TimelineDot } from "@/components/experience/TimelineDot";
 import { TimelineRail } from "@/components/experience/TimelineRail";
+import { BeforeAfterMetric } from "@/components/ui/BeforeAfterMetric";
 import { MetricText } from "@/components/ui/MetricText";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealBlock, RevealGroup, RevealHeading } from "@/components/ui/RevealGroup";
@@ -110,6 +111,15 @@ export function Experience() {
                             </StaggerItem>
                           ))}
                         </StaggerList>
+                      ) : null}
+                      {item.impact ? (
+                        <div className="mt-5 inline-flex flex-wrap items-baseline gap-x-3 gap-y-1 rounded-xl border border-azure-400/20 bg-azure-500/[0.06] px-4 py-2.5">
+                          <span className="font-mono text-[10px] tracking-[0.18em] text-azure-300 uppercase">Impact</span>
+                          <span className="text-lg font-semibold tracking-tight text-snow sm:text-xl">
+                            <BeforeAfterMetric before={item.impact.before} after={item.impact.after} afterClassName="text-gradient" />
+                          </span>
+                          <span className="text-sm text-mist-400">{item.impact.label}</span>
+                        </div>
                       ) : null}
                     </header>
 

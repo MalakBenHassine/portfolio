@@ -1,8 +1,7 @@
-import { CardSweep } from "@/components/contact/CardSweep";
 import { ContactForm } from "@/components/contact/ContactForm";
-import { ShipSequence } from "@/components/contact/ShipSequence";
 import { CopyEmailButton } from "@/components/contact/CopyEmailButton";
-import { MagneticButton } from "@/components/ui/MagneticButton";
+import { ShipSequence } from "@/components/contact/ShipSequence";
+import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealBlock, RevealGroup, RevealHeading } from "@/components/ui/RevealGroup";
 import { SectionDivider } from "@/components/ui/SectionDivider";
@@ -32,7 +31,7 @@ const socialLinks = [
   },
 ];
 
-/** Brand-colored channel card: white text on a gradient, lift + light sweep on hover. */
+/** Brand-colored channel card: white text on a gradient, slight lift on hover. */
 const channelCardClasses =
   "group relative flex h-full items-center gap-4 overflow-hidden rounded-2xl bg-linear-to-br p-5 text-white transition-transform duration-300 hover:-translate-y-1";
 
@@ -74,10 +73,10 @@ export function Contact() {
             </p>
           </RevealBlock>
           <RevealBlock className="mt-10">
-            <MagneticButton href={`mailto:${profile.email}`} className="px-7 py-3 tracking-[0.08em] uppercase">
+            <ButtonLink href={`mailto:${profile.email}`} className="px-7 py-3 tracking-[0.08em] uppercase">
               Start a conversation
               <ArrowRightIcon className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </MagneticButton>
+            </ButtonLink>
           </RevealBlock>
         </RevealGroup>
 
@@ -92,7 +91,6 @@ export function Contact() {
               {socialLinks.map(({ label, detail, href, Icon, colors }) => (
                 <StaggerItem key={label}>
                   <a href={href} target="_blank" rel="noopener noreferrer" className={`${channelCardClasses} ${colors}`}>
-                    <CardSweep />
                     <span className={channelIconClasses}>
                       <Icon className="size-5" />
                     </span>
@@ -110,7 +108,6 @@ export function Contact() {
                 <div
                   className={`${channelCardClasses} from-azure-600 to-[#5a3fd1] shadow-[0_18px_40px_-20px_rgb(91_130_255/0.8)]`}
                 >
-                  <CardSweep />
                   <span className={channelIconClasses}>
                     <MailIcon className="size-5" />
                   </span>
@@ -130,7 +127,6 @@ export function Contact() {
                   download
                   className={`${channelCardClasses} from-[#0f766e] to-[#0b4f4a] shadow-[0_18px_40px_-20px_rgb(15_118_110/0.8)]`}
                 >
-                  <CardSweep />
                   <span className={channelIconClasses}>
                     <DownloadIcon className="size-5" />
                   </span>

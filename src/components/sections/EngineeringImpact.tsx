@@ -58,7 +58,7 @@ export function EngineeringImpact() {
                 className="group flex h-full flex-col p-6 transition-[transform,box-shadow] duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_-30px_rgb(91_130_255/0.45)] sm:p-7"
               >
                 <div className="flex items-center justify-between">
-                  <span className="relative grid size-10 place-items-center rounded-xl border border-white/8 bg-ink-850 text-azure-300 transition-[transform,border-color,box-shadow] duration-300 group-hover:-translate-y-0.5 group-hover:rotate-[-6deg] group-hover:border-azure-400/40 group-hover:shadow-[0_0_24px_-4px_rgb(91_130_255/0.55)]">
+                  <span className="relative grid size-10 place-items-center rounded-xl border border-white/8 bg-ink-850 text-azure-300 transition-[transform,border-color,box-shadow] duration-300 group-hover:-translate-y-0.5 group-hover:border-azure-400/40 group-hover:shadow-[0_0_24px_-4px_rgb(91_130_255/0.55)]">
                     <Icon name={pillar.icon} className="size-5" />
                   </span>
                   <span className="font-mono text-[11px] text-mist-500 transition-colors duration-300 group-hover:text-azure-300">

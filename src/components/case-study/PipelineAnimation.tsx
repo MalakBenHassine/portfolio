@@ -7,10 +7,11 @@ import type { StageStatus } from "@/components/case-study/PipelineStageRow";
 import { CheckIcon } from "@/components/ui/icons/CheckIcon";
 import { pipelineStages } from "@/data/pipeline";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
+import { easeOutExpo } from "@/lib/motion";
 import { cn } from "@/lib/cn";
 
-const START_DELAY_MS = 500;
-const STAGE_DURATION_MS = 520;
+const START_DELAY_MS = 400;
+const STAGE_DURATION_MS = 420;
 
 /** The real 9-stage AnalyseImpacte Jenkins pipeline, replayed when scrolled into view. */
 export function PipelineAnimation() {
@@ -90,7 +91,7 @@ export function PipelineAnimation() {
           className="h-full origin-left bg-linear-to-r from-azure-400 to-ok-400"
           initial={false}
           animate={{ scaleX: completed / totalStages }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          transition={{ duration: 0.35, ease: easeOutExpo }}
         />
       </div>
 
@@ -101,7 +102,7 @@ export function PipelineAnimation() {
           className="absolute top-[34px] bottom-[34px] left-[27px] w-px origin-top bg-ok-400/60 sm:left-[31px]"
           initial={false}
           animate={{ scaleY: Math.min(completed / (totalStages - 1), 1) }}
-          transition={{ duration: 0.4, ease: "easeOut" }}
+          transition={{ duration: 0.35, ease: easeOutExpo }}
         />
         {/* Light travelling along the pipeline towards the running stage */}
         <motion.span
@@ -112,7 +113,7 @@ export function PipelineAnimation() {
             y: Math.min(completed, totalStages - 1) * STAGE_ROW_HEIGHT,
             opacity: isStarted && !isDone ? 1 : 0,
           }}
-          transition={{ y: { type: "spring", stiffness: 140, damping: 20 }, opacity: { duration: 0.3 } }}
+          transition={{ y: { duration: 0.35, ease: easeOutExpo }, opacity: { duration: 0.3 } }}
         />
         {pipelineStages.map((stage, index) => (
           <PipelineStageRow key={stage.name} index={index} stage={stage} status={getStatus(index)} />
@@ -128,7 +129,7 @@ export function PipelineAnimation() {
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.35, ease: "easeOut" }}
+                transition={{ duration: 0.35, ease: easeOutExpo }}
                 className="flex items-center gap-2 font-mono text-xs font-semibold tracking-[0.18em] text-ok-400 uppercase"
               >
                 <span className="grid size-5 place-items-center rounded-full bg-ok-400/15">

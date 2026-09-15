@@ -33,7 +33,7 @@ export function TimelineDot({ featured = false, className }: TimelineDotProps) {
             initial={{ scale: 1, opacity: 0 }}
             whileInView={{ scale: [1, 2.6], opacity: [0.8, 0] }}
             viewport={{ once: true, margin: "0px 0px -35% 0px" }}
-            transition={{ duration: 1.1, delay: 0.3, ease: "easeOut" }}
+            transition={{ duration: 1.1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
           />
         </>
       ) : null}

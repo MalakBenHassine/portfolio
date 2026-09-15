@@ -55,7 +55,7 @@ export function WorkflowStory({ heading, steps, highlightIndex }: WorkflowStoryP
   return (
     <div ref={pinRef} className="workflow-pin relative lg:h-[250vh] lg:motion-reduce:h-auto">
       {/* Pinned roughly in the middle of the viewport (heading + card ≈ 32rem), never under the navbar. */}
-      <div className="lg:sticky lg:top-[max(5.5rem,calc(50vh-19rem))] lg:motion-reduce:static">
+      <div className="lg:sticky lg:top-[max(5.5rem,calc(50vh-20rem))] lg:motion-reduce:static">
         {heading}
         <SpotlightCard className="p-6 sm:p-10">
           <div className="mb-8 hidden items-center justify-between gap-4 lg:flex lg:motion-reduce:hidden" aria-hidden="true">
@@ -127,12 +127,12 @@ export function WorkflowStory({ heading, steps, highlightIndex }: WorkflowStoryP
                           className={cn("absolute inset-0 rounded-full border", isAccent ? "border-iris-400" : "border-azure-300")}
                           initial={{ scale: 1, opacity: 0.7 }}
                           animate={{ scale: 1.7, opacity: 0 }}
-                          transition={{ duration: 0.9, ease: "easeOut" }}
+                          transition={{ duration: 0.9, ease: easeOutExpo }}
                         />
                       ) : null}
                       <Icon
                         name={step.icon}
-                        className={cn("size-5 transition-transform duration-500", isCurrent && "-rotate-6")}
+                        className="size-5"
                       />
                     </span>
                     <div className="pt-1 lg:pt-0">
@@ -166,16 +166,16 @@ export function WorkflowStory({ heading, steps, highlightIndex }: WorkflowStoryP
           {/* Detail of the current step (desktop). The same text is in the list for assistive technologies. */}
           <div
             aria-hidden="true"
-            className="relative mt-8 hidden min-h-[13rem] border-t border-white/6 pt-7 lg:block lg:motion-reduce:hidden"
+            className="relative mt-8 hidden min-h-[14.5rem] border-t border-white/6 pt-7 lg:block lg:motion-reduce:hidden"
           >
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={panelStep.title}
                 className="grid grid-cols-[auto_minmax(0,1fr)_minmax(0,27rem)] items-start gap-8"
-                initial={{ opacity: 0, y: 14, filter: "blur(4px)" }}
-                animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-                exit={{ opacity: 0, y: -10, filter: "blur(4px)" }}
-                transition={{ duration: 0.35, ease: easeOutExpo }}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.3, ease: easeOutExpo }}
               >
                 <span className="text-gradient text-6xl leading-none font-semibold tracking-[-0.05em] tabular-nums">
                   {pad(Math.max(0, current) + 1)}
