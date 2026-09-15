@@ -45,7 +45,7 @@ export function SkillChip({ skill, variant = "proven" }: SkillChipProps) {
           brandOnHover={false}
         />
         {skill.name}
-      </span>
+      </span>{" "}
       <span id={detailId} hidden>
         {detail}
       </span>

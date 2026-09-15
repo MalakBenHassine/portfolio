@@ -52,7 +52,6 @@ export const skillGroups: SkillGroup[] = [
       { name: "Docker", role: "Containerization" },
       { name: "Docker Compose", role: "Multi-container orchestration" },
       { name: "Jenkins", role: "CI/CD automation" },
-      { name: "GitHub Actions", role: "CI/CD workflows" },
       { name: "GitLab CI/CD", role: "Build pipelines" },
       { name: "Nexus", role: "Artifact registry" },
     ],
