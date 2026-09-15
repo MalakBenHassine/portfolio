@@ -15,7 +15,12 @@ interface PipelineStageRowProps {
 
 export function PipelineStageRow({ index, stage, status }: PipelineStageRowProps) {
   return (
-    <li className="relative flex h-9 items-center gap-3 sm:gap-4">
+    <li
+      className={cn(
+        "relative -mx-2 flex h-9 items-center gap-3 rounded-lg px-2 transition-colors duration-300 sm:gap-4",
+        status === "running" && "bg-azure-400/[0.06]",
+      )}
+    >
       <span
         aria-hidden="true"
         className={cn(
@@ -26,6 +31,9 @@ export function PipelineStageRow({ index, stage, status }: PipelineStageRowProps
         )}
       >
         {status === "passed" ? <CheckIcon className="size-3" /> : null}
+        {status === "running" ? (
+          <span className="absolute -inset-px animate-spin rounded-full border border-transparent border-t-azure-200 motion-reduce:animate-none" />
+        ) : null}
       </span>
 
       <span className="font-mono text-[11px] text-mist-500 tabular-nums">{String(index + 1).padStart(2, "0")}</span>

@@ -4,6 +4,8 @@ import { BeakerIcon } from "@/components/ui/icons/BeakerIcon";
 import { BoltIcon } from "@/components/ui/icons/BoltIcon";
 import { BriefcaseIcon } from "@/components/ui/icons/BriefcaseIcon";
 import { CodeIcon } from "@/components/ui/icons/CodeIcon";
+import { ContainerIcon } from "@/components/ui/icons/ContainerIcon";
+import { DatabaseIcon } from "@/components/ui/icons/DatabaseIcon";
 import { FileTextIcon } from "@/components/ui/icons/FileTextIcon";
 import { GraduationIcon } from "@/components/ui/icons/GraduationIcon";
 import { InfinityIcon } from "@/components/ui/icons/InfinityIcon";
@@ -21,6 +23,8 @@ const icons: Record<IconName, ComponentType<SVGProps<SVGSVGElement>>> = {
   bolt: BoltIcon,
   briefcase: BriefcaseIcon,
   code: CodeIcon,
+  container: ContainerIcon,
+  database: DatabaseIcon,
   file: FileTextIcon,
   graduation: GraduationIcon,
   infinity: InfinityIcon,

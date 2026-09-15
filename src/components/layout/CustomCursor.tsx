@@ -93,7 +93,7 @@ export function CustomCursor() {
   if (!isEnabled) return null;
 
   const showCursor = isVisible && !state.hidden;
-  const ringSize = state.label ? 72 : state.interactive ? 44 : 30;
+  const ringSize = state.label ? 58 : state.interactive ? 36 : 24;
 
   return (
     <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[100]">

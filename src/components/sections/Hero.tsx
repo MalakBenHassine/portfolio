@@ -20,8 +20,8 @@ const secondaryLinks = [
 ];
 
 /*
- * Intro choreography (seconds, CSS only): background 0 → portrait 0.1 → availability 0.2 →
- * role 0.35 → description 0.5 → accent rule 0.6 → CTAs 0.8 → links 0.95 → proof cards 1.1–1.25.
+ * Intro choreography (seconds, CSS only): navbar + background 0 → availability 0.2 → role 0.35 →
+ * description 0.5 → portrait 0.55 → accent rule 0.6 → CTAs 0.8 → links 0.95 → terminal 1.05 (its deploy run starts ~1.3).
  * The name is static; role and description (the mobile LCP) are instant below lg and never start transparent.
  */
 export function Hero() {

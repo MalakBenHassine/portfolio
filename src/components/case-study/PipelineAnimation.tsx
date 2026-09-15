@@ -147,11 +147,12 @@ export function PipelineAnimation() {
             )}
           </AnimatePresence>
         </div>
-        <p className="mt-2 font-mono text-[11px] text-mist-500">
-          <span aria-hidden="true" className="text-azure-400">
-            ↺
+        <p className={cn("mt-2 font-mono text-[11px] transition-colors duration-500", isDone ? "text-mist-300" : "text-mist-500")}>
+          <span aria-hidden="true" className={isDone ? "text-ok-400" : "text-azure-400"}>
+            {isDone ? "✓" : "↺"}
           </span>{" "}
-          Automatic rollback if deploy or smoke tests fail
+          Automatic rollback enabled
+          <span className="text-mist-500"> · if deploy or smoke tests fail</span>
         </p>
       </div>
     </figure>
