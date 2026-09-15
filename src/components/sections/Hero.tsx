@@ -5,6 +5,7 @@ import { HeroReveal } from "@/components/hero/HeroReveal";
 import { Portrait } from "@/components/hero/Portrait";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { JobTitle } from "@/components/ui/JobTitle";
+import { NEW_TAB_HINT_ID } from "@/components/ui/NewTabHint";
 import { ArrowRightIcon } from "@/components/ui/icons/ArrowRightIcon";
 import { DownloadIcon } from "@/components/ui/icons/DownloadIcon";
 import { GithubIcon } from "@/components/ui/icons/GithubIcon";
@@ -15,7 +16,7 @@ import { getTitleParts } from "@/lib/headline";
 
 const titleParts = getTitleParts();
 
-const handleFrom =(url: string) => new URL(url).pathname.replace(/^\/|\/$/g, "");
+const handleFrom = (url: string) => new URL(url).pathname.replace(/^\/|\/$/g, "");
 
 const secondaryLinks = [
   { label: "LinkedIn", hint: handleFrom(profile.linkedin), href: profile.linkedin, Icon: LinkedinIcon, external: true },
@@ -104,11 +105,11 @@ export function Hero() {
                       href={href}
                       target={external ? "_blank" : undefined}
                       rel={external ? "noopener noreferrer" : undefined}
+                      aria-describedby={external ? NEW_TAB_HINT_ID : undefined}
                       className="group peer inline-flex min-h-11 items-center gap-2 text-sm text-mist-400 transition-colors duration-200 hover:text-snow"
                     >
                       <Icon className="size-4 transition-transform duration-200 group-hover:scale-[1.08] group-hover:text-azure-300" />
                       <span className="link-underline">{label}</span>
-                      {external ? <span className="sr-only"> (opens in a new tab)</span> : null}
                     </a>
                     {/* Hover hint drawn by CSS from data-decor, so it does not repeat in the page text. */}
                     <span

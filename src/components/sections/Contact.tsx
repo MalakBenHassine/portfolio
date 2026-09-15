@@ -2,6 +2,7 @@ import { ContactForm } from "@/components/contact/ContactForm";
 import { CopyEmailButton } from "@/components/contact/CopyEmailButton";
 import { ShipSequence } from "@/components/contact/ShipSequence";
 import { ButtonLink } from "@/components/ui/ButtonLink";
+import { NEW_TAB_HINT_ID } from "@/components/ui/NewTabHint";
 import { Reveal } from "@/components/ui/Reveal";
 import { RevealBlock, RevealGroup, RevealHeading } from "@/components/ui/RevealGroup";
 import { SectionDivider } from "@/components/ui/SectionDivider";
@@ -90,7 +91,7 @@ export function Contact() {
             >
               {socialLinks.map(({ label, detail, href, Icon, colors }) => (
                 <StaggerItem key={label}>
-                  <a href={href} target="_blank" rel="noopener noreferrer" className={`${channelCardClasses} ${colors}`}>
+                  <a href={href} target="_blank" rel="noopener noreferrer" aria-describedby={NEW_TAB_HINT_ID} className={`${channelCardClasses} ${colors}`}>
                     <span className={channelIconClasses}>
                       <Icon className="size-5" />
                     </span>
@@ -99,7 +100,6 @@ export function Contact() {
                       <span className="block text-sm text-white/90">{detail}</span>
                     </span>
                     <ArrowRightIcon className="relative size-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
-                    <span className="sr-only"> (opens in a new tab)</span>
                   </a>
                 </StaggerItem>
               ))}

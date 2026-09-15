@@ -113,6 +113,15 @@
   content: attr(data-decor);
 }
 
+/*
+ * Inline separator kept in the text but not displayed: stays on the same line when copied or read
+ * (unlike .sr-only, which is absolutely positioned and ends up on a line of its own in extracted text).
+ */
+.text-sep {
+  font-size: 0;
+  line-height: 0;
+}
+
 /* Skill tooltip: usage, then where it was used — drawn from data attributes (see SkillChip). */
 .skill-tip::before {
   content: attr(data-role);

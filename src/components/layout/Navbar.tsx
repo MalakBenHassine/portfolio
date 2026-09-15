@@ -69,7 +69,10 @@ export function Navbar() {
         aria-label="Main"
         className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-5 sm:px-8"
       >
-        <a href="#top" className="group flex items-center gap-3">
+        <span id="logo-hint" hidden>
+          Back to top
+        </span>
+        <a href="#top" aria-describedby="logo-hint" className="group flex items-center gap-3">
           {/* Monogram drawn by CSS (decorative, not part of the text). */}
           <span
             aria-hidden="true"
@@ -82,7 +85,6 @@ export function Navbar() {
           <span className="sr-only flex-col leading-tight whitespace-nowrap sm:not-sr-only sm:flex md:sr-only lg:not-sr-only lg:flex">
             <span className="text-sm font-semibold text-snow">{profile.name}</span>
           </span>
-          <span className="sr-only"> — back to top</span>
         </a>
 
         <ul className="hidden items-center gap-0.5 rounded-full border border-white/6 bg-white/[0.02] p-1 md:flex">

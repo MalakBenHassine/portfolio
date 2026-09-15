@@ -1,5 +1,6 @@
 import { SkillChip } from "@/components/skills/SkillChip";
 import { Reveal } from "@/components/ui/Reveal";
+import { NEW_TAB_HINT_ID } from "@/components/ui/NewTabHint";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
@@ -77,11 +78,11 @@ export function Skills() {
                 href={learningSkills.proof.href}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-describedby={NEW_TAB_HINT_ID}
                 className="group inline-flex items-center gap-2 text-sm text-azure-300 transition-colors hover:text-snow"
               >
                 {learningSkills.proof.label}
                 <ArrowRightIcon className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-                <span className="sr-only"> (opens in a new tab)</span>
               </a>
             ) : (
               <span className="inline-flex items-center gap-2 rounded-full border border-dashed border-white/20 px-2.5 py-1 font-mono text-[11px] tracking-wider text-mist-300 uppercase">
