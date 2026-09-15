@@ -1,3 +1,4 @@
+import { JobTitle } from "@/components/ui/JobTitle";
 import { GithubIcon } from "@/components/ui/icons/GithubIcon";
 import { LinkedinIcon } from "@/components/ui/icons/LinkedinIcon";
 import { MailIcon } from "@/components/ui/icons/MailIcon";
@@ -17,8 +18,7 @@ export function Footer() {
       <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-5 py-14 sm:px-8 md:flex-row md:items-end md:justify-between">
         <div>
           <p className="font-mono text-xs tracking-[0.3em] text-snow uppercase">{profile.name}</p>
-          <p className="mt-4 text-lg font-medium text-snow">{profile.role}</p>
-          <p className="mt-1 text-sm text-mist-400">Full-Stack · AI · DevOps</p>
+          <JobTitle className="mt-4" roleClassName="text-lg font-medium text-snow" focusClassName="mt-1 text-sm text-mist-400" />
         </div>
 
         <ul className="flex flex-wrap items-center gap-x-8 gap-y-3 text-sm">

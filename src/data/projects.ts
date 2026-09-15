@@ -5,7 +5,9 @@ export const projectCategories: ProjectCategory[] = ["Full-Stack", "AI", "DevOps
 /**
  * Personal and team projects with public source code on GitHub.
  * Internship work (AnalyseImpacte at Capgemini Engineering) lives in the Experience section.
- * Every claim below is verifiable in the linked repositories.
+ *
+ * Writing rules: lead with the outcome, keep numbers that exist in the CV or the repository,
+ * active voice, and name only technologies and features present in the linked code.
  */
 export const projects: Project[] = [
   {
@@ -14,8 +16,8 @@ export const projects: Project[] = [
     title: "CareerMatch",
     subtitle: "RAG-based HR matching engine",
     description:
-      "Semantic candidate-to-job matching engine combining vector search and a local LLM, with automatic generation of personalized interview questions.",
-    result: "90% scoring accuracy · 10 personalized interview questions per match (Llama 3.2)",
+      "Matched candidates to job postings with 90% scoring accuracy, combining semantic search (Sentence-Transformers embeddings in Qdrant) with a local LLM.",
+    result: "Generated 10 personalized interview questions per match with Llama 3.2 on Ollama, served through a FastAPI API and a Streamlit interface.",
     categories: ["AI"],
     tech: ["Python", "FastAPI", "Sentence-Transformers", "Qdrant", "Ollama", "Streamlit", "Docker Compose"],
     links: [{ kind: "github", label: "Source code", href: "https://github.com/MalakBenHassine/CareerMatch" }],
@@ -26,8 +28,8 @@ export const projects: Project[] = [
     title: "Assistant Médical Intelligent",
     subtitle: "MedFlow · Clinic SaaS · Team project",
     description:
-      "Multi-tenant clinic management platform: patient records, appointments, consultations, prescriptions and billing, with role-based dashboards for admins, doctors, receptionists and patients.",
-    result: "Stripe payments, PDF invoices, JWT sessions via NextAuth, and a GitLab CI/CD pipeline building Docker images",
+      "Developed a multi-tenant clinic management platform (patients, appointments, consultations, billing) with authentication and role-based access control via NextAuth.",
+    result: "Separated access for 4 roles (admin, doctor, receptionist, patient) and automated Docker image builds with a GitLab CI/CD pipeline.",
     categories: ["Full-Stack", "DevOps"],
     tech: ["Next.js", "TypeScript", "Tailwind CSS", "NextAuth", "Django", "PostgreSQL", "Docker", "GitLab CI/CD"],
     links: [
@@ -41,10 +43,10 @@ export const projects: Project[] = [
     title: "HR Platform with AI",
     subtitle: "ApricityHR · Team project",
     description:
-      "AI-powered HR platform: automated resume screening with a matching algorithm, a candidate-facing HR chatbot, and employee well-being surveys and reports.",
-    result: "HR assistant chatbot on a custom local LLM (Ollama, Llama 3) and PDF resume parsing with match scoring",
+      "Automated resume screening: parsed PDF CVs and ranked each application by an adequacy score, the percentage of required skills the candidate matches.",
+    result: "Added a candidate-facing HR chatbot on a local LLM (Ollama, Llama 3) and employee well-being surveys, behind JWT authentication.",
     categories: ["Full-Stack", "AI"],
-    tech: [".NET Core", "C#", "Entity Framework", "SQL Server", "Ollama", "JWT", "Angular"],
+    tech: [".NET Core", "C#", "Entity Framework", "SQL Server", "Ollama", "JWT"],
     links: [{ kind: "github", label: "Backend source", href: "https://github.com/MalakBenHassine/back-hr" }],
   },
   {
@@ -53,8 +55,8 @@ export const projects: Project[] = [
     title: "Event-App",
     subtitle: "Event management · Team project",
     description:
-      "Event management platform with participant registration and matching between users and events, built as an academic team project.",
-    result: "Event and participant management, user–event matching, functional tests, Docker setup",
+      "Delivered an event management platform with participant registration and user–event matching, as a 4-person academic team.",
+    result: "Covered reservations and users with PHPUnit unit and functional tests, and containerized the app with Docker Compose.",
     categories: ["Full-Stack"],
     tech: ["PHP", "Symfony", "Twig", "JavaScript", "Docker"],
     links: [{ kind: "github", label: "Source code", href: "https://github.com/MalakBenHassine/Event-App" }],
@@ -64,10 +66,11 @@ export const projects: Project[] = [
     visual: "scheduling",
     title: "Gestion-RDV",
     subtitle: "Appointment scheduling",
-    description: "Appointment management application with server-rendered views and an MVC-style structure.",
-    result: "Appointment creation and scheduling with controllers, models, routes and middlewares",
+    description:
+      "Built patient–doctor appointment booking: availability slots generated per doctor at a set interval, booked by patients and confirmed by doctors.",
+    result: "Secured accounts with bcrypt-hashed passwords and JWT access and refresh tokens, on an Express, EJS and MongoDB stack.",
     categories: ["Full-Stack"],
-    tech: ["Node.js", "Express", "EJS", "JavaScript"],
+    tech: ["Node.js", "Express", "EJS", "MongoDB", "JWT", "JavaScript"],
     links: [{ kind: "github", label: "Source code", href: "https://github.com/MalakBenHassine/Gestion-RDV" }],
   },
 ];

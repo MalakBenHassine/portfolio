@@ -12,9 +12,9 @@ export const analyseImpacte: CaseStudy = {
     "4 Scrum sprints",
   ],
   problem:
-    "After every code change, engineers had to manually trace its impact on requirements and update the certified design document (SDDD). Under DO-178C traceability rules, this took 3–5 days per cycle — slow, costly and exposed to human error.",
+    "Every code change forced engineers to trace its impact on requirements by hand and update the certified design document (SDDD): 3–5 days per cycle under DO-178C traceability rules, with each step exposed to human error.",
   solution:
-    "A full-stack platform that parses source code, requirements (SRD) and design documents (SDDD), classifies cross-impacts across 4 severity levels, and drafts documentation updates with a local LLM grounded by a deterministic AST parser.",
+    "Cut that cycle to under 10 minutes with a full-stack platform that parses the source code, requirements (SRD) and design document (SDDD), classifies cross-impacts on 4 severity levels, and drafts the documentation update with a local LLM grounded by a deterministic AST parser.",
   results: [
     {
       kind: "before-after",

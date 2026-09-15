@@ -1,3 +1,4 @@
+import { JobTitle } from "@/components/ui/JobTitle";
 import { StaggerContent, StaggerList } from "@/components/ui/Stagger";
 import { Icon } from "@/components/ui/icons/Icon";
 import { identityFacts } from "@/data/profile";
@@ -19,8 +20,14 @@ export function IdentityStrip() {
                 </span>
                 <div className="min-w-0">
                   <p className="font-mono text-[10px] tracking-[0.18em] text-mist-500 uppercase">{fact.label}</p>
-                  <p className="mt-1 font-medium text-snow">{fact.value}</p>
-                  <p className="mt-0.5 text-sm text-mist-400">{fact.detail}</p>
+                  {fact.isTitle ? (
+                    <JobTitle className="mt-1" roleClassName="font-medium text-snow" focusClassName="mt-0.5 text-sm text-mist-400" />
+                  ) : (
+                    <>
+                      <p className="mt-1 font-medium text-snow">{fact.value}</p>
+                      <p className="mt-0.5 text-sm text-mist-400">{fact.detail}</p>
+                    </>
+                  )}
                 </div>
               </StaggerContent>
             </li>

@@ -1,4 +1,4 @@
-import type { SkillGroup } from "@/lib/types";
+import type { LearningSkills, SkillGroup } from "@/lib/types";
 
 export const skillGroups: SkillGroup[] = [
   {
@@ -47,16 +47,18 @@ export const skillGroups: SkillGroup[] = [
     more: ["Text-to-SQL", "Qdrant", "Deep Learning"],
   },
   {
-    name: "DevOps & CI/CD",
+    name: "DevOps, CI/CD & Monitoring",
     core: [
       { name: "Docker", role: "Containerization" },
       { name: "Docker Compose", role: "Multi-container orchestration" },
       { name: "Jenkins", role: "CI/CD automation" },
-      { name: "GitHub Actions", role: "CI/CD workflows & secrets" },
       { name: "GitLab CI/CD", role: "Build pipelines" },
       { name: "Nexus", role: "Artifact registry" },
+      { name: "Prometheus", role: "Metrics collection" },
+      { name: "Grafana", role: "Observability dashboards" },
+      { name: "Linux", role: "Server administration" },
     ],
-    more: ["Git", "GitHub (branches, pull requests, code review)"],
+    more: ["Ubuntu Server", "Git", "GitHub"],
     wide: true,
   },
   {
@@ -70,30 +72,34 @@ export const skillGroups: SkillGroup[] = [
     ],
   },
   {
-    name: "Infrastructure & Monitoring",
-    core: [
-      { name: "Linux", role: "Server administration" },
-      { name: "Ansible", role: "Infrastructure as Code" },
-      { name: "Nginx", role: "Reverse proxy & HTTPS" },
-      { name: "Prometheus", role: "Metrics collection" },
-      { name: "Grafana", role: "Observability dashboards" },
-    ],
-    more: ["VPS deployment", "SSH", "Domain & DNS setup", "Ubuntu Server"],
-    wide: true,
-  },
-  {
     name: "Quality & Security",
     core: [
       { name: "SonarQube", role: "Code quality gates" },
       { name: "Trivy", role: "Image vulnerability scans" },
-      { name: "Snyk", role: "Dependency vulnerability scans" },
       { name: "OWASP ZAP", role: "Security audits" },
       { name: "JMeter", role: "Load testing" },
-      { name: "Let's Encrypt", role: "SSL/TLS certificates" },
       { name: "Static Analysis", role: "Code health" },
       { name: "Testing", role: "Unit & smoke tests" },
     ],
-    more: ["DevSecOps", "Secrets management", "Firewall configuration", "Load testing", "Scrum/Agile", "MVC", "N-tier", "Microservices"],
-    wide: "full",
+    more: ["Load testing", "Scrum/Agile", "MVC", "N-tier", "Microservices"],
+    wide: true,
   },
 ];
+
+/**
+ * Skills being learned in the 2026 DevOps & DevSecOps training, kept apart from skills already used on
+ * delivered projects. Once the practice project is online: move these into `skillGroups` above and set
+ * `proof` (or delete this block) so every listed skill links to real work.
+ */
+export const learningSkills: LearningSkills = {
+  title: "Currently learning (2026 training)",
+  note: "DevOps & DevSecOps training — deploying a full-stack application to a secured VPS with CI/CD. These move to the main list once the practice project is online.",
+  core: [
+    { name: "Ansible", role: "Infrastructure as Code" },
+    { name: "Nginx", role: "Reverse proxy & HTTPS" },
+    { name: "GitHub Actions", role: "CI/CD workflows & secrets" },
+    { name: "Snyk", role: "Dependency vulnerability scans" },
+    { name: "Let's Encrypt", role: "SSL/TLS certificates" },
+  ],
+  more: ["VPS deployment", "SSH", "Domain & DNS setup", "DevSecOps", "Secrets management", "Firewall configuration"],
+};

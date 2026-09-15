@@ -23,7 +23,7 @@ const personJsonLd = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: profile.name,
-  jobTitle: `${profile.role} — ${profile.specialties.join(", ")}`,
+  jobTitle: profile.title,
   description: siteConfig.description,
   url: siteConfig.url,
   email: `mailto:${profile.email}`,
