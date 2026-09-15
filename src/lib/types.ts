@@ -26,8 +26,8 @@ export interface ImageAsset {
 export interface Profile {
   name: string;
   firstName: string;
-  role: string;
-  specialties: string[];
+  /** Exact professional title, e.g. "Software Engineer — Full-Stack, DevOps & Applied AI". */
+  title: string;
   /** Short value proposition shown in the Hero. */
   headline: string;
   /** Outcome-driven one-liner, reused in the Engineering Impact section and OG image. */
@@ -49,8 +49,10 @@ export interface Profile {
 export interface IdentityFact {
   icon: IconName;
   label: string;
-  value: string;
-  detail: string;
+  value?: string;
+  detail?: string;
+  /** Render the exact professional title (profile.title) instead of value/detail. */
+  isTitle?: boolean;
 }
 
 export interface FocusArea {
@@ -185,8 +187,18 @@ export interface SkillGroup {
   name: string;
   core: SkillItem[];
   more?: string[];
-  /** Span two columns on large screens, or the full row ("full"). */
-  wide?: boolean | "full";
+  /** Span two columns on large screens. */
+  wide?: boolean;
+}
+
+/** Skills in progress, shown apart from skills already applied on delivered projects. */
+export interface LearningSkills {
+  title: string;
+  note: string;
+  core: SkillItem[];
+  more?: string[];
+  /** Link to the practice project, once online. */
+  proof?: { label: string; href: string };
 }
 
 export interface AiUseCase {

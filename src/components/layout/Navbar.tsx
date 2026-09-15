@@ -80,8 +80,7 @@ export function Navbar() {
           </span>
           {/* One name element: visible where there is room, visually hidden (still the link's name) on phones and tablets. */}
           <span className="sr-only flex-col leading-tight whitespace-nowrap sm:not-sr-only sm:flex md:sr-only lg:not-sr-only lg:flex">
-            <span className="text-sm font-semibold text-snow">{profile.name}</span>{" "}
-            <span className="font-mono text-[10px] tracking-wider text-mist-500 uppercase">Software Engineer</span>
+            <span className="text-sm font-semibold text-snow">{profile.name}</span>
           </span>
           <span className="sr-only"> — back to top</span>
         </a>

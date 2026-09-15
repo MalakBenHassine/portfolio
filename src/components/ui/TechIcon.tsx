@@ -3,7 +3,7 @@ import { analyseImpacte } from "@/data/caseStudy";
 import { experience } from "@/data/experience";
 import { impactPillars } from "@/data/profile";
 import { projects } from "@/data/projects";
-import { skillGroups } from "@/data/skills";
+import { learningSkills, skillGroups } from "@/data/skills";
 import { cn } from "@/lib/cn";
 import { getSpriteIcons, getTechIcon } from "@/lib/techIcons";
 
@@ -48,6 +48,7 @@ export function TechIcon({ tech, className, brandOnHover = true }: TechIconProps
 /** Every technology name that can render a <TechIcon> on the page. */
 const pageTechs = [
   ...skillGroups.flatMap((group) => group.core.map((skill) => skill.name)),
+  ...learningSkills.core.map((skill) => skill.name),
   ...projects.flatMap((project) => project.tech),
   ...experience.flatMap((item) => item.tech),
   ...analyseImpacte.tech,

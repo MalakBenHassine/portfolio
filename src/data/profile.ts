@@ -3,8 +3,8 @@ import type { EducationItem, FocusArea, IdentityFact, ImpactPillar, Profile, Wor
 export const profile: Profile = {
   name: "Malak Ben Hassine",
   firstName: "Malak",
-  role: "Software Engineer",
-  specialties: ["Full-Stack", "Applied AI", "DevOps"],
+  /** The one professional title, used verbatim on the portfolio, the GitHub bio and the CV. */
+  title: "Software Engineer — Full-Stack, DevOps & Applied AI",
   headline:
     "I build production-ready software, automate complex engineering workflows, and integrate AI where it creates real value.",
   tagline:
@@ -34,18 +34,18 @@ export const deliveryFlow: WorkflowStep[] = [
   { title: "Code", caption: "Java · Python · TypeScript" },
   { title: "Backend", caption: "Spring Boot · REST APIs · JWT/RBAC" },
   { title: "AI", caption: "Local LLMs · RAG · grounded generation" },
-  { title: "CI/CD", caption: "Jenkins · GitHub Actions · Docker" },
-  { title: "Security", caption: "SonarQube · Trivy · Snyk · OWASP ZAP" },
+  { title: "CI/CD", caption: "Jenkins · Docker · Nexus" },
+  { title: "Security", caption: "SonarQube · Trivy · OWASP ZAP" },
   { title: "Monitoring", caption: "Prometheus · Grafana" },
-  { title: "Production", caption: "Ansible · Nginx · SSL · automatic rollback" },
+  { title: "Production", caption: "Smoke tests · automatic rollback" },
 ];
 
 export const identityFacts: IdentityFact[] = [
   {
     icon: "code",
     label: "Role",
-    value: "Software Engineer",
-    detail: "Full-Stack · Applied AI · DevOps",
+    // Rendered from `profile.title` (see IdentityStrip) so the formula is identical everywhere.
+    isTitle: true,
   },
   {
     icon: "briefcase",
@@ -81,12 +81,12 @@ export const focusAreas: FocusArea[] = [
   {
     icon: "infinity",
     title: "DevOps",
-    items: ["Docker", "Jenkins", "GitHub Actions", "Ansible", "Nginx", "Monitoring"],
+    items: ["Docker", "Jenkins", "GitLab CI/CD", "Monitoring"],
   },
   {
     icon: "shield",
     title: "Software Quality",
-    items: ["Testing", "DevSecOps", "SonarQube", "Trivy", "Snyk", "OWASP"],
+    items: ["Testing", "SonarQube", "Trivy", "OWASP ZAP"],
   },
 ];
 

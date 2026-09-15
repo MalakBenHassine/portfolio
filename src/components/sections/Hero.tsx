@@ -4,6 +4,7 @@ import { HeroPointerProvider } from "@/components/hero/HeroPointer";
 import { HeroReveal } from "@/components/hero/HeroReveal";
 import { Portrait } from "@/components/hero/Portrait";
 import { ButtonLink } from "@/components/ui/ButtonLink";
+import { JobTitle } from "@/components/ui/JobTitle";
 import { ArrowRightIcon } from "@/components/ui/icons/ArrowRightIcon";
 import { DownloadIcon } from "@/components/ui/icons/DownloadIcon";
 import { GithubIcon } from "@/components/ui/icons/GithubIcon";
@@ -66,20 +67,11 @@ export function Hero() {
 
             {/* Role and description are the LCP on mobile: shown instantly there, gentle rise on large screens. */}
             <HeroReveal delay={0.25} y={10} fade={false} largeScreensOnly>
-              <p className="mt-7 text-2xl font-medium tracking-tight text-snow sm:text-3xl">{profile.role}</p>
-              <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-sm tracking-[0.08em] text-mist-300 uppercase sm:text-base">
-                {profile.specialties.map((specialty, index) => (
-                  <span key={specialty} className="inline-flex items-center gap-3">
-                    {index > 0 ? (
-                      <>
-                        <span aria-hidden="true" className="size-1 rounded-full bg-azure-400" />
-                        <span className="sr-only">{" · "}</span>
-                      </>
-                    ) : null}
-                    {specialty}
-                  </span>
-                ))}
-              </p>
+              <JobTitle
+                className="mt-7"
+                roleClassName="text-2xl font-medium tracking-tight text-snow sm:text-3xl"
+                focusClassName="mt-2 font-mono text-sm tracking-[0.08em] text-mist-300 uppercase sm:text-base"
+              />
             </HeroReveal>
 
             <HeroReveal delay={0.35} y={10} fade={false} largeScreensOnly>

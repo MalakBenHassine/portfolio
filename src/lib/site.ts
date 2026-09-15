@@ -10,9 +10,9 @@ function resolveSiteUrl(): string {
 
 export const siteConfig = {
   url: resolveSiteUrl(),
-  title: "Malak Ben Hassine — Software Engineer | Full-Stack · AI · DevOps",
+  title: "Malak Ben Hassine — Software Engineer — Full-Stack, DevOps & Applied AI",
   description:
-    "Software Engineer (Full-Stack, Applied AI & DevOps) building production-ready systems. Built AnalyseImpacte at Capgemini Engineering: a 3–5 day aerospace documentation workflow cut to under 10 minutes, shipped through a 9-stage CI/CD pipeline.",
+    "Software Engineer — Full-Stack, DevOps & Applied AI. Built AnalyseImpacte at Capgemini Engineering: a 3–5 day aerospace documentation workflow cut to under 10 minutes, shipped through a 9-stage CI/CD pipeline.",
   keywords: [
     "Malak Ben Hassine",
     "Software Engineer",
