@@ -5,19 +5,19 @@ import { useEffect, useRef, useState } from "react";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { cn } from "@/lib/cn";
 
-/** Each stage and how long it "runs" before passing (ms). */
+/** Each stage: what is shown while it runs, its result, and how long it runs (ms). */
 const stages = [
-  { label: "Source code analyzed", ms: 400 },
-  { label: "Impact detected", ms: 500 },
-  { label: "AI assistance ready", ms: 500 },
-  { label: "Quality gate passed", ms: 400 },
-  { label: "Security scan passed", ms: 400 },
-  { label: "Docker image built", ms: 500 },
-  { label: "Deployment successful", ms: 500 },
+  { running: "Analyzing source code...", label: "Source code analyzed", ms: 450 },
+  { running: "Detecting impact...", label: "Impact detected", ms: 550 },
+  { running: "Preparing AI assistance...", label: "AI assistance ready", ms: 550 },
+  { running: "Running quality gate...", label: "Quality gate passed", ms: 450 },
+  { running: "Running security scan...", label: "Security scan passed", ms: 450 },
+  { running: "Building Docker image...", label: "Docker image built", ms: 550 },
+  { running: "Deploying...", label: "Deployment successful", ms: 550 },
 ];
 
 /** Wait for the Hero intro to finish on first load; start sooner if reached later by scrolling. */
-const INTRO_END_MS = 1300;
+const INTRO_END_MS = 1150;
 
 /**
  * A short, realistic `analyseimpacte deploy` run. Plays once when visible, never loops.
@@ -90,10 +90,12 @@ export function HeroTerminal() {
                 )}
               >
                 <span className={cn("w-3 text-center", isPassed ? "text-ok-400" : "text-azure-300")}>
-                  {isPassed ? "✓" : isCurrent ? <span className="inline-block animate-spin">◌</span> : "·"}
+                  {isPassed ? "✓" : ">"}
                 </span>
-                {stage.label}
-                {isCurrent ? <span className="text-mist-500">…</span> : null}
+                {isPassed || !isCurrent ? stage.label : stage.running}
+                {isCurrent ? (
+                  <span className="ml-0.5 inline-block h-3 w-1.5 animate-blink bg-azure-300/80" aria-hidden="true" />
+                ) : null}
               </li>
             );
           })}

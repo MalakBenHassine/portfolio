@@ -2,6 +2,7 @@ import { ArchitectureGrid } from "@/components/case-study/ArchitectureGrid";
 import { CaseStudyResults } from "@/components/case-study/CaseStudyResults";
 import { CaseStudySubheading } from "@/components/case-study/CaseStudySubheading";
 import { PipelineAnimation } from "@/components/case-study/PipelineAnimation";
+import { RollbackDemo } from "@/components/case-study/RollbackDemo";
 import { WorkflowStory } from "@/components/case-study/WorkflowStory";
 import { Reveal } from "@/components/ui/Reveal";
 import { Section } from "@/components/ui/Section";
@@ -49,9 +50,9 @@ export function InternshipCaseStudy() {
             ))}
           </ul>
 
-          <div className="mt-10 grid grid-cols-1 gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-12">
+          <div className="mt-10">
             <div className="flex flex-col">
-              <div className="grid grid-cols-1 gap-8">
+              <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-10">
                 <div>
                   <h3 className="flex items-center gap-2.5 font-mono text-[11px] tracking-[0.2em] text-mist-500 uppercase">
                     <BoltIcon className="size-4 text-mist-400" />
@@ -68,7 +69,7 @@ export function InternshipCaseStudy() {
                 </div>
               </div>
 
-              <div className="mt-auto pt-10">
+              <div className="pt-10">
                 <h3 className="font-mono text-[11px] tracking-[0.2em] text-mist-500 uppercase">Tech stack</h3>
                 <StaggerList className="group mt-4 flex flex-wrap gap-2" stagger={0.05} ariaLabel="AnalyseImpacte tech stack">
                   {study.tech.map((tech, index) => (
@@ -80,8 +81,6 @@ export function InternshipCaseStudy() {
                 <p className="mt-5 text-xs text-mist-500">{study.note}</p>
               </div>
             </div>
-
-            <PipelineAnimation />
           </div>
         </SpotlightCard>
       </Reveal>
@@ -92,6 +91,19 @@ export function InternshipCaseStudy() {
           steps={study.workflow}
           highlightIndex={AI_STEP_INDEX}
         />
+      </div>
+
+      {/* Step 07 in detail: the Jenkins run, and what happens when a deploy fails. */}
+      <div className="mt-20">
+        <CaseStudySubheading label="CI/CD" title="Tested, gated, scanned — then shipped." />
+        <div className="grid grid-cols-1 gap-5 lg:grid-cols-[1.15fr_0.85fr]">
+          <Reveal className="h-full">
+            <PipelineAnimation />
+          </Reveal>
+          <Reveal delay={0.1} className="h-full">
+            <RollbackDemo />
+          </Reveal>
+        </div>
       </div>
 
       <div className="mt-20">

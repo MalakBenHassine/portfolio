@@ -7,7 +7,7 @@ export const experience: ExperienceItem[] = [
     location: "Tunisia",
     period: "Feb 2026 – Jun 2026",
     featured: true,
-    context: ["AnalyseImpacte", "Aerospace · Safety-Critical", "DO-178C · DAL A", "4 Scrum sprints"],
+    context: ["AnalyseImpacte", "Aerospace · Safety-Critical", "DO-178C · DAL A", "4 Scrum sprints", "9-stage Jenkins pipeline"],
     highlights: [
       "Reduced a certified aeronautical design-document update cycle (DO-178C, DAL A) from 3-5 days to under 10 minutes, designing AnalyseImpacte end-to-end for a major client in the aerospace industry, across 4 Scrum sprints",
       "Built a full-stack application (Java 21 / Spring Boot / Angular / SQLite) with JWT authentication, RBAC role management, and REST APIs documented via Swagger",

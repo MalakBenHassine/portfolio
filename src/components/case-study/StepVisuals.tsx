@@ -137,9 +137,14 @@ function SourceVisual() {
           </Box>
         ))}
       </div>
-      <Label delay={0.7} tone="ok">
-        ● Change detected · 3 artefacts imported
-      </Label>
+      <div className="flex flex-wrap gap-x-5 gap-y-1">
+        <Label delay={0.7} tone="ok">
+          ✓ Change detected
+        </Label>
+        <Label delay={0.85} tone="ok">
+          ✓ 3 artefacts imported
+        </Label>
+      </div>
     </div>
   );
 }
@@ -258,7 +263,7 @@ function GroundedAiVisual() {
 function SdddVisual() {
   const sections = [
     { name: "Function signature", value: "updated" },
-    { name: "Calls functions", value: "V1 → V2" },
+    { name: "Calls", value: "updated" },
     { name: "Input/Output Data", value: "IN · OUT · IN_OUT" },
     { name: "Traceability", value: "Refined · Extended" },
   ];
@@ -346,9 +351,12 @@ function PipelineVisual() {
           </li>
         ))}
       </ol>
-      <Label delay={1.05} tone="ok">
-        ✓ Gate · scan · registry · deploy
-      </Label>
+      <div className="flex flex-wrap items-center justify-between gap-x-4 gap-y-1">
+        <Label delay={1.05} tone="ok">
+          ✓ Gate · scan · registry · deploy
+        </Label>
+        <Label delay={1.2}>↓ Full run below</Label>
+      </div>
     </div>
   );
 }
@@ -356,7 +364,8 @@ function PipelineVisual() {
 /* 08 — Containers in production, monitored, with a rollback tag ready */
 function DeployVisual() {
   return (
-    <div className="grid h-full grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] gap-3">
+    <div className="flex h-full flex-col gap-2">
+    <div className="grid flex-1 grid-cols-[minmax(0,1fr)_minmax(0,1.1fr)] gap-3">
       <div className="flex flex-col justify-between gap-2">
         <Box delay={0.05}>
           <span className="text-snow">docker</span> backend <span className="text-ok-400">● up</span>
@@ -384,6 +393,14 @@ function DeployVisual() {
         </svg>
         <p className="font-mono text-[9px] text-ok-400">✓ smoke tests passed</p>
       </motion.div>
+    </div>
+      <motion.p
+        data-reveal
+        variants={appear(1.4)}
+        className="rounded-md border border-ok-400/30 bg-ok-400/10 py-1 text-center font-mono text-[10px] font-semibold tracking-[0.2em] text-ok-400 uppercase"
+      >
+        Production ready
+      </motion.p>
     </div>
   );
 }

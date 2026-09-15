@@ -13,7 +13,7 @@ export function Portrait() {
   return (
     <div className="relative mx-auto w-full max-w-[22rem] sm:max-w-[26rem] lg:max-w-none">
       {/* Atmospheric glow — fades in with the portrait so font-swap reflow never counts as a visible layout shift. */}
-      <HeroReveal delay={0.55} y={0} decorative className="pointer-events-none absolute -inset-10 -z-10">
+      <HeroReveal delay={0.7} y={0} decorative className="pointer-events-none absolute -inset-10 -z-10">
         <div className="absolute inset-0">
           <ParallaxLayer depth={-18} className="absolute inset-0">
             <div className="absolute inset-0 rounded-full bg-[radial-gradient(closest-side,rgb(91_130_255/0.28),rgb(160_143_255/0.08)_60%,transparent)]" />
@@ -22,7 +22,7 @@ export function Portrait() {
       </HeroReveal>
 
       {/* Short, early fade (transform + opacity only): keeps font-swap reflow from registering as layout shift. */}
-      <HeroReveal delay={0.55} y={20} scale={0.97}>
+      <HeroReveal delay={0.7} y={20} scale={0.97}>
         <ParallaxLayer depth={10}>
           <figure className="group/photo relative">
             <div className="relative aspect-[4/5] overflow-hidden rounded-t-[14rem] rounded-b-[2rem] border border-white/10 bg-ink-900 shadow-[0_40px_120px_-40px_rgb(0_0_0/0.9)] transition-[border-color,box-shadow] duration-500 group-hover/photo:border-azure-300/25 group-hover/photo:shadow-[0_40px_120px_-40px_rgb(91_130_255/0.45)]">
@@ -58,7 +58,7 @@ export function Portrait() {
       </HeroReveal>
 
       {/* Floating proof points (tablet and up) */}
-      <HeroReveal delay={1.1} y={12} className="absolute top-[6%] -left-8 hidden sm:block lg:-left-20">
+      <HeroReveal delay={0.95} y={12} className="absolute top-[6%] -left-8 hidden sm:block lg:-left-20">
         <ParallaxLayer depth={22}>
           <div className="glass rounded-2xl px-4 py-3 shadow-[0_20px_60px_-20px_rgb(0_0_0/0.8)]">
             <p className="font-mono text-[10px] tracking-[0.18em] text-mist-500 uppercase">Latest experience</p>
@@ -69,7 +69,7 @@ export function Portrait() {
       </HeroReveal>
 
       {/* Live system: a short deploy run, docked over the bottom fade of the photo (never over the face). */}
-      <HeroReveal delay={1.05} y={14} className="relative z-10 mx-auto -mt-8 w-[94%] sm:-mt-10 lg:w-[88%]">
+      <HeroReveal delay={0.85} y={14} className="relative z-10 mx-auto -mt-8 w-[94%] sm:-mt-10 lg:w-[88%]">
         <ParallaxLayer depth={16}>
           <HeroTerminal />
         </ParallaxLayer>
