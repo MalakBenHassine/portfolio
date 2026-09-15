@@ -66,7 +66,7 @@ export function AppliedAI() {
               <p className="mt-2 text-sm leading-relaxed text-mist-400">{useCase.detail}</p>
               <ul className="mt-auto flex flex-wrap gap-1.5 pt-5" aria-label={`${useCase.title} stack`}>
                 {useCase.stack.map((item) => (
-                  <li key={item} className="rounded-md bg-white/[0.04] px-2 py-0.5 font-mono text-[11px] text-mist-300">
+                  <li key={item} className="rounded-full border border-white/8 bg-white/[0.03] px-2.5 py-1 font-mono text-[11px] text-mist-300">
                     {item}
                   </li>
                 ))}

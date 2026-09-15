@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import { useState } from "react";
 import { Icon } from "@/components/ui/icons/Icon";
 import { easeOutExpo, inViewOnce } from "@/lib/motion";
@@ -15,9 +15,9 @@ interface ArchitectureGridProps {
 const center = (node: ArchitectureNode) => ({ x: (node.col - 0.5) * 100, y: (node.row - 0.5) * 100 });
 
 /**
- * The AnalyseImpacte architecture as a system you can explore. Pointing at (desktop) or
- * tapping (touch) a component highlights it and its connections — data flows along the
- * active links — dims the rest, and lists its technologies in the side panel.
+ * The AnalyseImpacte architecture as a system you can explore. Pointing at (desktop), tapping
+ * (touch) or focusing a component highlights it and its connections — data flows along the
+ * active links while exploring — dims the rest, and shows its technologies in the side panel.
  */
 export function ArchitectureGrid({ diagram }: ArchitectureGridProps) {
   const [selectedId, setSelectedId] = useState(diagram.nodes[0].id);
@@ -27,9 +27,8 @@ export function ArchitectureGrid({ diagram }: ArchitectureGridProps) {
   const isExploring = hoveredId !== null;
   const byId = new Map(diagram.nodes.map((node) => [node.id, node]));
   const focusNode = byId.get(focusId) ?? diagram.nodes[0];
-  const neighbours = new Set(
-    diagram.links.flatMap(([from, to]) => (from === focusId ? [to] : to === focusId ? [from] : [])),
-  );
+  const linksOf = (id: string) => diagram.links.flatMap(([from, to]) => (from === id ? [to] : to === id ? [from] : []));
+  const neighbours = new Set(linksOf(focusId));
 
   return (
     <motion.div
@@ -130,71 +129,52 @@ export function ArchitectureGrid({ diagram }: ArchitectureGridProps) {
             className="pointer-events-none flex items-end p-2 font-mono text-[10px] tracking-[0.14em] text-mist-500 uppercase"
             style={{ gridColumn: "1 / span 2", gridRow: 4 }}
           >
-            <span className="pointer-fine:hidden">Tap a component</span>
-            <span className="hidden pointer-fine:inline">Hover a component to trace its connections</span>
+            Select a component to trace its connections
           </p>
         </div>
       </div>
 
-      {/* Details of the component in focus */}
-      <div className="surface relative overflow-hidden rounded-2xl p-6 sm:p-7" aria-live="polite">
+      {/*
+       * Details: every component's details are in the page exactly once (readable by search engines and
+       * assistive technologies); only the component in focus is displayed.
+       */}
+      <div className="surface relative overflow-hidden rounded-2xl p-6 sm:p-7">
         <span
           aria-hidden="true"
           className="pointer-events-none absolute inset-x-0 top-0 h-px bg-linear-to-r from-transparent via-azure-300/60 to-transparent"
         />
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={focusNode.id}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.25, ease: easeOutExpo }}
-          >
+        {diagram.nodes.map((node) => (
+          <div key={node.id} hidden={node.id !== focusNode.id} className="panel-in">
             <div className="flex items-center gap-3">
-              <span className="grid size-10 place-items-center rounded-xl border border-azure-400/40 bg-ink-850 text-azure-300 shadow-[0_0_24px_-6px_rgb(91_130_255/0.6)]">
-                <Icon name={focusNode.icon} className="size-5" />
+              <span className="grid size-10 shrink-0 place-items-center rounded-xl border border-azure-400/40 bg-ink-850 text-azure-300 shadow-[0_0_24px_-6px_rgb(91_130_255/0.6)]">
+                <Icon name={node.icon} className="size-5" />
               </span>
               <div>
-                <h4 className="font-semibold text-snow">{focusNode.title}</h4>
-                <p className="text-sm text-mist-400">{focusNode.role}</p>
+                <h4 className="font-semibold text-snow">{node.title}</h4>
+                <p className="text-sm text-mist-400">{node.role}</p>
               </div>
             </div>
 
-            <ul className="mt-6 space-y-2.5">
-              {focusNode.items.map((item, index) => (
-                <motion.li
-                  key={item}
-                  initial={{ opacity: 0, x: -8 }}
-                  animate={{ opacity: 1, x: 0 }}
-                  transition={{ delay: 0.05 + index * 0.05, duration: 0.3, ease: easeOutExpo }}
-                  className="flex items-center gap-2.5 text-sm text-mist-200"
-                >
-                  <span aria-hidden="true" className="font-mono text-xs text-azure-300">
-                    →
-                  </span>
+            <ul className="mt-6 space-y-2.5" aria-label={`${node.title} technologies`}>
+              {node.items.map((item) => (
+                <li key={item} className="flex items-center gap-2.5 text-sm text-mist-200">
+                  <span aria-hidden="true" className="font-mono text-xs text-azure-300" data-decor="→" />
                   {item}
-                </motion.li>
+                </li>
               ))}
             </ul>
 
             <p className="mt-6 border-t border-white/6 pt-4 font-mono text-[11px] tracking-[0.12em] text-mist-500 uppercase">
               Connected to{" "}
-              <span className="text-mist-300 normal-case tracking-normal">
-                {[...neighbours].map((id) => byId.get(id)?.title).join(" · ")}
+              <span className="tracking-normal text-mist-300 normal-case">
+                {linksOf(node.id)
+                  .map((id) => byId.get(id)?.title)
+                  .join(" · ")}
               </span>
             </p>
-          </motion.div>
-        </AnimatePresence>
-      </div>
-
-      {/* Full component list for search engines and assistive technologies. */}
-      <ul className="sr-only">
-        {diagram.nodes.map((node) => (
-          <li key={node.id}>
-            {node.title}: {node.items.join(", ")}
-          </li>
+          </div>
         ))}
-      </ul>
+      </div>
     </motion.div>
   );
 }

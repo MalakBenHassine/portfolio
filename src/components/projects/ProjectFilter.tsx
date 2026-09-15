@@ -38,7 +38,7 @@ export function ProjectFilter<T extends string>({ options, active, counts, onCha
                 transition={{ type: "spring", stiffness: 400, damping: 34 }}
               />
             ) : null}
-            <span className="relative font-medium">{option}</span>
+            <span className="relative font-medium">{option}</span>{" "}
             <span className={cn("relative font-mono text-[11px]", isActive ? "text-ink-700" : "text-mist-500")}>
               {counts[option]}
             </span>

@@ -57,7 +57,7 @@ export function DeliveryFlow({ steps }: DeliveryFlowProps) {
               )}
             >
               {String(index + 1).padStart(2, "0")}
-            </span>
+            </span>{" "}
             <span
               className={cn(
                 "min-w-0 transition-transform duration-500",
@@ -71,7 +71,7 @@ export function DeliveryFlow({ steps }: DeliveryFlowProps) {
                 )}
               >
                 {step.title}
-              </span>
+              </span>{" "}
               <span className="mt-0.5 block text-sm text-mist-400">{step.caption}</span>
             </span>
           </li>

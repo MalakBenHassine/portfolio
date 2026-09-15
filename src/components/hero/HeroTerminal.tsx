@@ -91,7 +91,7 @@ export function HeroTerminal() {
               >
                 <span className={cn("w-3 text-center", isPassed ? "text-ok-400" : "text-azure-300")}>
                   {isPassed ? "✓" : ">"}
-                </span>
+                </span>{" "}
                 {isPassed || !isCurrent ? stage.label : stage.running}
                 {isCurrent ? (
                   <span className="ml-0.5 inline-block h-3 w-1.5 animate-blink bg-azure-300/80" aria-hidden="true" />
@@ -109,7 +109,7 @@ export function HeroTerminal() {
         >
           <span className="tracking-[0.12em] text-mist-400 uppercase">
             Status: <span className="font-semibold text-ok-400">Production ready</span>
-          </span>
+          </span>{" "}
           <span className="text-mist-400">
             <span className="text-mist-500 line-through">3–5 days</span> → <span className="text-snow">&lt; 10 min</span>
           </span>

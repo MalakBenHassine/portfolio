@@ -53,7 +53,7 @@ export function Contact() {
         <RevealGroup className="max-w-5xl" stagger={0.18}>
           <RevealBlock>
             <p className="flex items-center gap-3 font-mono text-xs tracking-[0.22em] text-mist-400 uppercase">
-              <span className="text-azure-400">05</span>
+              <span className="text-azure-400">05</span>{" "}
               <span aria-hidden="true" className="h-px w-10 bg-linear-to-r from-azure-400/80 to-transparent" />
               Contact
             </p>
@@ -73,7 +73,7 @@ export function Contact() {
             </p>
           </RevealBlock>
           <RevealBlock className="mt-10">
-            <ButtonLink href={`mailto:${profile.email}`} className="px-7 py-3 tracking-[0.08em] uppercase">
+            <ButtonLink href={`mailto:${profile.email}`} className="tracking-[0.08em] uppercase">
               Start a conversation
               <ArrowRightIcon className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
             </ButtonLink>
@@ -95,11 +95,11 @@ export function Contact() {
                       <Icon className="size-5" />
                     </span>
                     <span className="relative min-w-0 flex-1">
-                      <span className="block font-semibold">{label}</span>
+                      <span className="block font-semibold">{label}</span>{" "}
                       <span className="block text-sm text-white/90">{detail}</span>
                     </span>
                     <ArrowRightIcon className="relative size-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
-                    <span className="sr-only">(opens in a new tab)</span>
+                    <span className="sr-only"> (opens in a new tab)</span>
                   </a>
                 </StaggerItem>
               ))}
@@ -112,7 +112,7 @@ export function Contact() {
                     <MailIcon className="size-5" />
                   </span>
                   <a href={`mailto:${profile.email}`} className="relative min-w-0 flex-1">
-                    <span className="block font-semibold">Email</span>
+                    <span className="block font-semibold">Email</span>{" "}
                     <span className="block text-sm [overflow-wrap:anywhere] text-white/90">{profile.email}</span>
                   </a>
                   <span className="relative">
@@ -131,7 +131,7 @@ export function Contact() {
                     <DownloadIcon className="size-5" />
                   </span>
                   <span className="relative min-w-0 flex-1">
-                    <span className="block font-semibold">Resume</span>
+                    <span className="block font-semibold">Resume</span>{" "}
                     <span className="block text-sm text-white/90">Download my CV (PDF)</span>
                   </span>
                   <ArrowRightIcon className="relative size-4 shrink-0 rotate-90 transition-transform duration-300 group-hover:translate-y-1" />

@@ -19,9 +19,10 @@ export function VisualFrame({ title, badge, children }: VisualFrameProps) {
             <span className="size-1.5 rounded-full bg-white/15" />
             <span className="size-1.5 rounded-full bg-white/15" />
           </span>
-          <span className="truncate font-mono text-[9px] text-mist-500">{title}</span>
+          {/* Illustration labels are drawn by CSS (data-decor): visible, but not part of the page text. */}
+          <span className="truncate font-mono text-[10px] text-mist-500" data-decor={title} />
           {badge ? (
-            <span className="rounded-full border border-azure-400/30 px-1.5 font-mono text-[8px] text-azure-300">{badge}</span>
+            <span className="rounded-full border border-azure-400/30 px-1.5 font-mono text-[10px] text-azure-300" data-decor={badge} />
           ) : (
             <span className="w-6" />
           )}

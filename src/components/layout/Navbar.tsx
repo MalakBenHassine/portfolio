@@ -70,18 +70,17 @@ export function Navbar() {
         className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between gap-4 px-5 sm:px-8"
       >
         <a href="#top" className="group flex items-center gap-3">
-          {/* Accessible name = visible text (+ purpose), so labels and speech input stay consistent. */}
-          <span className="sr-only sm:hidden md:inline lg:hidden">{profile.name}</span>
+          {/* Monogram drawn by CSS (decorative, not part of the text). */}
           <span
             aria-hidden="true"
             className="relative grid size-9 place-items-center overflow-hidden rounded-xl border border-white/10 bg-ink-850 font-mono text-xs font-semibold text-snow transition-colors group-hover:border-azure-400/50"
           >
             <span className="absolute inset-0 bg-linear-to-br from-azure-500/25 via-transparent to-iris-400/15" />
-            <span className="relative">MB</span>
+            <span className="relative" data-decor="MB" />
           </span>
-          {/* Name hidden on tablets, where the section links need the room. */}
-          <span className="hidden flex-col leading-tight whitespace-nowrap sm:flex md:hidden lg:flex">
-            <span className="text-sm font-semibold text-snow">{profile.name}</span>
+          {/* One name element: visible where there is room, visually hidden (still the link's name) on phones and tablets. */}
+          <span className="sr-only flex-col leading-tight whitespace-nowrap sm:not-sr-only sm:flex md:sr-only lg:not-sr-only lg:flex">
+            <span className="text-sm font-semibold text-snow">{profile.name}</span>{" "}
             <span className="font-mono text-[10px] tracking-wider text-mist-500 uppercase">Software Engineer</span>
           </span>
           <span className="sr-only"> — back to top</span>

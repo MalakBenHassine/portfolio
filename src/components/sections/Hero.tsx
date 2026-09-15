@@ -70,7 +70,12 @@ export function Hero() {
               <p className="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-sm tracking-[0.08em] text-mist-300 uppercase sm:text-base">
                 {profile.specialties.map((specialty, index) => (
                   <span key={specialty} className="inline-flex items-center gap-3">
-                    {index > 0 ? <span aria-hidden="true" className="size-1 rounded-full bg-azure-400" /> : null}
+                    {index > 0 ? (
+                      <>
+                        <span aria-hidden="true" className="size-1 rounded-full bg-azure-400" />
+                        <span className="sr-only">{" · "}</span>
+                      </>
+                    ) : null}
                     {specialty}
                   </span>
                 ))}
@@ -106,14 +111,14 @@ export function Hero() {
                     >
                       <Icon className="size-4 transition-transform duration-200 group-hover:scale-[1.08] group-hover:text-azure-300" />
                       <span className="link-underline">{label}</span>
-                      {external ? <span className="sr-only">(opens in a new tab)</span> : null}
+                      {external ? <span className="sr-only"> (opens in a new tab)</span> : null}
                     </a>
+                    {/* Hover hint drawn by CSS from data-decor, so it does not repeat in the page text. */}
                     <span
                       aria-hidden="true"
+                      data-decor={hint}
                       className="pointer-events-none absolute bottom-full left-0 mb-1 hidden translate-y-1 rounded-md border border-white/10 bg-ink-800 px-2 py-1 font-mono text-[11px] whitespace-nowrap text-mist-200 opacity-0 shadow-[0_10px_30px_-10px_rgb(0_0_0/0.8)] transition-[opacity,transform] duration-200 peer-hover:translate-y-0 peer-hover:opacity-100 peer-focus-visible:translate-y-0 peer-focus-visible:opacity-100 pointer-fine:block"
-                    >
-                      {hint}
-                    </span>
+                    />
                   </li>
                 ))}
               </ul>

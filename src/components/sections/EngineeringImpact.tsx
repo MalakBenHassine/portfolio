@@ -26,7 +26,7 @@ export function EngineeringImpact() {
         <RevealGroup className="max-w-4xl" stagger={0.14}>
           <RevealBlock>
             <p className="flex items-center gap-3 font-mono text-xs tracking-[0.22em] text-mist-400 uppercase">
-              <span className="text-azure-400">01</span>
+              <span className="text-azure-400">01</span>{" "}
               <span aria-hidden="true" className="h-px w-10 bg-linear-to-r from-azure-400/80 to-transparent" />
               Engineering impact
             </p>

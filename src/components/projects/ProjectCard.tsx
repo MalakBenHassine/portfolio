@@ -33,7 +33,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
     <SpotlightCard
       as="article"
       labelledBy={headingId}
-      className="group flex h-full flex-col overflow-hidden transition-[transform,box-shadow] duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1.5 hover:shadow-[0_30px_80px_-40px_rgb(91_130_255/0.45)]"
+      className="group flex h-full flex-col overflow-hidden transition-[transform,box-shadow] duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] hover:-translate-y-1 hover:shadow-[0_30px_80px_-40px_rgb(91_130_255/0.45)]"
     >
       <div className="relative aspect-[16/10] overflow-hidden border-b border-white/6">
         <div

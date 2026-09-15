@@ -61,9 +61,9 @@ export function WorkflowStory({ heading, steps, highlightIndex }: WorkflowStoryP
           <div className="mb-8 hidden items-center justify-between gap-4 lg:flex lg:motion-reduce:hidden" aria-hidden="true">
             <span className="font-mono text-[11px] tracking-[0.2em] text-mist-500 uppercase">
               AnalyseImpacte · change → production
-            </span>
+            </span>{" "}
             <span className="flex items-center gap-3 font-mono text-[11px] tracking-[0.2em] text-mist-400 uppercase">
-              Step <span className="text-snow tabular-nums">{pad(Math.max(0, current) + 1)}</span> / {pad(steps.length)}
+              Step <span className="text-snow tabular-nums">{pad(Math.max(0, current) + 1)}</span> / {pad(steps.length)}{" "}
               <span className="relative h-px w-24 overflow-hidden bg-white/10">
                 <motion.span
                   className="absolute inset-0 origin-left bg-linear-to-r from-azure-400 to-ok-400"
@@ -136,7 +136,7 @@ export function WorkflowStory({ heading, steps, highlightIndex }: WorkflowStoryP
                       />
                     </span>
                     <div className="pt-1 lg:pt-0">
-                      <p className="font-mono text-[10px] tracking-[0.18em] text-mist-500">{pad(index + 1)}</p>
+                      <p className="font-mono text-[10px] tracking-[0.18em] text-mist-500">{pad(index + 1)}</p>{" "}
                       <h4
                         className={cn(
                           "mt-0.5 font-medium transition-colors duration-500 lg:text-sm",
@@ -163,42 +163,44 @@ export function WorkflowStory({ heading, steps, highlightIndex }: WorkflowStoryP
             </ol>
           </div>
 
-          {/* Detail of the current step (desktop). The same text is in the list for assistive technologies. */}
-          <div
-            aria-hidden="true"
-            className="relative mt-8 hidden min-h-[14.5rem] border-t border-white/6 pt-7 lg:block lg:motion-reduce:hidden"
-          >
-            <AnimatePresence mode="wait" initial={false}>
-              <motion.div
-                key={panelStep.title}
-                className="grid grid-cols-[auto_minmax(0,1fr)_minmax(0,27rem)] items-start gap-8"
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -8 }}
-                transition={{ duration: 0.3, ease: easeOutExpo }}
-              >
-                <span className="text-gradient text-6xl leading-none font-semibold tracking-[-0.05em] tabular-nums">
-                  {pad(Math.max(0, current) + 1)}
-                </span>
-                <div>
-                  <p
-                    className={cn(
-                      "font-mono text-[11px] tracking-[0.2em] uppercase",
-                      Math.max(0, current) === highlightIndex ? "text-iris-400" : "text-azure-300",
-                    )}
-                  >
-                    {panelStep.caption}
-                  </p>
-                  <p className="mt-2 text-2xl font-semibold tracking-[-0.02em] text-snow">{panelStep.title}</p>
-                  <p className="mt-2 max-w-2xl text-base leading-relaxed text-mist-400">{panelStep.detail}</p>
-                </div>
-                <StepVisual
-                  index={Math.max(0, current)}
-                  className="rounded-xl border border-white/6 bg-ink-950/60 p-3"
-                />
-              </motion.div>
-            </AnimatePresence>
-          </div>
+          {/*
+           * Detail of the current step (desktop, once hydrated). It repeats the list's text visually, so it is
+           * not server-rendered: the page text contains each step once (list), never twice.
+           */}
+          {isDesktop ? (
+            <div
+              aria-hidden="true"
+              className="relative mt-8 hidden min-h-[14.5rem] border-t border-white/6 pt-7 lg:block lg:motion-reduce:hidden"
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                <motion.div
+                  key={panelStep.title}
+                  className="grid grid-cols-[auto_minmax(0,1fr)_minmax(0,27rem)] items-start gap-8"
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -8 }}
+                  transition={{ duration: 0.3, ease: easeOutExpo }}
+                >
+                  <span className="text-gradient text-6xl leading-none font-semibold tracking-[-0.05em] tabular-nums">
+                    {pad(Math.max(0, current) + 1)}
+                  </span>
+                  <div>
+                    <p
+                      className={cn(
+                        "font-mono text-[11px] tracking-[0.2em] uppercase",
+                        Math.max(0, current) === highlightIndex ? "text-iris-400" : "text-azure-300",
+                      )}
+                    >
+                      {panelStep.caption}
+                    </p>
+                    <p className="mt-2 text-2xl font-semibold tracking-[-0.02em] text-snow">{panelStep.title}</p>
+                    <p className="mt-2 max-w-2xl text-base leading-relaxed text-mist-400">{panelStep.detail}</p>
+                  </div>
+                  <StepVisual index={Math.max(0, current)} className="rounded-xl border border-white/6 bg-ink-950/60 p-3" />
+                </motion.div>
+              </AnimatePresence>
+            </div>
+          ) : null}
         </SpotlightCard>
       </div>
     </div>

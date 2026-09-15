@@ -37,7 +37,7 @@ export function SectionHeading({ id, index, eyebrow, title, description, align =
           isCentered && "justify-center",
         )}
       >
-        <span className="text-azure-400">{index}</span>
+        <span className="text-azure-400">{index}</span>{" "}
         <motion.span
           data-reveal
           aria-hidden="true"

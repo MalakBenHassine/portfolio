@@ -32,7 +32,7 @@ export function Footer() {
               >
                 <Icon className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5" />
                 <span className="link-underline">{label}</span>
-                {external ? <span className="sr-only">(opens in a new tab)</span> : null}
+                {external ? <span className="sr-only"> (opens in a new tab)</span> : null}
               </a>
             </li>
           ))}
