@@ -1,12 +1,9 @@
 import { SkillChip } from "@/components/skills/SkillChip";
-import { Reveal } from "@/components/ui/Reveal";
-import { NEW_TAB_HINT_ID } from "@/components/ui/NewTabHint";
 import { Section } from "@/components/ui/Section";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { SpotlightCard } from "@/components/ui/SpotlightCard";
 import { StaggerItem, StaggerList } from "@/components/ui/Stagger";
-import { ArrowRightIcon } from "@/components/ui/icons/ArrowRightIcon";
-import { learningSkills, skillGroups } from "@/data/skills";
+import { skillGroups } from "@/data/skills";
 import { cn } from "@/lib/cn";
 
 export function Skills() {
@@ -28,7 +25,11 @@ export function Skills() {
           return (
             <StaggerItem
               key={group.name}
-              className={cn(group.wide && "lg:col-span-2", isLast && hasOddCount && "md:col-span-2")}
+              className={cn(
+                group.wide && "lg:col-span-2",
+                isLast && hasOddCount && "md:col-span-2",
+                group.full && "md:col-span-2 lg:col-span-3",
+              )}
             >
               <SpotlightCard as="article" labelledBy={`skills-${index}`} className="group/card flex h-full flex-col p-6">
                 <div className="flex items-center justify-between gap-4">
@@ -61,49 +62,6 @@ export function Skills() {
           );
         })}
       </StaggerList>
-
-      {/*
-       * In progress: visually distinct from the proven skills above — dashed outline, no card surface,
-       * muted title and chips, an "In progress" badge — so a recruiter never confuses the two.
-       */}
-      <Reveal className="mt-8">
-        <section aria-labelledby="skills-learning" className="rounded-2xl border border-dashed border-white/15 p-6">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <h3 id="skills-learning" className="flex items-center gap-3 text-lg font-semibold tracking-tight text-mist-300">
-              <span aria-hidden="true" className="size-1.5 rounded-full border border-mist-500" />
-              {learningSkills.title}
-            </h3>{" "}
-            {learningSkills.proof ? (
-              <a
-                href={learningSkills.proof.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-describedby={NEW_TAB_HINT_ID}
-                className="group inline-flex items-center gap-2 text-sm text-azure-300 transition-colors hover:text-snow"
-              >
-                {learningSkills.proof.label}
-                <ArrowRightIcon className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-              </a>
-            ) : (
-              <span className="inline-flex items-center gap-2 rounded-full border border-dashed border-white/20 px-2.5 py-1 font-mono text-[11px] tracking-wider text-mist-300 uppercase">
-                {/* Half-filled circle: in progress */}
-                <span
-                  aria-hidden="true"
-                  className="size-2.5 rounded-full border border-mist-300 bg-[linear-gradient(90deg,var(--color-mist-300)_50%,transparent_50%)]"
-                />
-                In progress
-              </span>
-            )}
-          </div>
-          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-mist-400">{learningSkills.note}</p>
-
-          <StaggerList className="mt-5 flex flex-wrap gap-2" stagger={0.04} ariaLabel={learningSkills.title}>
-            {learningSkills.core.map((skill) => (
-              <SkillChip key={skill.name} skill={skill} variant="learning" />
-            ))}
-          </StaggerList>
-        </section>
-      </Reveal>
     </Section>
   );
 }

@@ -187,15 +187,8 @@ export interface SkillGroup {
   more?: string[];
   /** Span two columns on large screens. */
   wide?: boolean;
-}
-
-/** Skills in progress, shown apart from skills already applied on delivered projects. */
-export interface LearningSkills {
-  title: string;
-  note: string;
-  core: SkillItem[];
-  /** Link to the practice project, once online. */
-  proof?: { label: string; href: string };
+  /** Span the full row (md and up). */
+  full?: boolean;
 }
 
 export interface AiUseCase {
