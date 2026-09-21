@@ -1,4 +1,4 @@
-import type { LearningSkills, SkillGroup } from "@/lib/types";
+import type { SkillGroup } from "@/lib/types";
 
 export const skillGroups: SkillGroup[] = [
   {
@@ -89,26 +89,21 @@ export const skillGroups: SkillGroup[] = [
     ],
     more: ["Load testing", "Scrum/Agile", "MVC", "N-tier", "Microservices"],
   },
+  {
+    // Practiced in university labs (as stated on the CV), not on a delivered project.
+    name: "Cloud — AWS (university labs)",
+    core: [
+      { name: "Amazon EC2", role: "Virtual servers" },
+      { name: "AWS Lambda", role: "Serverless functions" },
+      { name: "Amazon S3", role: "Object storage" },
+      { name: "Amazon S3 Glacier", role: "Archive storage" },
+      { name: "Amazon EFS", role: "Shared file storage" },
+      { name: "Amazon RDS", role: "Managed databases" },
+      { name: "Amazon VPC", role: "Private networking" },
+      { name: "Elastic Load Balancing", role: "Traffic distribution" },
+      { name: "AWS IAM", role: "Access management" },
+      { name: "Amazon EKS", role: "Managed Kubernetes" },
+    ],
+    full: true,
+  },
 ];
-
-/**
- * Skills being learned in the 2026 DevOps & DevSecOps training, kept apart from skills already used on
- * delivered projects. Once the practice project is online: move these into `skillGroups` above and set
- * `proof` (or delete this block) so every listed skill links to real work.
- */
-export const learningSkills: LearningSkills = {
-  title: "Currently learning (2026 training)",
-  note: "DevOps & DevSecOps training — deploying a full-stack application to a secured VPS with CI/CD. These move to the main list once the practice project is online.",
-  core: [
-    { name: "Ansible", role: "Infrastructure as Code" },
-    { name: "Nginx", role: "Reverse proxy & HTTPS" },
-    { name: "VPS deployment", role: "Deploying to a remote server" },
-    { name: "SSH", role: "Secure remote access" },
-    { name: "Domain & DNS setup", role: "Custom domains" },
-    { name: "Snyk", role: "Dependency vulnerability scans" },
-    { name: "DevSecOps", role: "Security built into the pipeline" },
-    { name: "Secrets management", role: "Credentials kept out of code" },
-    { name: "Firewall configuration", role: "Server network hardening" },
-    { name: "Let's Encrypt", role: "SSL/TLS certificates" },
-  ],
-};
