@@ -1,5 +1,6 @@
 import type { ComponentType } from "react";
 import { ChatVisual } from "@/components/projects/visuals/ChatVisual";
+import { CitationsVisual } from "@/components/projects/visuals/CitationsVisual";
 import { ClinicVisual } from "@/components/projects/visuals/ClinicVisual";
 import { EventsVisual } from "@/components/projects/visuals/EventsVisual";
 import { MatchingVisual } from "@/components/projects/visuals/MatchingVisual";
@@ -7,6 +8,7 @@ import { SchedulingVisual } from "@/components/projects/visuals/SchedulingVisual
 import type { ProjectVisualKind } from "@/lib/types";
 
 const visuals: Record<ProjectVisualKind, ComponentType> = {
+  citations: CitationsVisual,
   matching: MatchingVisual,
   clinic: ClinicVisual,
   chat: ChatVisual,

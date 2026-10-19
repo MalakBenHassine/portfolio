@@ -11,6 +11,31 @@ export const projectCategories: ProjectCategory[] = ["Full-Stack", "AI", "DevOps
  */
 export const projects: Project[] = [
   {
+    slug: "knowpilot",
+    visual: "citations",
+    title: "KnowPilot",
+    subtitle: "Private RAG assistant · Deployed",
+    description:
+      "Built a multi-user assistant that answers questions from uploaded documents and cites the passage behind every statement — and answers an explicit \"not found\" when the documents do not support an answer.",
+    result:
+      "Deployed v0.3.0 on a provisioned VM: 347 backend tests, images signed with cosign and verified by the server before each pull, automatic rollback when a release fails its healthchecks, and 7 Prometheus alert rules on two Grafana-monitored processes.",
+    categories: ["AI", "DevOps", "Full-Stack"],
+    tech: [
+      "Python",
+      "FastAPI",
+      "pgvector",
+      "PostgreSQL",
+      "Redis",
+      "React",
+      "TypeScript",
+      "Keycloak",
+      "Docker",
+      "Ansible",
+      "GitHub Actions",
+    ],
+    links: [{ kind: "github", label: "Source code", href: "https://github.com/MalakBenHassine/knowpilot" }],
+  },
+  {
     slug: "careermatch",
     visual: "matching",
     title: "CareerMatch",

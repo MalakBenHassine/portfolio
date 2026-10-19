@@ -103,7 +103,7 @@ export interface ProjectLink {
 }
 
 /** Illustrative, code-drawn preview styles shared by all project cards. */
-export type ProjectVisualKind = "matching" | "clinic" | "chat" | "events" | "scheduling";
+export type ProjectVisualKind = "citations" | "matching" | "clinic" | "chat" | "events" | "scheduling";
 
 export interface Project {
   slug: string;
