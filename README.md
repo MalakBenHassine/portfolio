@@ -58,6 +58,7 @@ Utilities: `surface`, `glass`, `spotlight`, `text-gradient`, `bg-grid`, `bg-dots
 
 ## Motion principles
 
+
 - Every animation communicates something: hierarchy, progress, technical flow, interaction or a result.
 - One motion language (`src/lib/motion.ts`): opacity + slight rise (+ very light scale for cards), one easing curve, short durations. No blur, no rotation, no bounce. The only ambient loops are a very slow light drift and rare data pulses along the Hero grid (CSS, large screens).
 - The Hero intro is pure CSS (`.hero-rise`), so it plays at first paint without waiting for JavaScript. The name is static (LCP).
